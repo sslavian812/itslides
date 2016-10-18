@@ -1,0 +1,449 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Davidovich Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 1st Chapter Problems}}
+\author{\small{
+Boris Davidovich Kudryashov \\
+\vspace{30pt}
+ITMO University\\
+\vspace{20pt}%
+\date{\small{St. Petersburg, 2016}}
+}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \item Prove that the size of the set of all subsets of $n$-element discrete set is $2^n$.
+  \item Derive the formula of total probability. 
+  \item Derive the Bayes' formula (Bayes' theorem).
+  \item Prove the equality $|XY|=|X||Y|$.
+  \newcounter{enumTemp}
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item How many different sequences of length $n$ is it possible to construct from elements of discrete set $X=\{0,...,q-1\}$?
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+    \item Prove the following properties of numerical characteristics of random variables:
+%   \begin{itemize}
+  \itemize{
+    
+    \item{ {\rm {\bf M}}\left[ {x + y} \right] = {\rm {\bf M}}\left[ x \right] + {\rm {\bf M}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf M}}\left[ {cx} \right] = c{\rm {\bf M}}\left[ x \right].
+    }
+    
+    \item{ {\rm {\bf M}}\left[ {xy} \right] = {\rm {\bf M}}\left[ x \right]{\rm {\bf M}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {x + y} \right] = {\rm {\bf D}}\left[ x \right] + {\rm {\bf D}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {cx} \right] = c^2{\rm {\bf D}}\left[ x \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {c + x} \right] = {\rm {\bf D}}\left[ x \right].
+    }
+    
+    \item{ If $x$ and $y$ are independent, then $K(x,y) = 0$. That is, independence of random variables implies them to be uncorrelated. 
+    }
+        
+  }
+%   \end{itemize}
+  
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+ 
+ 
+ 
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item For stationary discrete source $X=\{a,b,c\}$ for probability distributions
+  \begin{itemize}
+    \item $p(a)=p(b)=p(c)=1/3$;
+    \item $p(a)=p(b)=1/4$, $p(c)=1/2$;
+  \end{itemize}
+
+  calculate the total information and entropy for each of letters. What is the amount of information, contained in the sequence $abaac$ ?
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+    \item Prove, thant linear combination of convex functions with positive coeficcients is also a convex function.
+    \item Prove, that \[H\left(\frac{\vec p_1+\vec p_2+\vec p_3}{3}\right) \ge \frac{H(\vec p_1)}{3}+\frac{H(\vec p_2)}{3}+\frac{H(\vec p_3)}{3}\]
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+    \item Prove the Theorem (1):
+      \begin{theorem}
+      Let $f(\vec x)$ be the convex $ \cap $ function of vector argument $\vec x$, defined on a convex area $R$ and let define constants $\alpha _1 ,...,\alpha _M \in [0,1]$ such that $\sum\limits_{m = 1}^M {\alpha _m } = 1$. Then for all $\vec x_1 ,...,\vec x_M \in R$ holds the inequality:
+      \begin{equation}
+        \label{eq5} f\left( \sum\limits_{m = 1}^M \alpha _m \vec x_m \right) \ge \sum\limits_{m = 1}^M \alpha _m f(\vec x_m ).
+      \end{equation}
+      \end{theorem}
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  
+   \item The alphabet of the source is $X=\{a,b,c\}$ . Assume that 
+    $p(a)=\alpha$ is defined. Build  a relationship between entropy $H(X)$ and $p(b)=\beta$.
+    
+   \item What should relation between parameters $\alpha$ and $\beta$ be, that a Markov chain with the following transition matrix:
+    \[
+    \Pi=\left[%
+    \begin{array}{cc}
+    \alpha & 1-\alpha \\
+    \beta  & 1-\beta \\
+    \end{array}%
+    \right]
+    \]
+    breeds the sequence of independent messages?
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+    \item Without doing calculations, demonstrate stationary probability distribution for the Markov chain with the following transition probability matrix:
+    \[
+    \Pi=\left[%
+    \begin{array}{cc}
+    1/2 & 1/2 \\
+    0  & 1 \\
+    \end{array}%
+    \right] .
+    \]
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item \emph{Non-ergodic Markov chain}
+    Find the stationary probability distribution for the Markov chain with the following transition probability matrix:
+    \[
+\left[%
+\begin{array}{cccc}
+  1/2 & 0 & 1/2 & 0 \\
+  0 & 2/3 & 0 & 1/3 \\
+  3/4 & 0 & 1/4 & 0 \\
+  0 & 1/2 & 0 & 1/2 \\
+\end{array}%
+\right] .
+\]
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Binary source is defined by Discrete-time Markov chain with the following transition probability matrix:
+    \[
+    \Pi=\left[%
+\begin{array}{cc}
+  1/2 & 1/2 \\
+  1/8 & 7/8 \\
+\end{array}%
+\right] .
+\]
+    Find total information of the sequence $0110$, find $H(X)$.
+    Build dependencies $H(X|X^n)$ and $H_n(X)$ from $n$, find $H(X|X^\infty)$.
+    What impact has ``letters dependency'' on the speed of creating information by the source?
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item     
+    \footnotesize{
+      \emph{Presentation of implementation of binary source as a sequence of series lengths.} If we want to store in the memory or in the disk storage binary sequences, containing a small number of ones, we describe them as a sequence of lengths of sequences of zeros. Denote  $0^i$ a sequence of $i$ zeros. As example, the sequence 0011000010100 well be equivalent to (2,0,4,1,2) in this notation. Thus, binary sequence $x_1,...,x_n,\dots$, $x_i\in X=\{0,1\}$ will be transformed into the sequence of non-negative integer numbers -- $y_1,y_2,\dots$, $y_i \in Y=\{0,1,...\}$, which represent length of series of zeros. Let binary source be constant, so that $p($ "1" $)=p$, find the probability distribution of the set of values of the lengths of series $Y$, entropy $H(Y)$.  
+      \emph{Hint:} While solving the problem, you will get the geometric probability distribution, and while entropy calculations, you will need the mathematical expectation formula. See the next problem.}
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item \emph{Geometric probability distribution} on set $I=\{0,1,2,...\}$ is distribution with the following probabilities: $p(i)=(1-\alpha) \alpha^i$ (why?). Check the satisfaction of probability normalization. Find mathematical expectation, dispersion and entropy $H(I)$.
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{itemize}
+
+  \item 
+    \scriptsize{ 
+      \emph{Hint:} While checking the satisfaction of probability normalization, you should calculate the sum like: 
+      \begin{equation}
+      \label{norm}
+      \sum_{i=0}^{\infty}a^i.
+      \end{equation}
+      Remember the geometric progression sum formulae.
+      To calculate the mathematical expectation, you should deal with the sum like: 
+      \begin{equation}
+      \label{mo} \sum_{i=0}^{\infty}ia^i.
+      \end{equation}
+      Note, that if we differentiate (\ref{norm}) by $a$, we get almost (\ref{mo}). Thus, we have reduced the problem to the differentiation of well known geometric progression sum formulae. The second derivative of this expression should be used for dispersion calculation.
+      One more hint for calculating sum (\ref{mo}) is, that the factor $i$ under the sum sign can be represented as the sum $i$ ones, and then the order of the summation is changed.
+      \emph{Îòâåòû:}
+      \[
+      {\rm {\bf M}} [i] = \frac{\alpha}{1-\alpha}; %
+      \quad {\rm {\bf D}} [i] = \frac{\alpha}{(1-\alpha)^2};%
+      \quad H(I)=\frac{\eta(\alpha)}{1-\alpha}.
+      \]
+    }
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item \footnotesize {
+  \emph{Relative entropy of Kullback–Leibler} of distribution $\{p(x), x\in X\}$ according to distribution $\{q(x), x\in X\}$ is the following function: 
+    \begin{equation}
+    \label{kulbak}
+      L(p||q)=\sum_{x\in X} p(x)\log \frac {p(x)}{q(x)}.
+    \end{equation}
+    This function should be considered as the the measure of difference of two distributions. Indeed, the relative entropy is equal to zero, if this two distributions are equal, and is strictly positive if they differ. Prove the latter statement.
+    
+    \emph{Hint.} Rewrite the relative entropy like:
+    \[
+    L(p||q)=-\sum_{x\in X} p(x)\log \frac {q(x)}{p(x)}.
+    \]
+    and use the following inequality $\log z \le (z-1)\log e$.
+    }
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Uniform distribution is \emph{extreme} meaning that it has the largest entropy among all probability distributions on the set of finite fixed size. Prove the following statement:
+  \emph{Geometric distribution is extreme in (maximizing the entropy) for discrete random values, which take Countable set of values and have specified mathematical expectation.}
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{itemize}
+  \item  \footnotesize {
+  \emph{Solution.} Let $p(i)=(1-\alpha) \alpha^i, i=0,1,...$ --
+geometric distribution, $q(i)$ -- arbitrary distribution on the same set of numbers with the same mathematical expectation. ${\rm
+{\bf M}} [i]=\alpha/(1-\alpha)$, $H(p)$ è $H(q)$ -- corresponding entropy's, such that $H(p)=\eta(\alpha)/(1-\alpha)$ (see the 17-th pronlem). Then, 
+\begin{eqnarray*}
+H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
+-\sum_{i=0}^{\infty} q(i)\log \left( \frac {q(i)}{p(i)}p(i)\right
+)=\\
+&=&- L(p||q) - \sum_{i=0}^{\infty} q(i)\log p(i)\le\\
+&\le&%
+- \sum_{i=0}^{\infty} q(i) \left( \log (1-\alpha) + i\log \alpha
+\right)=\\
+ &=&-\log (1-\alpha)- {\rm {\bf M}} [i]\log \alpha
+ =\\
+&=&-\log (1-\alpha)-\frac {\alpha \log \alpha}{1-\alpha}=H(p).
+\end{eqnarray*}
+ }
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \small {
+  \item Consider a constant source of ternary messages. The alphabet of the source is $X=\{a,b,c\}$. Using the following probability distributions,
+  \begin{enumerate}
+    \item $p(a)=p(b)=p(c)=1/3$ ;
+    \item $p(a)=p(b)=1/4$, $p(c)=1/2$;
+    \end{enumerate}
+    build the dependency of \emph{uniform code rate} and length of encoded blocks with zero error probability. Compare the code rate with the entropy of the source.
+  \item Consider ternary sources from the previous problem. Build the dependency between code rate of uniform code and length of encoded sequences with the error probability equal to 0.1.
+  }
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Hamming weight of sequences $\vec x$ over the alphabet $\{0, \dots ,q-1\}$ is the number of non-zero elements in $\vec x$. How many binary sequences of length $n$ and $w$ exist?
+
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{itemize}
+  \setcounter{enumi}{\theenumTemp}
+  \footnotesize {
+  \item \emph{Hint:} You should show, that among all possible  \emph{Combinations} of $w$ elements of the set of $n$ different elements, taking into account the order order is equal to:
+  \[
+  A_n^w=n(n-1)\times \dots \times (n-w+1).
+  \]
+  After, you should show, that the number of different permutations of  $w$ elements is equal to
+  \[
+  P_w=w(w-1)\times \dots \times 1 =w!.
+  \]
+  At last, number of sequences of length $n$ and weight $w$ is equal to  the number of \emph{Combinations} of $w$ elements from $n$ elements ignoring the order of elements, and is equal to: \[
+  C_n^w=\binom{n}{w}=
+  \frac{A_n^w}{P_w}=\frac{n(n-1)\times \dots \times
+  (n-m+1)}{w!}=
+  \]
+  \[
+  =\frac{n!}{w!(n-w)!}.
+  \]
+  }
+  \setcounter{enumTemp}{\theenumi}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Find the probability $p_n(w)$, that a sequence of length $n$ at the output of binary constant source, where the probability of 1 is $p$, will have Hamming weight  equal to $w$.
+  
+  \emph{Ñùüüóòå}: Answer to this problem is the binomial distribution formula.
+  \[
+  p_n(w)=\binom{n}{w}p^w(1-p)^{n-w}.
+  \]
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Binary constant source $X=\{0,1\}$ breeds ones with probability $p=0,02$. Consider the dependence between error probability and length of encoded blocks, with the code rate $0.5$ bit for a letter of source.
+  
+  \item Find the probability that sequence with length $n=10$ at the output of binary constant source, where probability of "1" is $p=0,1$, will have Hamming weight greater or equal to $w=5$. (Use your PC).
+  Compare this result to the Chebyshev's estimation of probability of this event.
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item \emph{Polynomial distribution.}
+  How many ternary sequences of length $n$ contain $\tau_0$ zeros, $\tau_1$ ones and $\tau_2 =n-\tau_0- \tau_1$ twos? Find the probability of such sequence with fixed probability distribution on elements of ternary alphabet. Generalize the result to the alphabets of arbitrary size.
+
+  \emph{Hint:} The answer can be fount in the chapter "Universal Coding".
+  \setcounter{enumTemp}{\theenumi}
+\end{enumerate}
+\end{frame}
+
+\end{document} 
