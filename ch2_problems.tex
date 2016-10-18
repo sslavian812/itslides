@@ -1,0 +1,58 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 2nd Chapter Problems}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \item[1] Build Huffman code for source with letters probabilities equal to ( 0,3, 0,25, 0,15, 0,1, 0,1, 0,05, 0,05). Compare the average length of code words with entropy of the source.
+  \pause \item[2] Consider ternary constant source $X$  with the following letters probabilities: 
+    \begin{enumerate}
+    \item
+    $p\left( a \right) = 1/2,p\left( b\right) = 1/4,p\left(c\right)=1/4;$
+    \item
+    $p\left( a \right) = p\left( b \right) = p\left( c \right) = 1 / 3.$
+    \end{enumerate}
+  Build Huffman codes for letters of $X$, $X^{2}$, $X^{3}$. Compare code rate and the entropy of the source.
+\end{enumerate}
+\end{frame}
+
+\end{document} 
