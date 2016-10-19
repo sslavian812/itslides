@@ -55,4 +55,69 @@ ITMO University
 \end{enumerate}
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+
+  \item[3] Consider the dependency between Huffman code rate and the length of correlated blocks for binary constant source with probability of $1$ equal to 0.1.
+  
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+
+  \item[4] \emph{Optimal coding of equiprobable letters} 
+  Build Huffman code for source, which chooses letters from alphabet of size $M$ with equal probabilities. Calculate the average length of code words and redundancy like function of $M$, calculate upper and lower bounds of redundancy.
+  
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+   
+  \item[4 (hint)] 
+  \small{ \emph{Intermediate steps} Huffman code for this source contains $D=2\cdot 2^{\lfloor \log M \rfloor} - M$ words of length 
+$\lfloor \log M \rfloor$ and  $M-D$ words of length $\lfloor \log M
+\rfloor+1$. Average length of code words and redundancy are equal to 
+\[
+\bar l =\lfloor \log M \rfloor+2-\frac{2}{M}%
+2^{\lfloor \log M \rfloor},
+\]
+\[
+r=\bar l - \log M= 2-d-2\cdot 2^{-d},
+\]
+where $d=\log M - \lfloor \log M \rfloor$, $d\in[0,1)$.
+Differentiation with respect to $d$ shows, that maximum of redundancy is achieved when $d=1-\log\log e$ and is equalk to $1+\log\log e - \log e
+\approx 0,0861$.
+  }
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  
+  \item[5] 
+  \small{ Ternary source is specified by Markov chain with the following transition matrix:
+\[
+P = \left[ {{\begin{array}{*{20}c}
+ 0 \hfill & {1 / 2} \hfill & {1 / 2} \hfill \\
+ {1 / 2} \hfill & {1 / 4} \hfill & {1 / 4} \hfill \\
+ {1 / 4} \hfill & {1 / 2} \hfill & {1 / 4} \hfill \\
+\end{array} }} \right].
+\]
+Calculate $H\left( X \right)$, $H_n \left( X \right)$,  $n =
+1,2,...$, $H\left( {X / X^n} \right)$, $n = 1,2,...$, assuming that initial distribution on letters is stationary distribution.
+Find code rate, when coding two ensembles $X$ and $X^2$ with Huffman coding. Provide a method for encoding, when code rate is equal to the speed of information creation by the source. 
+  }
+\end{enumerate}
+\end{frame}
+
 \end{document} 
