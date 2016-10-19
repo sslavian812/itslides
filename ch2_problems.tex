@@ -113,11 +113,84 @@ P = \left[ {{\begin{array}{*{20}c}
  {1 / 4} \hfill & {1 / 2} \hfill & {1 / 4} \hfill \\
 \end{array} }} \right].
 \]
-Calculate $H\left( X \right)$, $H_n \left( X \right)$,  $n =
-1,2,...$, $H\left( {X / X^n} \right)$, $n = 1,2,...$, assuming that initial distribution on letters is stationary distribution.
-Find code rate, when coding two ensembles $X$ and $X^2$ with Huffman coding. Provide a method for encoding, when code rate is equal to the speed of information creation by the source. 
+  Calculate $H\left( X \right)$, $H_n \left( X \right)$,  $n = 1,2,...$, $H\left( {X / X^n} \right)$, $n = 1,2,...$, assuming that initial distribution on letters is stationary distribution.
+  Find code rate, when coding two ensembles $X$ and $X^2$ with Huffman coding. Provide a method for encoding, when code rate is equal to the speed of information creation by the source. 
   }
 \end{enumerate}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \item[6] \small{  \emph{Encoding of length of sequences with non-uniform code.} 
+  Sequence at the output of binary source is splitted in the only way to the subsequences of a random length like  $1,01,...,0^{L - 1}1,0^L$. 
+  Huffman code is used to encode such sequences.
+  For binary constant source with probability of $1$ equal to $p$=0,1, consider the dependence between code rate and the value $L$ . 
+  
+  Code rate in this case is a value $R = \bar{n} / \tau ,$ where \textit{$\tau $} -- average length of sequence to be encoded; $\bar {n}$ -- average length of code words.
+}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+  \item[7] 
+  \footnotesize { \emph{Non-uniform encoding by input and output (VV). Tunstall code.}
+  
+  Recall, that the redundancy of the Huffman code is determined to a large extent by the maximum among the probabilities of letters. 
+  
+  Hence, when encoding the source $X={p(x)}$ the letter $x_0\in X$ should be found, which has the maximal probability. Then we should build new ensemble $X_1$, which consists of all letters from $X\setminus{x_0}$ and of all pairs $(x_0,x)$, $x\in X$. Probabilities of pairs of letters are calculated like products of probabilities of corresponding letters. 
+  Such extension of the alphabet can be continued, and on each next step, the maximal probability of letters of the extended alphabet becomes smaller. Thus the redundancy of code applied to the extended alphabet also becomes smaller.
+
+  For a random binary ensemble compare this way of encoding with coding of length of sequences, considered in previous problem.
+ 
+}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+\item[8] Build Shannon code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+
+\pause \item[9] Build Gilbert-Moore code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+
+ \item[10] Encode with arithmetic coding the sequence $01001$ at the output of the binary source where probability of $1$ is $0.4$
+ Compare the length of code sequence with the total information of the sequence. 
+ Compare the length of code sequence with total length of code sequence assuming independent encoding of characters with Shannon code.
+ 
+\pause \item[11] Explain, why end of encoding in the program \ref{AC_prog} is equivalent to conversion of the codeword of Shannon code to codeword Gilbert-Moore code.
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+
+
+ \item[12] What changes should be done to algorithms and programs of arithmetic coding and decoding, to apply them to source, described by simple Markov chain.
+ 
+
+\pause \item[13]  Formally, in programs at the pictures \ref{AC_prog} and \ref{AD_prog} there are division operations, which weren't there in algorithms of arithmetic coding and decoding. Why? Is it possible to avoid divisions?
+
+
+\end{enumerate}
+\end{frame}
+
+
 
 \end{document} 
