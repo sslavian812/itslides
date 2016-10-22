@@ -5,6 +5,8 @@
 \usepackage{amssymb,amsfonts,amsmath,mathtext}
 \usepackage{cite,enumerate,float,indentfirst}
 
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
 \graphicspath{{images/}}
 
 \usetheme{Pittsburgh}
@@ -43,10 +45,8 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[1] Prove that the size of the set of all subsets of $n$-element discrete set is $2^n$.
-  \pause \item[2] Derive the formula of total probability. 
-  \pause \item[3] Derive the Bayes' formula (Bayes' theorem).
-  \pause \item[4] Prove the equality $|XY|=|X||Y|$.
+  \item[1] Prove that the number of all different subsets of an $n$-element discrete set is equal to $2^n$.
+  \pause \item[4] Prove that $|XY|=|X||Y|$.
 
 \end{enumerate}
 \end{frame}
@@ -55,7 +55,7 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[5] How many different sequences of length $n$ is it possible to construct from elements of discrete set $X=\{0,...,q-1\}$?
+  \item[5] How many different sequences of length $n$ of elements $X=\{0,...,q-1\}$ exist?
 \end{enumerate}
 \end{frame}
 
@@ -63,7 +63,7 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[6] Prove the following properties of numerical characteristics of random variables:
+  \item[6] Prove the following properties of moments of random variables:
     \itemize{
     
     \item{ {\rm {\bf M}}\left[ {x + y} \right] = {\rm {\bf M}}\left[ x \right] + {\rm {\bf M}}\left[ y \right].
@@ -84,7 +84,7 @@ ITMO University
     \item{ {\rm {\bf D}}\left[ {c + x} \right] = {\rm {\bf D}}\left[ x \right].
     }
     
-    \item{ If $x$ and $y$ are independent, then $K(x,y) = 0$. That is, independence of random variables implies them to be uncorrelated. 
+    \item{ If $x$ and $y$ are independent, then $K(x,y) = 0$. That is, independent random variables are uncorrelated (but not vice versa). 
     }
         
   }
@@ -100,13 +100,13 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[7] For stationary discrete source $X=\{a,b,c\}$ for probability distributions
+  \item[7] For a Discrete Memory-less Source (DML) $X=\{a,b,c\}$ with probability distributions
   \begin{itemize}
     \item $p(a)=p(b)=p(c)=1/3$;
     \item $p(a)=p(b)=1/4$, $p(c)=1/2$;
   \end{itemize}
 
-  calculate the total information and entropy for each of letters. What is the amount of information, contained in the sequence $abaac$ ?
+  calculate the amount of information for each of letters and the entropy of $X$. Compute the amount of information in the sequence $abaac$.
 \end{enumerate}
 \end{frame}
 
@@ -115,8 +115,10 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-    \item[8] Prove, thant linear combination of convex functions with positive coeficcients is also a convex function.
-    \pause \item[9] Prove, that \[H\left(\frac{\vec p_1+\vec p_2+\vec p_3}{3}\right) \ge \frac{H(\vec p_1)}{3}+\frac{H(\vec p_2)}{3}+\frac{H(\vec p_3)}{3}\]
+    \item[8] Prove, that linear combination of convex functions with positive coefficients is also a convex function.
+    
+    \pause \item[9] Prove that 
+    \[H\left(\frac{\vec p_1+\vec p_2+\vec p_3}{3}\right) \ge \frac{H(\vec p_1)}{3}+\frac{H(\vec p_2)}{3}+\frac{H(\vec p_3)}{3}\]
 \end{enumerate}
 \end{frame}
 
@@ -126,9 +128,10 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
    
-    \item[10] Prove the Theorem (1):
+    \item[10] Prove theorem (1):
       \begin{theorem}
-      Let $f(\vec x)$ be the convex $ \cap $ function of vector argument $\vec x$, defined on a convex area $R$ and let define constants $\alpha _1 ,...,\alpha _M \in [0,1]$ such that $\sum\limits_{m = 1}^M {\alpha _m } = 1$. Then for all $\vec x_1 ,...,\vec x_M \in R$ holds the inequality:
+      Let $f(\vec x)$ be the convex $ \cap $ function of a vector argument $\vec x$, defined on a convex set $R$ and $\alpha _1 ,...,\alpha _M \in [0,1]$,  $\sum\limits_{m = 1}^M {\alpha _m } = 1$. 
+      Then for all $\vec x_1 ,...,\vec x_M \in R$:
       \begin{equation}
         \label{eq5} f\left( \sum\limits_{m = 1}^M \alpha _m \vec x_m \right) \ge \sum\limits_{m = 1}^M \alpha _m f(\vec x_m ).
       \end{equation}
@@ -141,10 +144,10 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
  
-   \item[11] The alphabet of the source is $X=\{a,b,c\}$ . Assume that 
-    $p(a)=\alpha$ is defined. Build  a relationship between entropy $H(X)$ and $p(b)=\beta$.
+   \item[11] Let $X=\{a,b,c\}$ . Assume that 
+    $p(a)=\alpha$ is known. Draw a plot for entropy $H(X)$ as a function of $p(b)=\beta$.
     
-   \pause \item[12] What should relation between parameters $\alpha$ and $\beta$ be, that a Markov chain with the following transition matrix:
+   \pause \item[12] Formulate conditions of $\alpha$ and $\beta$ such that the Markov chain with the following probability transition matrix:
     \[
     \Pi=\left[%
     \begin{array}{cc}
@@ -153,7 +156,7 @@ ITMO University
     \end{array}%
     \right]
     \]
-    breeds the sequence of independent messages?
+    will generate the sequence of independent random symbols?
 \end{enumerate}
 \end{frame}
 
@@ -161,7 +164,7 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-    \item[13] Without doing calculations, demonstrate stationary probability distribution for the Markov chain with the following transition probability matrix:
+    \item[13] Without performing calculations, write down stationary probability distribution for the Markov chain with the probability transition matrix:
     \[
     \Pi=\left[%
     \begin{array}{cc}
@@ -179,7 +182,7 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
   \item[14] \emph{Non-ergodic Markov chain}
-    Find the stationary probability distribution for the Markov chain with the following transition probability matrix:
+    Find the stationary probability distribution for the Markov chain with the probability transition matrix:
     \[
 \left[%
 \begin{array}{cccc}
@@ -197,7 +200,7 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[15] Binary source is defined by Discrete-time Markov chain with the following transition probability matrix:
+  \item[15] Binary source is defined as the Markov chain with the probability transition matrix:
     \[
     \Pi=\left[%
 \begin{array}{cc}
@@ -206,9 +209,9 @@ ITMO University
 \end{array}%
 \right] .
 \]
-    Find total information of the sequence $0110$, find $H(X)$.
-    Build dependencies $H(X|X^n)$ and $H_n(X)$ from $n$, find $H(X|X^\infty)$.
-    What impact has ``letters dependency'' on the speed of creating information by the source?
+    Find the amount of information in the sequence $0110$. Compute $H(X)$.
+    Derive formulas $H(X|X^n)$ and $H_n(X)$ as functions of $n$, find $H(X|X^\infty)$.
+    What impact has source memory on the information rate of the source?
 \end{enumerate}
 \end{frame}
 
@@ -219,8 +222,11 @@ ITMO University
 \begin{enumerate}
   \item[16]     
     \footnotesize{
-      \emph{Presentation of implementation of binary source as a sequence of series lengths.} If we want to store in the memory or in the disk storage binary sequences, containing a small number of ones, we describe them as a sequence of lengths of sequences of zeros. Denote  $0^i$ a sequence of $i$ zeros. As example, the sequence 0011000010100 well be equivalent to (2,0,4,1,2) in this notation. Thus, binary sequence $x_1,...,x_n,\dots$, $x_i\in X=\{0,1\}$ will be transformed into the sequence of non-negative integer numbers -- $y_1,y_2,\dots$, $y_i \in Y=\{0,1,...\}$, which represent length of series of zeros. Let binary source be constant, so that $p($ "1" $)=p$, find the probability distribution of the set of values of the lengths of series $Y$, entropy $H(Y)$.  
-      \emph{Hint:} While solving the problem, you will get the geometric probability distribution, and while entropy calculations, you will need the mathematical expectation formula. See the next problem.}
+      \emph{Representation of binary sequences in a form of series-length sequence.} 
+      A binary sequence, containing a small number of ones, can be compactly written as a sequence of lengths of series of zeros. 
+      Denote  $0^i$ a sequence of $i$ zeros. As example, the sequence 0011000010100 will be written as (2,0,4,1,2) in this notation. Thus, binary sequence $x_1,...,x_n,\dots$, $x_i\in X=\{0,1\}$ will be transformed into the sequence of non-negative integer numbers -- $y_1,y_2,\dots$, $y_i \in Y=\{0,1,...\}$, where $y_i$ are lengths of series of zeros. 
+      Consider BMS with $p($ "1" $)=p$, find the probability distribution for the lengths of series $Y$, entropy $H(Y)$.  
+      \pause \emph{Hint:} While solving the problem, you will get the geometric probability distribution, and while entropy calculations, you will need the mathematical expectation formula. See the next problem.}
 \end{enumerate}
 \end{frame}
 
@@ -275,7 +281,7 @@ ITMO University
     \label{kulbak}
       L(p||q)=\sum_{x\in X} p(x)\log \frac {p(x)}{q(x)}.
     \end{equation}
-    This function should be considered as the the measure of difference of two distributions. Indeed, the relative entropy is equal to zero, if this two distributions are equal, and is strictly positive if they differ. Prove the latter statement.
+    This function should be considered as the measure of difference of two distributions. Indeed, the relative entropy is equal to zero, if this two distributions are equal, and is strictly positive if they differ. Prove the latter statement.
     
     \emph{Hint.} Rewrite the relative entropy like:
     \[
