@@ -226,6 +226,7 @@ ITMO University
       A binary sequence, containing a small number of ones, can be compactly written as a sequence of lengths of series of zeros. 
       Denote  $0^i$ a sequence of $i$ zeros. As example, the sequence 0011000010100 will be written as (2,0,4,1,2) in this notation. Thus, binary sequence $x_1,...,x_n,\dots$, $x_i\in X=\{0,1\}$ will be transformed into the sequence of non-negative integer numbers -- $y_1,y_2,\dots$, $y_i \in Y=\{0,1,...\}$, where $y_i$ are lengths of series of zeros. 
       Consider BMS with $p($ "1" $)=p$, find the probability distribution for the lengths of series $Y$, entropy $H(Y)$.  
+      
       \pause \emph{Hint:} While solving the problem, you will get the geometric probability distribution, and while entropy calculations, you will need the mathematical expectation formula. See the next problem.}
 \end{enumerate}
 \end{frame}
@@ -234,7 +235,11 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[17] \emph{Geometric probability distribution} on set $I=\{0,1,2,...\}$ is distribution with the following probabilities: $p(i)=(1-\alpha) \alpha^i$ (why?). Check the satisfaction of probability normalization. Find mathematical expectation, dispersion and entropy $H(I)$.
+  \item[17] \emph{Geometric probability distribution} on infinite set $I=\{0,1,2,...\}$ is defined as: 
+  
+  $p(i)=(1-\alpha) \alpha^i$ 
+  
+  Why is it called so? Check the probability normalization condition. Find mathematical expectation, variation and entropy $H(I)$.
 \end{enumerate}
 \end{frame}
 
@@ -244,21 +249,21 @@ ITMO University
 \frametitle{Problems}
 \begin{itemize}
 
-  \item 
+  \item[17] 
     \scriptsize{ 
-      \emph{Hint:} While checking the satisfaction of probability normalization, you should calculate the sum like: 
+      \bold{Hint:} To check probability normalization, you calculate the sum: 
       \begin{equation}
       \label{norm}
       \sum_{i=0}^{\infty}a^i.
       \end{equation}
-      Remember the geometric progression sum formulae.
-      To calculate the mathematical expectation, you should deal with the sum like: 
+      Use geometric progression sum formula. To calculate the mathematical expectation, you should deal with the sum: 
       \begin{equation}
       \label{mo} \sum_{i=0}^{\infty}ia^i.
       \end{equation}
-      Note, that if we differentiate (\ref{norm}) by $a$, we get almost (\ref{mo}). Thus, we have reduced the problem to the differentiation of well known geometric progression sum formulae. The second derivative of this expression should be used for dispersion calculation.
-      One more hint for calculating sum (\ref{mo}) is, that the factor $i$ under the sum sign can be represented as the sum $i$ ones, and then the order of the summation is changed.
-      \emph{Îòâåòû:}
+      Note, that derivative of (\ref{norm}) by $a$, gives almost (\ref{mo}). Thus, we have reduced the problem to the differentiation of geometric progression sum formulae. The second derivative should be used for variation calculation.
+      One more way for calculating sum (\ref{mo}) is, that the factor $i$ under the sum sign can be represented as the sum $i$ ones, and then the order of the summation is changed.
+      
+      \emph{Answers:}
       \[
       {\rm {\bf M}} [i] = \frac{\alpha}{1-\alpha}; %
       \quad {\rm {\bf D}} [i] = \frac{\alpha}{(1-\alpha)^2};%
@@ -276,18 +281,19 @@ ITMO University
 \begin{enumerate}
    
   \item[18] \footnotesize {
-  \emph{Relative entropy of Kullback–Leibler} of distribution $\{p(x), x\in X\}$ according to distribution $\{q(x), x\in X\}$ is the following function: 
+  \emph{The relative entropy} of distribution $\{p(x), x\in X\}$ with respect to distribution $\{q(x), x\in X\}$ is defined by: 
     \begin{equation}
     \label{kulbak}
       L(p||q)=\sum_{x\in X} p(x)\log \frac {p(x)}{q(x)}.
     \end{equation}
-    This function should be considered as the measure of difference of two distributions. Indeed, the relative entropy is equal to zero, if this two distributions are equal, and is strictly positive if they differ. Prove the latter statement.
+    This function measures the difference of two distributions. Prove, that the relative entropy is equal to zero, if this two distributions are equal, and it is strictly positive if they differ.
     
+    \pause 
     \emph{Hint.} Rewrite the relative entropy like:
     \[
     L(p||q)=-\sum_{x\in X} p(x)\log \frac {q(x)}{p(x)}.
     \]
-    and use the following inequality $\log z \le (z-1)\log e$.
+    and use the inequality $\log z \le (z-1)\log e$.
     }
    
 \end{enumerate}
@@ -299,8 +305,10 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
    
-  \item[19] Uniform distribution is \emph{extreme} meaning that it has the largest entropy among all probability distributions on the set of finite fixed size. Prove the following statement:
-  \emph{Geometric distribution is extreme in (maximizing the entropy) for discrete random values, which take Countable set of values and have specified mathematical expectation.}
+  \item[19] Uniform distribution is entropy-maximizing in the sense that it has the largest entropy among all probability distributions on the set of finite fixed size. 
+  
+  Prove that a
+  \emph{Geometric distribution is entropy-maximizing for discrete random variables over countable alphabets having fixed mathematical expectation.}
    
 \end{enumerate}
 \end{frame}
@@ -309,9 +317,8 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{itemize}
-  \item  \footnotesize {
-  \emph{Solution.} Let $p(i)=(1-\alpha) \alpha^i, i=0,1,...$ --
-geometric distribution, $q(i)$ -- arbitrary distribution on the same set of numbers with the same mathematical expectation. ${\rm
+  \item[19]  \footnotesize {
+  \emph{Solution.} Let $p(i)=(1-\alpha) \alpha^i, i=0,1,...$ be a geometric distribution, and $q(i)$ be an arbitrary distribution on the same set of numbers with the same mathematical expectation. ${\rm
 {\bf M}} [i]=\alpha/(1-\alpha)$, $H(p)$ è $H(q)$ -- corresponding entropy's, such that $H(p)=\eta(\alpha)/(1-\alpha)$ (see the 17-th pronlem). Then, 
 \begin{eqnarray*}
 H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
@@ -335,13 +342,13 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \begin{enumerate}
    
   \small {
-  \item[20] Consider a constant source of ternary messages. The alphabet of the source is $X=\{a,b,c\}$. Using the following probability distributions,
+  \item[20] Consider DMS over $X=\{a,b,c\}$. For probability distributions,
   \begin{enumerate}
     \item $p(a)=p(b)=p(c)=1/3$ ;
     \item $p(a)=p(b)=1/4$, $p(c)=1/2$;
     \end{enumerate}
-    build the dependency of \emph{uniform code rate} and length of encoded blocks with zero error probability. Compare the code rate with the entropy of the source.
-  \pause \item[21] Consider ternary sources from the previous problem. Build the dependency between code rate of uniform code and length of encoded sequences with the error probability equal to 0.1.
+    investigate the dependency between \emph{uniform code rate} and length of encoded blocks for the case of error-free coding. Compare the code rate with the entropy of the source.
+  \pause \item[21] Consider DMS from the previous problem. Investigate the dependency between code rate of uniform code and length of encoded sequences with the error probability equal to 0.1.
   }
    
 \end{enumerate}
@@ -352,7 +359,7 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \frametitle{Problems}
 \begin{enumerate}
    
-  \item[22] Hamming weight of sequences $\vec x$ over the alphabet $\{0, \dots ,q-1\}$ is the number of non-zero elements in $\vec x$. How many binary sequences of length $n$ and $w$ exist?
+  \item[22] Hamming weight of sequences $\vec x$ over the alphabet $\{0, \dots ,q-1\}$ is defined as the number of non-zero elements in $\vec x$. How many different binary sequences of length $n$ and $w$ exist?
 
    
 \end{enumerate}
@@ -364,15 +371,17 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \begin{itemize}
    
   \footnotesize {
-  \item \emph{Hint:} You should show, that among all possible  \emph{Combinations} of $w$ elements of the set of $n$ different elements, taking into account the order order is equal to:
+  \item \emph{Hint:} There are choices of $w$ elements from the set of n elements (the order pf choosing is taken into account):
   \[
   A_n^w=n(n-1)\times \dots \times (n-w+1).
   \]
-  After, you should show, that the number of different permutations of  $w$ elements is equal to
+  
+  There are $P_w$ different permutations of $w$ elements.
   \[
   P_w=w(w-1)\times \dots \times 1 =w!.
   \]
-  At last, number of sequences of length $n$ and weight $w$ is equal to  the number of \emph{Combinations} of $w$ elements from $n$ elements ignoring the order of elements, and is equal to: \[
+ 
+  Thus, the number of sequences of length $n$ and weight $w$ is equal to  the number of \emph{Combinations} of $w$ elements from $n$ elements ignoring the order of elements, and is equal to: \[
   C_n^w=\binom{n}{w}=
   \frac{A_n^w}{P_w}=\frac{n(n-1)\times \dots \times
   (n-m+1)}{w!}=
@@ -391,9 +400,10 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \frametitle{Problems}
 \begin{enumerate}
    
-  \item[23] Find the probability $p_n(w)$, that a sequence of length $n$ at the output of binary constant source, where the probability of 1 is $p$, will have Hamming weight  equal to $w$.
+  \item[23] Find the probability $p_n(w)$, that a sequence of length $n$ at the output of BMS with $p(1)=p$, will have Hamming weight  equal to $w$.
   
-  \emph{Ñùüüóòå}: Answer to this problem is the binomial distribution formula.
+  
+  \pause The answer is the binomial distribution:
   \[
   p_n(w)=\binom{n}{w}p^w(1-p)^{n-w}.
   \]
@@ -407,10 +417,10 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \frametitle{Problems}
 \begin{enumerate}
    
-  \item[24] Binary constant source $X=\{0,1\}$ breeds ones with probability $p=0,02$. Consider the dependence between error probability and length of encoded blocks, with the code rate $0.5$ bit for a letter of source.
+  \item[24] BMS $X=\{0,1\}$ generates ones with probability $p=0,02$. Consider the dependence between error probability and length of encoded blocks, with the code rate $0.5$ bit for a letter of source.
   
-  \pause \item[25] Find the probability that sequence with length $n=10$ at the output of binary constant source, where probability of "1" is $p=0,1$, will have Hamming weight greater or equal to $w=5$. (Use your PC).
-  Compare this result to the Chebyshev's estimation of probability of this event.
+  \pause \item[25] Find the probability that the sequence of length $n=10$ at the output of BMS with $p(1)=0,1$, will have Hamming weight greater or equal to $w=5$. (Use your PC).
+  Compare this result with the Chebyshev's estimate on the probability of this event.
    
 \end{enumerate}
 \end{frame}
@@ -422,9 +432,9 @@ H(q)&=&-\sum_{i=0}^{\infty} q(i)\log q(i)=%
 \begin{enumerate}
    
   \item[26] \emph{Polynomial distribution.}
-  How many ternary sequences of length $n$ contain $\tau_0$ zeros, $\tau_1$ ones and $\tau_2 =n-\tau_0- \tau_1$ twos? Find the probability of such sequence with fixed probability distribution on elements of ternary alphabet. Generalize the result to the alphabets of arbitrary size.
-
-  \emph{Hint:} The answer can be fount in the chapter "Universal Coding".
+  How many ternary sequences of length $n$ contain $\tau_0$, $\tau_1$ and $\tau_2 =n-\tau_0- \tau_1$ elements of $0$, $1$ and $2$ respectively? 
+  
+  Find the probability of such a sequence given probability distribution on elements of ternary alphabet. Generalize the result to the alphabets of arbitrary size.
    
 \end{enumerate}
 \end{frame}
