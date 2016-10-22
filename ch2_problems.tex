@@ -43,15 +43,15 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[1] Build Huffman code for source with letters probabilities equal to ( 0,3, 0,25, 0,15, 0,1, 0,1, 0,05, 0,05). Compare the average length of code words with entropy of the source.
-  \pause \item[2] Consider ternary constant source $X$  with the following letters probabilities: 
+  \item[1] Construct a  Huffman code for the source with probability distribution (0,3, 0,25, 0,15, 0,1, 0,1, 0,05, 0,05). Compare the average codeword length with the entropy.
+  \pause \item[2] Consider Discrete Memory-less Source (DMS) $X = \{a, b, c\}$ with probability distribution: 
     \begin{enumerate}
     \item
     $p\left( a \right) = 1/2,p\left( b\right) = 1/4,p\left(c\right)=1/4;$
     \item
     $p\left( a \right) = p\left( b \right) = p\left( c \right) = 1 / 3.$
     \end{enumerate}
-  Build Huffman codes for letters of $X$, $X^{2}$, $X^{3}$. Compare code rate and the entropy of the source.
+  Find Huffman codes for $X$, $X^{2}$, $X^{3}$. Compare code rate with the entropy of the source.
 \end{enumerate}
 \end{frame}
 
@@ -60,8 +60,8 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
 
-  \item[3] Consider the dependency between Huffman code rate and the length of correlated blocks for binary constant source with probability of $1$ equal to 0.1.
-  
+  \item[3] Analyse behaviour of the Huffman code rate as a function of length $n$ of encoded blocks for the Binary Memory-less Source (BMS) with probability of $1$ equal to 0.1.
+ 
 \end{enumerate}
 \end{frame}
 
@@ -70,8 +70,8 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
 
-  \item[4] \emph{Optimal coding of equiprobable letters} 
-  Build Huffman code for source, which chooses letters from alphabet of size $M$ with equal probabilities. Calculate the average length of code words and redundancy like function of $M$, calculate upper and lower bounds of redundancy.
+  \item[4] \emph{Optimal coding uniform distributions} 
+  Find a Huffman code for source, which chooses letters from alphabet of size $M$ with uniform distribution. Calculate the average length of code words and redundancy as a function of $M$, calculate upper and lower bounds of redundancy.
   
   \end{enumerate}
 \end{frame}
@@ -84,7 +84,7 @@ ITMO University
   \item[4 (hint)] 
   \small{ \emph{Intermediate steps} Huffman code for this source contains $D=2\cdot 2^{\lfloor \log M \rfloor} - M$ words of length 
 $\lfloor \log M \rfloor$ and  $M-D$ words of length $\lfloor \log M
-\rfloor+1$. Average length of code words and redundancy are equal to 
+\rfloor+1$. Average length of codewords and redundancy are equal to 
 \[
 \bar l =\lfloor \log M \rfloor+2-\frac{2}{M}%
 2^{\lfloor \log M \rfloor},
@@ -93,7 +93,7 @@ $\lfloor \log M \rfloor$ and  $M-D$ words of length $\lfloor \log M
 r=\bar l - \log M= 2-d-2\cdot 2^{-d},
 \]
 where $d=\log M - \lfloor \log M \rfloor$, $d\in[0,1)$.
-Differentiation with respect to $d$ shows, that maximum of redundancy is achieved when $d=1-\log\log e$ and is equalk to $1+\log\log e - \log e
+Differentiation with respect to $d$ shows, that maximum of redundancy is achieved when $d=1-\log\log e$ and is equal to $1+\log\log e - \log e
 \approx 0,0861$.
   }
 \end{enumerate}
@@ -105,7 +105,7 @@ Differentiation with respect to $d$ shows, that maximum of redundancy is achieve
 \begin{enumerate}
   
   \item[5] 
-  \small{ Ternary source is specified by Markov chain with the following transition matrix:
+  \small{ Consider Markov chain with the probability transition matrix:
 \[
 P = \left[ {{\begin{array}{*{20}c}
  0 \hfill & {1 / 2} \hfill & {1 / 2} \hfill \\
@@ -113,8 +113,8 @@ P = \left[ {{\begin{array}{*{20}c}
  {1 / 4} \hfill & {1 / 2} \hfill & {1 / 4} \hfill \\
 \end{array} }} \right].
 \]
-  Calculate $H\left( X \right)$, $H_n \left( X \right)$,  $n = 1,2,...$, $H\left( {X / X^n} \right)$, $n = 1,2,...$, assuming that initial distribution on letters is stationary distribution.
-  Find code rate, when coding two ensembles $X$ and $X^2$ with Huffman coding. Provide a method for encoding, when code rate is equal to the speed of information creation by the source. 
+  Calculate $H\left( X \right)$, $H_n \left( X \right)$,  $n = 1,2,...$, $H\left( {X / X^n} \right)$, $n = 1,2,...$, assuming that the initial distribution on letters is the stationary distribution.
+  Find code rate for coding ensembles $X$ and $X^2$ using Huffman coding. Suggest such a method for encoding, that code rate is equal to the information rate of the source. 
   }
 \end{enumerate}
 \end{frame}
@@ -123,12 +123,12 @@ P = \left[ {{\begin{array}{*{20}c}
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[6] \small{  \emph{Encoding of length of sequences with non-uniform code.} 
-  Sequence at the output of binary source is splitted in the only way to the subsequences of a random length like  $1,01,...,0^{L - 1}1,0^L$. 
+  \item[6] \small{  \emph{Non-uniform series-length coding} 
+  Sequence at the output of binary source is uniquely represented to the subsequences of a random length like  $1,01,...,0^{L - 1}1,0^L$. 
   Huffman code is used to encode such sequences.
-  For binary constant source with probability of $1$ equal to $p$=0,1, consider the dependence between code rate and the value $L$ . 
+  For a BMS with probability of $1$ equal to $p$=0,1, analyse the dependence between code rate and the value $L$ . 
   
-  Code rate in this case is a value $R = \bar{n} / \tau ,$ where \textit{$\tau $} -- average length of sequence to be encoded; $\bar {n}$ -- average length of code words.
+  Code rate in this case is a value $R = \bar{n} / \tau ,$ where \textit{$\tau $} -- average length of sequence to be encoded; $\bar {n}$ -- average length of codewords.
 }
 \end{enumerate}
 \end{frame}
@@ -140,12 +140,12 @@ P = \left[ {{\begin{array}{*{20}c}
   \item[7] 
   \footnotesize { \emph{Non-uniform encoding by input and output (VV). Tunstall code.}
   
-  Recall, that the redundancy of the Huffman code is determined to a large extent by the maximum among the probabilities of letters. 
+  Recall that the redundancy of the Huffman code is determined by the maximum probability of letters. 
   
-  Hence, when encoding the source $X={p(x)}$ the letter $x_0\in X$ should be found, which has the maximal probability. Then we should build new ensemble $X_1$, which consists of all letters from $X\setminus{x_0}$ and of all pairs $(x_0,x)$, $x\in X$. Probabilities of pairs of letters are calculated like products of probabilities of corresponding letters. 
+  Thus, when encoding the source $X={p(x)}$ the letter $x_0\in X$ should be found, which has the maximal probability. Then we should construct new ensemble $X_1$, which consists of all letters from $X\setminus{x_0}$ and of all pairs $(x_0,x)$, $x\in X$. Probabilities of pairs of letters are calculated like products of probabilities of corresponding letters. 
   Such extension of the alphabet can be continued, and on each next step, the maximal probability of letters of the extended alphabet becomes smaller. Thus the redundancy of code applied to the extended alphabet also becomes smaller.
 
-  For a random binary ensemble compare this way of encoding with coding of length of sequences, considered in previous problem.
+  Compare this way of encoding to series-length coding, considered in previous problem for a random binary ensemble 
  
 }
 \end{enumerate}
@@ -155,9 +155,9 @@ P = \left[ {{\begin{array}{*{20}c}
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-\item[8] Build Shannon code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+\item[8] Construct Shannon code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
 
-\pause \item[9] Build Gilbert-Moore code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+\pause \item[9] Construct Gilbert-Moore code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
 
 \end{enumerate}
 \end{frame}
@@ -167,11 +167,11 @@ P = \left[ {{\begin{array}{*{20}c}
 \frametitle{Problems}
 \begin{enumerate}
 
- \item[10] Encode with arithmetic coding the sequence $01001$ at the output of the binary source where probability of $1$ is $0.4$
- Compare the length of code sequence with the total information of the sequence. 
+ \item[10] Use arithmetic coding to encode the sequence $01001$ from the BMS with probability of $1$ is $0.4$
+ Compare the length of code sequence with the amount of information of the sequence. 
  Compare the length of code sequence with total length of code sequence assuming independent encoding of characters with Shannon code.
  
-\pause \item[11] Explain, why end of encoding in the program \ref{AC_prog} is equivalent to conversion of the codeword of Shannon code to codeword Gilbert-Moore code.
+\pause \item[11] Explain, why end of encoding in the program (p. 87, pic. 2.16 in the book) is equivalent to conversion of the codeword of Shannon code to codeword Gilbert-Moore code.
 
 \end{enumerate}
 \end{frame}
@@ -185,7 +185,7 @@ P = \left[ {{\begin{array}{*{20}c}
  \item[12] What changes should be done to algorithms and programs of arithmetic coding and decoding, to apply them to source, described by simple Markov chain.
  
 
-\pause \item[13]  Formally, in programs at the pictures \ref{AC_prog} and \ref{AD_prog} there are division operations, which weren't there in algorithms of arithmetic coding and decoding. Why? Is it possible to avoid divisions?
+\pause \item[13]  In programs at the pictures (p. 87, pic. 2.16) and (p. 88, pic. 2.17) in the book there are division operations, which weren't there in algorithms of arithmetic coding and decoding. Why? Is it possible to avoid divisions here?
 
 
 \end{enumerate}
