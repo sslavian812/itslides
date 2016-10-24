@@ -5,10 +5,16 @@
 \usepackage{amssymb,amsfonts,amsmath,mathtext}
 \usepackage{cite,enumerate,float,indentfirst}
 
+\usepackage{multicol}
+\usepackage{listings}
+
 \graphicspath{{images/}}
 
 \usetheme{Pittsburgh}
 \usecolortheme{whale}
+
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{blue}}
 
 \setbeamercolor{footline}{fg=blue}
 \setbeamertemplate{footline}{
@@ -43,8 +49,12 @@ ITMO University
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-  \item[1] Construct a  Huffman code for the source with probability distribution (0,3, 0,25, 0,15, 0,1, 0,1, 0,05, 0,05). Compare the average codeword length with the entropy.
-  \pause \item[2] Consider Discrete Memory-less Source (DMS) $X = \{a, b, c\}$ with probability distribution: 
+  \item[1] Construct a  Huffman code for the source with probability distribution:
+  
+  $(0,3, 0,25, 0,15, 0,1, 0,1, 0,05, 0,05)$
+  
+  Compare the average codeword length with the entropy.
+  \pause \item[2] Consider Discrete Memoryless Source (DMS) $X = \{a, b, c\}$ with probability distribution: 
     \begin{enumerate}
     \item
     $p\left( a \right) = 1/2,p\left( b\right) = 1/4,p\left(c\right)=1/4;$
@@ -60,7 +70,7 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
 
-  \item[3] Analyse behaviour of the Huffman code rate as a function of length $n$ of encoded blocks for the Binary Memory-less Source (BMS) with probability of $1$ equal to 0.1.
+  \item[3] Analyse behaviour of the Huffman code rate as a function of length $n$ of encoded blocks for the Binary Memoryless Source (BMS) with probability of $1$ equal to 0.1.
  
 \end{enumerate}
 \end{frame}
@@ -70,8 +80,8 @@ ITMO University
 \frametitle{Problems}
 \begin{enumerate}
 
-  \item[4] \emph{Optimal coding uniform distributions} 
-  Find a Huffman code for source, which chooses letters from alphabet of size $M$ with uniform distribution. Calculate the average length of code words and redundancy as a function of $M$, calculate upper and lower bounds of redundancy.
+  \item[4] \emph{Optimal coding for uniform distributions} 
+  Find a Huffman code for source, which chooses letters from alphabet of size $M$ with uniform distribution. Calculate the average length of codewords and redundancy as a function of $M$, derive upper and lower bounds of redundancy.
   
   \end{enumerate}
 \end{frame}
@@ -124,8 +134,8 @@ P = \left[ {{\begin{array}{*{20}c}
 \frametitle{Problems}
 \begin{enumerate}
   \item[6] \small{  \emph{Non-uniform series-length coding} 
-  Sequence at the output of binary source is uniquely represented to the subsequences of a random length like  $1,01,...,0^{L - 1}1,0^L$. 
-  Huffman code is used to encode such sequences.
+  Sequence at the output of binary source is uniquely represented in the form of concatenation of subsequences $1,01,...,0^{L - 1}1,0^L$ for some integer R. 
+  Then a Huffman code is used for encoding indices of subsequences from this set.
   For a BMS with probability of $1$ equal to $p$=0,1, analyse the dependence between code rate and the value $L$ . 
   
   Code rate in this case is a value $R = \bar{n} / \tau ,$ where \textit{$\tau $} -- average length of sequence to be encoded; $\bar {n}$ -- average length of codewords.
@@ -138,11 +148,11 @@ P = \left[ {{\begin{array}{*{20}c}
 \frametitle{Problems}
 \begin{enumerate}
   \item[7] 
-  \footnotesize { \emph{Non-uniform encoding by input and output (VV). Tunstall code.}
+  \footnotesize { \emph{Variable-to-Variable  (VV) codiing. Tunstall code.}
   
   Recall that the redundancy of the Huffman code is determined by the maximum probability of letters. 
   
-  Thus, when encoding the source $X={p(x)}$ the letter $x_0\in X$ should be found, which has the maximal probability. Then we should construct new ensemble $X_1$, which consists of all letters from $X\setminus{x_0}$ and of all pairs $(x_0,x)$, $x\in X$. Probabilities of pairs of letters are calculated like products of probabilities of corresponding letters. 
+  Let $X={p(x)}$ and $x_0\in X$  is a most probable letter. Introduce a new ensemle $X_1$, which consists of all letters from $X\setminus{x_0}$ and of all pairs $(x_0,x)$, $x\in X$. Probabilities of pairs of letters are calculated like products of probabilities of corresponding letters. 
   Such extension of the alphabet can be continued, and on each next step, the maximal probability of letters of the extended alphabet becomes smaller. Thus the redundancy of code applied to the extended alphabet also becomes smaller.
 
   Compare this way of encoding to series-length coding, considered in previous problem for a random binary ensemble 
@@ -155,9 +165,9 @@ P = \left[ {{\begin{array}{*{20}c}
 \begin{frame}
 \frametitle{Problems}
 \begin{enumerate}
-\item[8] Construct Shannon code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+\item[8] Construct Shannon code of the source from task 1. Compare its average length with the average length of Huffman code codewords and with entropy of the source.
 
-\pause \item[9] Construct Gilbert-Moore code of the source from task 1. Compare average length with the average length of Huffman code codewords and with entropy of the source.
+\pause \item[9] Construct Gilbert-Moore code of the source from task 1. Compare its average length with the average length of Huffman code codewords and with entropy of the source.
 
 \end{enumerate}
 \end{frame}
@@ -169,9 +179,9 @@ P = \left[ {{\begin{array}{*{20}c}
 
  \item[10] Use arithmetic coding to encode the sequence $01001$ from the BMS with probability of $1$ is $0.4$
  Compare the length of code sequence with the amount of information of the sequence. 
- Compare the length of code sequence with total length of code sequence assuming independent encoding of characters with Shannon code.
+ Compare the length of code sequence with the total length of code sequence assuming independent encoding of characters with Shannon code.
  
-\pause \item[11] Explain, why end of encoding in the program (p. 87, pic. 2.16 in the book) is equivalent to conversion of the codeword of Shannon code to codeword Gilbert-Moore code.
+\pause \item[11] Explain, why completing step of encoding in the program (p. 87, pic. 2.16 in the book) is equivalent to conversion of the codeword of Shannon code to codeword Gilbert-Moore code.
 
 \end{enumerate}
 \end{frame}
@@ -182,13 +192,28 @@ P = \left[ {{\begin{array}{*{20}c}
 \begin{enumerate}
 
 
- \item[12] What changes should be done to algorithms and programs of arithmetic coding and decoding, to apply them to source, described by simple Markov chain.
+ \item[12] What changes should be done in the algorithms and programs of arithmetic coding and decoding, to apply them to source, described by Markov chain.
  
 
-\pause \item[13]  In programs at the pictures (p. 87, pic. 2.16) and (p. 88, pic. 2.17) in the book there are division operations, which weren't there in algorithms of arithmetic coding and decoding. Why? Is it possible to avoid divisions here?
+\pause \item[13]  In programs at the pictures (p. 87, pic. 2.16) and (p. 88, pic. 2.17) in the book appear division operations which did not exist in algorithms of arithmetic coding and decoding. Why? Is it possible to avoid divisions here?
 
 
 \end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Problems}
+
+
+  \begin{multicols}{2}
+  \includegraphics[width=0.28\textwidth]{fig_ar_encoder.eps}
+  
+  \columnbreak
+  
+  \includegraphics[width=0.28\textwidth]{fig_ar_decoder.eps}
+  
+  \end{multicols}
 \end{frame}
 
 
