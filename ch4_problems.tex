@@ -1,0 +1,129 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+
+\usepackage{multicol}
+\usepackage{listings}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{blue}}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 4th Chapter Problems}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+\begin{document}
+\maketitle
+
+  
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+\footnotesize {
+    \begin{table}[htbp]
+        \caption{Universal coding algorithm comparison}
+        \begin{center}
+        \begin{tabular}
+        {|c|c|c|c|}  \hline %
+        Algorithm & Number of  & Asymptotic &   codeword length  \\ %
+                  & traverses  & redundancy &   for text (\ref{ex2pass})    \\%
+        \hline %
+        2-traverse  & 2& $1 + K_1 / n$& 302 \\%
+        coding, &  &  &  \\ %
+        Huffman code &  &  &  \\ \hline%
+        Enumerative & 2& $\frac{M\log n + K_3 }{2n}$& 283 \\ %
+        coding      &  &  &  \\\hline %
+         Adaptive & 1& $\frac{M\log n + K_4 }{2n}$& 291 \\%
+         coding (A) &  &  &   \\\hline %
+        Adaptive  & 1& $\frac{M\log n + K_5 }{2n}$&283 \\%
+        coding (D) &  &  &  \\\hline
+        \end{tabular}
+        \label{tab3_6} \end{center}
+    \end{table}
+      
+    \begin{equation}
+    \label{ex2pass} {\texttt{
+    IF{\_}WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD{\_}DO{\_}AS{\_}WE{\_}CAN} }\\
+    \end{equation}  
+}
+\end{enumerate}
+\end{frame}  
+  
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {  
+
+
+
+\item[1] Complete the table on the previous slide with methods, described in the chapter 4. Use one of the popular standard archive programs on your sequence. Choose one of tthe following sequences for this problem:
+    \scriptsize{
+    \texttt{
+    \begin{tabular}{l}
+    who chatters to you will chatter about you \\%
+    шел козел с косой козой, шла коза с босым козлом \\%
+    либо дождик, либо снег, либо будет, либо нет \\%
+    на острую косу много и покосу! покоси-ка, коса! \\%
+    два щенка щека к щеке грызли щетку в уголке \\%
+    корабли лавировали, лавировали, да не вылавировали! \\%
+    не узнавай друга в три дня, узнавай в три года \\%
+    better late than never but better never late \\%
+    men make houses but women make homes \\%
+    кукушка хвалит петуха за то, что хвалит он кукушку \\%
+    четыре чертенка чертили черными чернилами чертеж \\%
+    can you can a can as a canner can can a can? \\%
+    early to bed and early to rise makes a man wise \\%
+    от умного научишься, от глупого разучишься \\%
+    do not trouble trouble until trouble troubles you! \\%
+    не имей сто рублей, а имей сто друзей
+    \end{tabular}
+    }
+    }
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+ 
+\item[2] Will the methods, described in chapter 4 be effective with a Binary Memoryless Source (BMS). Check your hypothesis on a short sequence of ones and zeros with fixed probability of $1$.
+
+\item[3] Consider a sound signal in the standard format of coded impulse modulation (16-bit signal samples, measured with 44100 Hz frequency).
+Are the algorithms, described in this chapter, suitable for compressing such data?
+
+\end{enumerate}
+\end{frame}
+
+\end{document} 
