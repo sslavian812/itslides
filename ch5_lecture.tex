@@ -68,6 +68,8 @@ ITMO University
     \item{Reverse coding theorem}
     \item{Information capacity of memoryless channels}
     \item{Symmetrical channels}
+    \item{Forward Coding Theorem}
+    \item{Typical Sequence pairs}
 }
 
 \end{enumerate}
@@ -1195,7 +1197,96 @@ Proof of theorem (\ref{DPK})
 % \footnotesize {
 % \small{
 
+    \item $P = \{p(y\vert x),x \in X,y \inY\}$
+    \item \label{eq5_39} $C_0 = \mathop {\max }\limits_{\{p(x)\}} I(X;Y).$
     
+    \item Discrete Memoryless Channel is symmetric by input, if all rows of its transition probability matrix can be reached by permutations of first row.
+
+    \item Discrete Memoryless Channel is symmetric by output, if all columns of its transition probability matrix can be reached by permutations of first column.
+    
+    \item Discrete Memoryless Channel is fully symmetric, if it is symmetric by input and by output.
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+Properties
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item[1] 
+    \begin{prop} \label{pr5_1} For symmetric by input DMC
+    \[
+    C_0 = \mathop {\max }\limits_{\{p(x)\}} \left\{ {H(Y)} \right\} - H(Y\vert
+    x), \quad x \in X.
+    \]
+    \end{prop}
+    
+    \item[2]
+    \begin{prop} \label{pr5_2}  For symmetric by input DMC
+    \[
+    C_0 \le \log L - H(Y\vert x), \quad x \in X.
+    \]
+    \end{prop}
+    
+    \item[3]
+    \begin{prop} \label{pr5_3}  For symmetric by output DMC: If input symbols have equal probability, then output symbols also have equal probability.
+    \end{prop}
+    
+    \item[4]
+    \begin{prop}\label{pr5_4}  For fully symetric DMC
+    \[
+    C_0 = \log \vert Y\vert - H(Y\vert x), \quad x \in X.
+    \]
+    \end{prop}
+}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    \begin{figure}[ht]
+    %\begin{minipage}{1.0\linewidth}
+    \includegraphics[width=0.65\textwidth]{fig5_8.eps}
+    %\centerline{\includegraphics[width=3.16in,height=4.02in]
+    \caption{Symmetric channels} \label{fig5_8}
+    %\end{minipage}
+    \end{figure}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+Proof of properties
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+
+    \item[1]
+        $I(X,Y) = H(Y) - H(Y\vert X)$. 
+        $H(Y\vert X) = \sum\limits_x {p(x)H(Y\vert x)}$
+    
+    \item[2]
+        $H(X) <= \log |X|$
+    
+    \item[3]
+        $p(y) = \sum\limits_x {p(x)p(y\vert x)}$
+        $p(y) = \frac{1}{\left| X \right|}\sum\limits_x {p(y\vert x)} , \quad y \in Y $
+        $p(y) = 1 / \left| Y \right|$
+        
+    \item[4] 
+        follows from first 1,2,3
+
 
 \end{itemize}
 \end{frame}
@@ -1207,6 +1298,15 @@ Proof of theorem (\ref{DPK})
 % \footnotesize {
 % \small{
 
+    \item For a Binary Symmetric Channel: $C_0 = 1 - \eta(p)$
+    
+    \item Channel is called Generally Symmetric, if bу renumbering it's input characters, it's matrix can be represented as cell matrix
+    \begin{equation}
+    \label{eq5_41} P = \left[ {\left. {P_1 } \right|\left. {P_2 }
+    \right|...\left| {P_M } \right.} \right],
+    \end{equation}
+    where each sub-matrix $P_i$ is fully symmetric (by input and by output).
+
 \end{itemize}
 \end{frame}
 
@@ -1216,11 +1316,15 @@ Proof of theorem (\ref{DPK})
 \begin{itemize}
 % \footnotesize {
 % \small{
-
+    \begin{figure}[ht]
+    \begin{minipage}{1.0\linewidth}
+    \includegraphics[width=0.90\textwidth]{capacity.eps}
+    %\centerline{\includegraphics[width=3.16in,height=4.02in]
+    \caption{Throughput of Binary Symmetric Channel (BSC)} \label{capacity}
+    \end{minipage}
+    \end{figure}
 \end{itemize}
 \end{frame}
-
-
 
 
 \begin{frame}
@@ -1228,7 +1332,60 @@ Proof of theorem (\ref{DPK})
 \begin{itemize}
 % \footnotesize {
 % \small{
+    \item Binary Channel with Erasure
+    \[
+    {P}' = \left[ {\left. {{\begin{array}{*{20}c}
+    {1 - p - \varepsilon } \hfill & p \hfill \\
+    p \hfill & {1 - p - \varepsilon } \hfill \\
+    \end{array} }\mbox{ }} \right|\mbox{ }{\begin{array}{*{20}c}
+    \varepsilon \hfill \\
+    \varepsilon \hfill \\
+    \end{array} }\mbox{ }} \right].
+    \]
+    
+    \item Both sub-matrixes are fully symmetric (by input and by output). Thus, Binary Channel with Erasure is Generally Symmetric.
 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+Property 5.
+% \footnotesize {
+% \small{
+    \begin{prop}\label{pr5_5}  
+    For Generally Symetric Channel, maximum of mutual information between input and output (see. (\ref{eq5_39})) is achieved when input alphabet characters have equal probability.
+    \end{prop}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+Proof of property 5.
+\begin{itemize}
+% \footnotesize {
+\small{
+   
+    \item Consider transition probability matrix, $Y_1 ,...,Y_M $, $P_1 ,...,P_M $. 
+    \item consider entropy of $Y$:
+    \begin{equation}
+        \label{eq5_42} H(Y) = - \sum\limits_{i = 1}^M {\sum\limits_{y \in Y_i } {p(y)\log p(y)} } .
+    \end{equation}
+    
+    \item Denote 
+    \[
+    q_i = \sum\limits_{y \in Y_i } {p(y)}
+    \]
+    
+    \item Conditional probability of subset $Y_i $ when $x$ is known:
+    \[
+    {\rm P}(Y_i \vert x) = \sum\limits_{y \in Y_i } {p(y\vert x)}
+    \]  
+    
+}
 \end{itemize}
 \end{frame}
 
@@ -1238,20 +1395,390 @@ Proof of theorem (\ref{DPK})
 \frametitle{Symmetrical channels}
 \begin{itemize}
 % \footnotesize {
+\small{    
+    
+    
+    
+    \item $\forall x$ holds ${\rm P}(Y_i \vert x) = q_i $.
+
+    \item transform (\ref{eq5_42}):
+    \begin{equation}
+    \label{eq5_43} H(Y) = - \sum\limits_{i = 1}^M {q_i \sum\limits_{y
+    \in Y_i } {\frac{p(y)}{q_i }\log \left( {\frac{p(y)}{q_i }q_i }
+    \right) = H(I) + \sum\limits_{i = 1}^M {q_i H(Y_i )} } } ,
+    \end{equation}
+    
+    \item $H(I)$ is entropy of indices $I$:
+    \[
+    H(I) = - \sum\limits_{i = 1}^M {q_i \log q_i } 
+    \]
+    
+    \item Entropy of subset $Y_i $:
+    \[
+    H(Y_i ) = - \sum\limits_{y \in Y_i } {\frac{p(y)}{q_i }\log
+    \frac{p(y)}{q_i }}
+    \]   
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Symmetrical channels}
+Example: Binary Channel with Erasure
+\begin{itemize}
+% \footnotesize {
 % \small{
+    
+    \item $p_x (0) = p_x (1) = 1 / 2$. 
+    
+    \item  Use formula of total probability
+    \[
+    p_y (0) = p_y (1) = \frac{1 - \varepsilon }{2},
+    \quad
+    p_y (z) = \varepsilon .
+    \]
+    
+    \item Substitute ot mutual information formula
+    \[
+    C_0 = (1 - \varepsilon )\left( {1 - \eta\left( {\frac{p}{1 -
+    \varepsilon }} \right)} \right).
+    \]
+    \item When $p = 0$ we have:
+    \[
+    C_0 = 1 - \varepsilon
+    \]
 
 \end{itemize}
 \end{frame}
 
 
 
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+\begin{theorem} {Forward Coding Theorem} For Discrete Memoryless Channel with Information Capacity $C_0 $, $\forall \varepsilon $,$\delta > 0$ $\exists n_0 $, such that $\forall n \in \mathbb{N}, n \ge n_0 $, exists code of length $n$ with code rate $R \ge C_0 - \delta $, and it's average error probability $P_e \le \varepsilon $.
+\end{theorem}
+
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Proof sketch: 
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item[1.]Build Ensemble of random codes with fixed code length and code rate.
+    \item[2.] Specify decoding rule.
+    \item[3.] Estimate average error probability on ensemble and prove, that error probability is reduced along with increasing of code length.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 1
+\begin{itemize}
+
+    \item Build codes ensemble. Denote as ${\vec p} = \{p(x),x \in X\}$ the probability distribution on $X$, which implies $C_0 = I(X,Y)$:
+    \[
+    {\vec p} = \arg \mathop {\max }\limits_{\vec p = \{p(x)\}} I(X;Y).
+    \]
+    
+    \item When code rate $R$ and code length $n$ are known, numer of codewords is $M = 2^{nR}$. Choose $M$ such that,
+    \begin{equation}
+    \label{eq5_44} M - 1 < 2^{n(C_0 - \delta )} \le M.
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 2
+\begin{itemize}
+
+    \item Decision rule of decoder is stated by splitting $Y^n$ into disjoint $R_m $, $m = 1,...,M$, such that $\bigcup_{m = 1}^{M} R_m = Y^n $, $R_m \bigcap R_{m'} =\emptyset$ при $m' \ne m$. 
+    
+    \item Use maximum likelihood principle:
+    Decision is made in favor of the codeword ${\vec x}_m $, for which $p({\vec y}\vert {\vec x}_m )$ is maximal.
+
+    \item $p({\vec y}\vert {\vec x}_m )$ - likelihood of codeword ${\vec x}_m $. Decision areas of such decoder are:
+    \[
+    R_m = \left\{ {{\vec y}:p({\vec y}\vert {\vec x}_m ) \ge%
+    p({\vec y}\vert {\vec x}_{m'} ),m' \ne m} \right\}.
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 2
+\begin{itemize}
+
+    \item On a $X^n\times Y^n$ define:
+    \begin{equation}
+        \label{eq5_45} T_n(\theta) = \left\{ ({\vec x},{\vec y}):\left| {\frac{1}{n}I({\vec x};{\vec y}) - I(X;Y) } \right| \le \theta \right\},
+    \end{equation}
+
+    where $I({\vec x};{\vec y})$ is mutual information between ${\vec x}$ and ${\vec y}$, and  $\theta \ge 0$ is a cinstant.
+
+    \item  $T_n(\theta)$ is a \emph{set of typical sequence pairs}.
+
+    \item By a received sequence ${\vec y}$, decoder makes a decision in favour ${\vec x}_m $ if $(\vec x_m ,\vec y) \in T_n(\theta)$. 
+    
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 3
+\begin{itemize}    
+    
+    \item Error is possible in one of this cases:
+    \begin{itemize}
+    \item
+    When sending ${\vec x}_m $, we receive ${\vec y}$, such that $({\vec x}_m ,{\vec y}) \notin T_n(\theta) $.
+    \item
+    When sending ${\vec x}_m $ we receive ${\vec y}$, such that for some codeword ${\vec x}_{m'}, m' \ne m,$ holds $(\vec x_{m'},\vec y) \in T_n(\theta)$.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 3
+\begin{itemize} 
+
+    \item Denote probability of first case as $P_{em1}$, and probability of the second case as $P_{em2}$. Denote average probabilities as $P_{e1}$, $P_{e2} $. 
+    
+    \item Estimate error probability:
+    \begin{equation}
+    \label{eq5_46} P_e \le P_{e1} + P_{e2} .
+    \end{equation}
+
+    \item From (\ref{eq5_46}) we get
+    \begin{equation}
+    \label{eq5_47} \bar {P}_e \le \bar {P}_{e1} + \bar {P}_{e2} .
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 3
+\begin{itemize}   
+
+    \item 
+    \begin{theorem}  \label{typ_pair}
+    \small{
+        Consider joint probability distribution $\{p(\vec x, \vec y), \vec x \in X^n, \vec y \in Y^n \}$ on  $X^n \times Y^n$, such that:
+        
+        $p(\vec x)= \prod_{i=1}^{n} p(x_i), \quad
+        p(\vec y |\vec x)= \prod_{i=1}^{n} p(\vec y_i | x_i)$. \\
+        
+        And let $\exists \theta >0$ such that $T_n(\theta)$ is defined by (\ref{eq5_45}). Then holds:
+        \begin{enumerate}
+            \item $\lim_{n\rightarrow \infty} P\left(T_n(\theta)\right)=1$.
+            \item If sequences $\tilde {\vec x}$ и $\tilde {\vec y}$ are chosen from $X^n$ and $Y^n$ respectively with distributions $p(\vec x)$ and $p(\vec y)=\sum_{\vec x} p(\vec x, \vec y)$, then
+            \[
+            P\left( (\tilde {\vec x}, \tilde {\vec y})\in T_n(\theta) \right)
+            \le 2^{-n(I(X;Y)-\theta)}.
+            \]
+        \end{enumerate}
+    }
+    \end{theorem}
+
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+Proof of Forward Coding Theorem. Step 3
+\begin{itemize} 
+
+    \item Estimate $\bar P_{e1} $. If $n\ge n_{01}$ holds:
+    \begin{equation}\label{pe1}
+    \bar P_{e1} \le \frac{\varepsilon}{2} \quad.
+    \end{equation}
+
+    \item Estimate $\bar P_{e2}$. Use previous theorem. 
+    \begin{equation*}%\label{pe2}
+    \bar P_{e2} \le   (M-1) 2^{-n(I(X;Y)-\theta)}.
+    \end{equation*}
+
+
+    \item Having $I(X;Y)=C_0$ and using (\ref{eq5_44}) we get
+    \begin{equation*}
+    \bar P_{e2} \le 2^{-n(\delta-\theta)}.
+    \end{equation*}
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Coding Theorem}
+\begin{itemize}
+% \footnotesize {
+% \small{    
+    
+    \item Let $\theta=\delta/2$, then $\exists n_{02}$ such that, when $n \ge n_{02}$ holds:
+    \begin{equation} \label{pe2}
+    \bar P_{e2} \le \frac {\varepsilon}{2}.
+    \end{equation}
+    
+    
+    \item (\ref{pe1}) and (\ref{pe2}) imply, that when $n \ge \max \left\{ {n_{01} ,n_{02}} \right\}$, then average error probability is $ \le \varepsilon $. 
+    
+    \item Thus, at least one of codes in ensemble has error probability $\le \varepsilon $.
+
+\end{itemize}
+\end{frame}
+
+
+% -------------------------Typical Sequence pairs-------------
+
+\begin{frame}
+\frametitle{Typical Sequence pairs}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Denote set of Typical Sequence airs as
+    \begin{equation}
+        \label{def_typ_p}
+        T_n(\varepsilon) = \left\{ ({\vec x},{\vec y}):\left|
+        {\frac{1}{n}I({\vec x};{\vec y}) - I} \right| \le
+        \varepsilon  \right\},
+    \end{equation}
+    
+    where $I({\vec x};{\vec y})$ -- mutual information between ${\vec x}$ and ${\vec y}$, $\varepsilon$ -- positive constant.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Typical Sequence pairs}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    Rewrite previous theorem:
+    \begin{theorem} {Of Typical Sequence pairs} \label{TYP_PAIR}
+    
+        $\forall \varepsilon > 0$ holds
+        \begin{enumerate}
+        \item
+        $\lim_{n\rightarrow \infty} P\left(T_n(\varepsilon)\right)=1.$
+        \item
+        $\tilde P\left(T_n(\varepsilon)\right)\le 2^{-n(I-\varepsilon)}. $
+        \item
+        $\exists n_\varepsilon$ such that, when $n \ge n_\varepsilon$ holds 
+        $\tilde P\left(T_n(\varepsilon)\right)\ge (1-\varepsilon)2^{-n(I+\varepsilon)}. $
+        \end{enumerate}
+    \end{theorem}
+        
+\end{itemize}
+\end{frame}
 
 
 
-    % \item{Fano inequality}
-    % \item{Reverse coding theorem}
-    % \item{Information capacity of memoryless channels}
-    % \item{Symmetrical channels}
+\begin{frame}
+\frametitle{Typical Sequence pairs}
+Proof of theorem of Typical Sequence pairs
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item For arbitrary pairs $({\vec x},{\vec y})$ from  $T_n(\varepsilon)$ holds:
+    \[
+    I-\varepsilon \le
+    \frac{1}{n}\log\frac{p(\vec x,\vec y)}{p(\vec x)p(\vec y)}
+    \le I+\varepsilon
+    \]
+    
+    \item or
+    \begin{equation}\label{pxpy}
+    p(\vec x,\vec y)2^{-n(I+\varepsilon)} \le
+    p(\vec x)p(\vec y) \le
+    p(\vec x,\vec y)2^{-n(I-\varepsilon)}.
+    \end{equation}
+    
+    \item Probability of $T_n(\varepsilon)$, calculated when ${\vec x}$ and ${\vec y}$ are independently chosen, is
+    \begin{equation}\label{pr_typ}
+    \tilde P\left(T_n(\varepsilon)\right)= \sum_{( {\vec x}, {\vec y})\in T_n(\varepsilon)} p( {\vec x})p({\vec y}).
+    \end{equation}
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Typical Sequence pairs}
+Proof of theorem of Typical Sequence pairs
+\begin{itemize}
+% \footnotesize {
+% \small{    
+    
+    \item Substitute (\ref{pxpy}):
+    \begin{eqnarray*}
+    \tilde P\left(T_n(\varepsilon)\right)
+            &\le&  \sum_{({\vec x}, {\vec y})\in T_n(\varepsilon)}
+     p({\vec x},{\vec y})2^{-n(I-\varepsilon)}=
+     \\
+     &=&2^{-n(I-\varepsilon)} P\left(T_n(\varepsilon)\right)
+    \le \\
+     &\le&2^{-n(I-\varepsilon)}.
+    \end{eqnarray*}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Typical Sequence pairs}
+Proof of theorem of Typical Sequence pairs
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Analogously,
+    \begin{eqnarray*}
+    \tilde P\left(T_n(\varepsilon)\right) &\ge&
+    \sum_{( {\vec x},  {\vec y})\in T_n(\varepsilon)}
+     p({\vec x}, {\vec y})2^{-n(I+\varepsilon)}=
+     \\
+     &=&2^{-n(I+\varepsilon)}
+     P\left(T_n(\varepsilon)\right) .
+    \end{eqnarray*}
+    
+    \item Probability of $T_n(\varepsilon)$ tends to $1$ when increasing $n$, thus $\exists n$ such that it became greater than $1-\varepsilon$. \QED
+    
+\end{itemize}
+\end{frame}
 
 
 \end{document} 
