@@ -1,0 +1,399 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+\usepackage{graphicx}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 6th Chapter Problems}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}
+\frametitle{Problems}
+
+% \footnotesize {
+% \small{
+
+    \begin{table}[htbp]
+    \caption{Continuous Random Variables}
+    \scalebox{0.75}{
+    \label{pdf} 
+    \begin{tabular}{|l|l|c|c|l|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Probability & Density  &\multicolumn{3}{c|}{Characteristics}
+    \\\cline{3-5}
+    Distribution &  $f(x)$    & $m$&$\sigma^2$&$ h(X)$   \\
+      \hline
+      \begin{tabular}{l}
+         Uniform\\
+      \end{tabular}
+      &%
+     $
+    \begin{array}{ll}
+    \frac{1}{b-a}, & x\in[a,b]\\
+    0,             & x< a, x> b
+    \end{array}
+    $  &%
+    $\frac{a+b}{2}$& $ \frac{(b-a)^2}{12}$&$
+    \log(b-a)$ \\
+    \hline
+    \begin{tabular}{l}
+        Exponential\\
+      \end{tabular}
+    &%
+     $
+     \begin{array}{ll}
+     \lambda e^{-\lambda x}, & x\ge 0\\
+     0, & x<0
+     \end{array}
+     $
+    & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ & $ \log \frac{e}{\lambda} $\\
+    \hline %
+      \begin{tabular}{l}
+           Laplace \\
+      \end{tabular}
+    & $ \frac{\lambda}{2} e^{-\lambda|x-m|}$ & $m$ &
+    $\frac{1}{\lambda^2}$ & $  \log \frac{2e}{\lambda}$ \\ \hline %
+    \begin{tabular}{l}
+        Normal \\
+        (Gaussian) \\
+      \end{tabular}
+     & $\frac{1}{\sigma \sqrt{2\pi}}%
+    e^{-\frac{(x-m)^2}{2\sigma^2}} $ &%
+    $m$&$\sigma^2$& %
+    %$\frac{1}{2}\log (2\pi e \sigma^2)$
+    $\log \sqrt{2\pi e \sigma^2}$
+    \\ \hline
+    \begin{tabular}{l}
+        Generalized \\
+        Gaussian \\
+      \end{tabular}
+    &%
+    \begin{tabular}{l}
+     $ \frac{\alpha \eta(\alpha, \sigma)}{2\Gamma(1/\alpha)}%\times
+    % $ \\   $%
+        e^{-\eta(\alpha, \sigma)|x-m|^\alpha}$ \\
+        $\eta(\alpha, \sigma)=\frac{1}{\sigma}\sqrt{\frac{\Gamma(3/\alpha)}{\Gamma(1/\alpha)}} $
+      \end{tabular}
+    &
+    $m$&$\sigma^2$& %
+    $ \log \frac {2\Gamma(1/\alpha)e^{1/\alpha} } {\alpha \eta(\alpha,
+    \sigma)}  $  \\ \hline
+    \end{tabular}
+    }
+    \end{table}  
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{
+
+    \item[1] Derive formulas for mathematical expectation and dispersion from previous table (\ref{pdf}). 
+
+    \pause
+    \item[2] \label{GGD} Prove that Generalized Gaussian distribution with $\alpha=1$, $\alpha 2$, $\alpha\rightarrow\infty$ is equivalent to Laplace, Gaussian and Unifoen respectively.
+
+    \pause
+    \item[3] Evaluate on sone examples formulas from table (\ref{pdf}) for differential entropy. 
+    
+    \pause
+    \item[4] At what parameters of a distribution the differential entropy is $0$?
+    Without doing precise calculations, draw on the same plot densities of distributions when differential entropy is equal to $0$ and $1$.
+    
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+Properties of Differential Entropy:
+\begin{enumerate}
+% \footnotesize {
+% \small{    
+
+    \item[1] \label{pr6_1} Differential entropy can be positive or negative.
+    
+    \pause
+    \item[2] \label{pr6_2}
+    \[
+    \begin{array}{lll}
+    h(a+X)&=&h(X);\\
+    h(aX)&=&h(X)+\log |a|.
+    \end{array}
+    \]
+    
+    \pause    
+    \item[3] \label{pr6_3} For independent $X$ and $Y$
+    \[
+    \begin{array}{lll}
+    h(XY)&=&h(X)+h(Y|X),\\
+     h(X|Y)&\le& h(X),
+    \end{array}
+    \]
+    
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+Properties of Differential Entropy:
+\begin{enumerate}
+% \footnotesize {
+% \small{      
+    
+    \item[4] \label{pr6_4} $\forall$ \quad $f_1(x)$ и  $f_2(x)$
+    \[
+    L(f_1||f_2) \ge 0,
+    \]
+    Equality is achieved iff densities are equal.
+    
+    
+    \pause
+    \item[5] \label{pr6_5} If Random variable $X$ is defined on segment of length $a$, then $\forall f(x)$ holds 
+    \[
+    h(X) \le \log a,
+    \]
+    Equality is achieved in case if Uniform distribution.
+
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+Properties of Differential Entropy:
+\begin{enumerate}
+% \footnotesize {
+% \small{  
+    
+    \item[6] \label{pr6_6} For non-negative Random Variables with mathematical expectation $m$ $\forall f(x)$
+    \[
+    h(X) \le \log(em),
+    \]
+    Equality is achieved in case of Exponential distribution.
+
+    \pause
+    \item[7] \label{pr6_7} For Random Variables with dispersion $\sigma^2$ $\forall f(x)$
+    \[
+    h(X) \le \log \sqrt{2\pi e \sigma^2},
+    \]
+    Equality is achieved in case of Gaussian distribution.
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{ 
+    
+
+    \item[5] Prove properties (1)-(4) %\ref{pr6_1}-\ref{pr6_4}.
+
+    \pause
+    \item[6] Prove properties (6) and (7) %\ref{pr6_6} и \ref{pr6_7}.
+
+    \pause
+    \item[7] \label{IG2} Write joint distribution of two Gaussian Random variables $X$, $Y$. Count Differential entropy of them and mutual information $I(X;Y)$. Draw a plot of dependence between mutual information and correlation coefficient of $X$ и $Y$.
+
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{itemize}
+% \footnotesize {
+\small{ 
+
+    \item \emph{hint to task 7.} According to gaussian distribution density formula
+    \begin{equation}
+    \label{gauss}%
+    f(\vec x)=\frac{1}{(2\pi)^{n/2}\det K^{1/2}}e^{-\frac{1}{2}(\vec x
+    -\vec m)K^{-1}(\vec x -\vec m)^T},
+    \end{equation}
+    We need only correlation matrix which is defined by dispersions
+    \[
+    \sigma_x^2={\rm \bf M} [(x-m_x)^2];\quad %
+    \sigma_y^2={\rm \bf M} [(y-m_y)^2].
+    \]
+    and by correlation matrix
+    \[
+    \rho=\frac{{\rm \bf M} [ (x-m_x)(y-m_y)]}{\sigma_x \sigma_y},
+    \]
+
+    \emph{Answer:}
+    \[ I(X;Y)=- \frac {1}{2} \log(1-\rho^2).\]
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{ 
+\small{ 
+    \item[8] \label{IG3} Consider Random Variable $Y=\{y\}$, which is a sum of independent Gaussian Random Variables $X=\{x\}$ and $Z=\{z\}$, i.e $y=x+z$. 
+    As example, $y$ can be considered as channel output when transmitting message $x$ with addition of noise $z$. Find mutual information $I(X;Y)$.
+
+
+    \pause \emph{Hint:} Sum of Gaussian variables is a Gaussian variable. Thus, this problem is a generalization of the previous one. We need to find correlation coefficient of $X$ and $Y$.
+}
+\footnotesize {    
+    \emph{Answer:}
+    \[
+    \rho=\frac {\sigma_x}{\sqrt{\sigma_x^2+\sigma_z^2}},
+    \]
+    \[
+    I(X:Y)=\frac {1}{2} \log\left(1+ \frac{\sigma_x^2}{\sigma_z^2}.
+    \right)
+    \]
+    Note, that with increasing of noise dispersion, the mutual information tends to zero.
+}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{ 
+
+    \item[9] \label{detkn} Calculate the determinant of correlation matrix of $n$ subsequent values of autoregressive process of the first order.
+    
+    \pause
+    \emph{Hint.} Correllation matrix satisfies 
+    \begin{equation}
+    \label{ARN}
+     K_n= \sigma^2 \left[
+      \begin{array}{cccc}
+        1 & \rho & \cdots & \rho^{n-1} \\
+        \rho & 1 & \cdots & \rho^{n-2} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \rho^{n-1} & \rho^{n-2} & \cdots & 1 \\
+      \end{array}
+    \right]
+    \end{equation}
+    Reduce matrix by Gauss method to the lower triangular form. Multiply each row, starting from second to $\rho$.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{ 
+
+    \item[10] \label{KK} Prove the properties of correlation function and spectral power density of a discrete time stationary random process.
+    \begin{eqnarray}
+    &&  K(n) = K(-n);\\
+    &&  K(0) \ge \left| K(n) \right|;\quad n>0;\label{P3}\\
+    &&  S(\omega)= S(-\omega); \\
+    &&  S(\omega)\mbox{ -- } \mbox{ real function } \omega.\\
+    &&  \int_{-\pi}^{\pi}S(\omega)d\omega=K(0)=\sigma^2.
+    \end{eqnarray}
+    
+    \pause
+    \emph{Hint.} In order to prove (\ref{P3}), consider knowingly non-negative value ${\rm \bf M} [ (x_t - x_{t+n})^2 ]$.
+
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{ 
+
+\item[11] Consider representative sample (for example, 1000 readings) of a real signal.
+it can be line of an image, audio fragment, fragment of speech, etc.
+Build the dependence between differential entropy of autoregressive process and it's order.
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+\small{ 
+
+    \emph{Hint to task 11.} Use MATLAB.
+    For reading audio file use function \texttt{wavread.m}, for reading images use \texttt{imread.wav}. 
+    After that use \texttt{corrcoeff.m} to calculate correlation coefficients.
+    Use \texttt{levinson.m} for getting parameters of autoregressive filter of required order. 
+    
+    Otherwise, parameters of autoregressive filter can be found by \texttt{lpc.m}. 
+    
+    Substitute parameters into formula (\ref{AR_general})
+    \begin{equation}\label{AR_general}
+    S(\omega)=\frac{\sigma^2}{\left|1+\sum_{k=1}^{p}a_k%
+    e^{-ik\omega} \right|^2},
+    \end{equation}
+    and integrate with ''rectangle method''.
+    Check your results using formula (\ref{gen_stat_gaus})
+    \begin{equation}
+    \label{gen_stat_gaus}
+    h_{\infty}(X)=\frac{1}{2}\log(2\pi e)+%
+    \lim_{n \to \infty}\frac{\log\det K_n}{n}.
+    \end{equation}
+
+}
+\end{enumerate}
+\end{frame}
+
+
+\end{document} 
