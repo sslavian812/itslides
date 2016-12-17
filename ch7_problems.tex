@@ -1,0 +1,153 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+\usepackage{graphicx}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 7th Chapter Problems}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{
+
+    \item[1] Prove $H(D)\ge 0$.
+    
+    \pause
+    \item[2] Prove convexity of function rate-distortion for stationary source without use of memoryless property.
+    
+    \pause
+    \item[3] \label{max_dist}
+    For a stationary source with memory, prove more precise estimation of $D_0$ in this property:
+    \small{
+    For arbitrary stationary source $H(D)= 0$ holds
+    \begin{equation} \label{maxD}
+    D \ge D_0 =\min_y\int_X f(x) d(y,x) dx
+    \end{equation}
+    }
+
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{
+
+    
+    \item[4] \label{orthogonal_tr} Prove, that orthonormal transformation preserves the distance between vectors.
+    
+    \pause
+    \emph{hint}. Prove, that transformation preserves the norm. Square of norm of vector $\vec x$ can be written as $\|\vec x\|^2=\vec x \vec x^T$. Substitute into this statement instead of $\vec x$ vector $\vec y=\vec x A$, where $A$ -- orthonormal transformation matrix.
+
+
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+\small{
+
+    \item[5]
+    Find conditional distribution $\varphi(y|x)$, which reaches rate-distortion function of binary source.
+    
+    \pause
+    \item[6]
+    Find conditional distribution $\varphi(y|x)$, which reaches rate-distortion function of Gaussian source.
+    
+    \pause
+    \item[7]
+    As the set of codes for binary source, binary codes with parity check can be used. Even-weight sequences are approximating code words.
+    Depending on the code length, different coding rates and distortions are obtained obtained.
+    For Binary Source uniformly distributed characters draw a plot of rate-distortion function $R(D)$ for such a coding method and compare with theoretical function $H(D)$.
+}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+\small{
+
+    \item[8] \label{gain_db}
+    In analog sources coding, the quantisation quality is measured in \emph{signal-to-noise}, expressed \emph{in decibels}, calculated as
+    
+    \[
+    10 \log_{10}\frac{\sigma^2}{D}\quad \mbox{ dB, }
+    \]
+    where $\sigma^2$ and $D$ -- dispersion and mean square error respectively.
+    
+    Draw a plot of dependence between the maximum achievable signal-to-noise ratio and a Gaussian source rate. 
+    What will be the expected gain in dB of the speed increase by 1 bit per sample at different coding rates?
+}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{
+
+    \item[9]
+    Use Bleyhut algorithm for finding a
+    rate-distortion function for a Binary Source
+    without memory. Compare this result with
+    obtained analytically.
+    
+    \pause
+    \item[10]
+    Use Bleyhut algorithm for finding a
+    rate-distortion function for a Gaussian Source
+    without memory. Compare this result with
+    obtained analytically.
+
+\end{enumerate}
+\end{frame}
+
+
+\end{document} 
