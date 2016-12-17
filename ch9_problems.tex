@@ -1,0 +1,106 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+\usepackage{graphicx}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 9th Chapter Problems}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+\small{
+
+
+    \item[1] 
+    Assume that the binary inputs of the discrete-time channel without memory with additive Gaussian noise with zero mean and variance $N_0/2$ are values of binary set $\{-\sqrt E,\sqrt E\}$. 
+    These signals correspond to $0$ and $1$.
+    Hard decisions are made on the output of the channel: 0, if the output signal $y>0$, and $1$ otherwise. Thus, we have Discrete Stationary Channel (DSC).
+    Draw a plot of the throughput of this channel as a signal-to-noise ratio function $ E / N_0 $. Compare it with throughput of an original channel (without signal quantization at the input and output).
+}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+\small{
+
+    \item[2]
+    Consider $T>0$, which is called \emph{erasure threshold}.
+    Let decisions be made according to the rule:
+    \[
+    \hat{x}=\left\{\begin{array}{ll}
+                0, & y<-T; \\
+                {\mbox {erasure}}, & -T\le y\le T; \\
+                1, & y>T.
+              \end{array}
+              \right.
+    \]
+    
+    Obtain an expression for  $T$, which allows to achieve a maximum throughput of corresponding Discrete Channel with Erasure.
+    
+    Draw a plot of throughput of this channel as a function of signal-to-noise ratio. Compare throughput of this channel and throughput of Gaussian channel.
+}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problems}
+\begin{enumerate}
+% \footnotesize {
+% \small{
+
+    \item[3] 
+    Write an expression for the throughput of channel with binary input and continuous output. 
+    Using numerical integration, draw a plot of dependence between  throughput of binary half-continuous and signal-to-noise ratio.
+    
+    Compare these results with the results for the
+    Discrete Stationary channel, Discrete Channel with Erasure and Continuous Input Channel.
+
+
+\end{enumerate}
+\end{frame}
+
+
+\end{document} 
