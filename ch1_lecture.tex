@@ -1,0 +1,1835 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+\usepackage{graphicx}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 1st Chapter Slides}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+% \section{Дискретные источники сообщений}
+% \section{Измерение информации. Собственная информация.}
+% \section{Энтропия}
+% \section{Выпуклые функции многих переменных}
+% \section{Условная энтропия}
+% \section{Дискретные случайные последовательности. Цепи Маркова}
+% \section{Энтропия на сообщение дискретного стационарного источника}
+% \section{Равномерное кодирование дискретного источника. Постановка задачи }
+% \section{Неравенство Чебышева. Закон больших чисел}
+% \section{Прямая теорема кодирования для дискретного постоянного
+% источника}
+% \section{Обратная теорема кодирования для дискретного постоянного
+% источника}
+% \section[ Множество типичных последовательностей]{Множество типичных последовательностей для дискретного
+% постоянного источника. Источники с памятью}
+
+
+\begin{frame}
+\frametitle{Agenda}
+\begin{enumerate}
+\footnotesize {
+% \small{
+
+\item Discrete Sources
+\item Information measurement. Self Information.
+\item Entropy
+\item Convex functions of multiple variables.
+\item Conditional Entropy
+\item Discrete random sequences. Markov Chains.
+\item Entropy per message of discrete stationary source.
+\item Uniform coding of discrete source.
+\item Chebyshev inequality. The law of large numbers.
+\item Forward coding theorem for discrete memoryless source.
+\item Reverse coding theorem for discrete memoryless source.
+\item Set of typical sequences for discrete DMS. Discrete sources with memory.
+}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Probability is \textit{of a compound event} $A$:
+    \[
+    P(A) = \sum\limits_{x \in A} {p(x)} .
+    \]
+    
+    \item Over $\Omega$, Boolean algebra is defined:
+    \[
+    \begin{tabular}{l}
+    $ P(\varnothing) = 0; $ \\
+    $ P(X) = 1;         $ \\
+    $ P(A^c) = 1 - P(A);$\\
+    $ P(A \cup B) = P(A) + P(B) - P(AB).$
+    \end{tabular}
+    \]
+
+    \item Additive assessment of probability of events sum:
+    \[
+    P(\bigcup\limits_{m = 1}^M {A_m ) \le \sum\limits_{m = 1}^M {P(A_m )} }
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+\small{  
+    
+    \item Conditional probability:
+    \[
+    P(A\vert B) = \frac{P(AB)}{P(B)}
+    \]
+    
+    \item For arbitrary number of events:
+    \[
+    P(A_1 ...A_n ) = P(A_1 )P(A_2 \vert A_1 )P(A_3 \vert A_1 A_2 )...P(A_n \vert
+    A_1 ...A_{n - 1} ).
+    \]
+    
+    \item $A$,$B \subseteq X$ are independent, if:
+    \[
+    P(AB) = P(A)P(B).
+    \]
+    
+    \item $A_1 ,...,A_n \subseteq X$ are mutually independent, if:
+    \[
+    P(A_1 ...A_n ) = P(A_1 )P(A_2 )...P(A_n ).
+    \]
+    
+    \item Ff $A,B \subseteq X$ are independent
+    \[
+    P(A\vert B) = P(A);
+    P(B\vert A) = P(B).
+    \]
+}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+\small{
+    
+    \item Formula of total probability
+    \[
+    P(A) = \sum\limits_{m = 1}^M {P(A\vert H_m )P(H_m )}
+    \]
+    
+    \item Bayes’ law 
+    \[
+    P(H_j \vert A) = \frac{P(A\vert H_j )P(H_j )}{\sum\limits_{m = 1}^M {P(A\vert H_m )P(H_m )} }
+    \]
+    
+    \item Multiplication of $X$ and $Y$ is
+    \[
+    Z = XY = \left\{ {(x,y):x \in X,y \in Y} \right\}
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item Multiplication of ensembles $X= \{x,p_X (x)\}$ and $Y = \{y,p_Y (y)\}$, requires a joint probability distribution $\left\{ {p_{XY} (x,y)} \right\}$ on $XY$. As a result we get $XY = \left\{{(x,y),p_{XY}(x,y)} \right\}$.
+    
+    \item Conditional probability distribution
+    \[
+    p(x\vert y) = \left\{ {{\begin{array}{*{20}c}
+     {\frac{p(x,y)}{p(y)},} \hfill & {\mbox{ if }p(y) \ne 0,} \hfill \\
+     0 \hfill & {\mbox{otherwise,}} \hfill \\
+    \end{array} }} \right.
+    \quad
+    x \in X.
+    \]
+    
+    \item Ensembles $X$ and $Y$ are independent, if
+    \[
+    p(x,y) = p(x)p(y),
+    \quad
+    x \in X,
+    \quad
+    y \in Y.
+    \]    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item 
+    \[
+    p(x_1 ,...,x_n ) = p(x_1 )p(x_2 \vert x_1 )p(x_3 \vert x_1 x_2 ) ... p(x_n \vert x_1 ,...,x_{n - 1} ).
+    \]
+
+    \item Mathematical expectation of $X$:
+    \[
+    {\rm {\bf M}}_X \left[ x \right] = \sum\limits_{x \in X} {xp(x)}
+    \]
+    
+    \item Dispersion
+    \[
+    {\rm {\bf D}}_X \left[ x \right] = {\rm {\bf M}}_X \left[ {\left( {x - {\rm
+    {\bf M}}_X \left[ x \right]} \right)^2} \right]
+    \]
+    
+    \item Correlation
+    \[
+    K_{XY} (x,y) = {\rm {\bf M}}_{XY} \left[ {\left( {x - {\rm {\bf M}}\left[ x
+    \right]} \right)\left( {y - {\rm {\bf M}}\left[ y \right]} \right)}
+    \right].
+    \]
+} 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+\begin{itemize}
+% \footnotesize {
+\small{    
+    
+    \item Mathematical expectation property:
+    \begin{equation}
+    {\rm {\bf M}}_Y [y] = {\rm {\bf M}}_X [\varphi (x)] = \sum\limits_{x \in X}
+    {\varphi (x)p_X (x)}.
+    \end{equation}
+    
+    \item Proof:
+    \begin{eqnarray}
+    {\rm {\bf M}}_Y [y]&=& \sum\limits_{y \in Y} y p_Y (y) 
+    &=&\sum\limits_{y \in Y} y\sum\limits_{x:\varphi (x) = y} p_X (x)
+    &=&\sum\limits_{y \in Y} \sum\limits_{x:\varphi (x) = y} y p_X (x)
+    &=&\sum\limits_{y \in Y} \sum\limits_{x:\varphi (x) = y} \varphi
+    (x)p_X (x)
+    & =&\sum\limits_{x \in X} {\varphi (x)p_X (x)} \nonumber.
+    \end{eqnarray}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete Sources}
+Properties of random variables
+\begin{itemize}
+% \footnotesize {
+% \small{
+    \item{ {\rm {\bf M}}\left[ {x + y} \right] = {\rm {\bf M}}\left[ x \right] + {\rm {\bf M}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf M}}\left[ {cx} \right] = c{\rm {\bf M}}\left[ x \right].
+    }
+    
+    \item{ {\rm {\bf M}}\left[ {xy} \right] = {\rm {\bf M}}\left[ x \right]{\rm {\bf M}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {x + y} \right] = {\rm {\bf D}}\left[ x \right] + {\rm {\bf D}}\left[ y \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {cx} \right] = c^2{\rm {\bf D}}\left[ x \right].
+    }
+    
+    \item{ {\rm {\bf D}}\left[ {c + x} \right] = {\rm {\bf D}}\left[ x \right].
+    }
+    
+    \item{ If $x$ and $y$ are independent, then $K(x,y) = 0$. That is, independent random variables are uncorrelated (but not vice versa). 
+    }
+
+\end{itemize}
+\end{frame}
+
+%--------------------Information measurement. Self Information.----------
+
+\begin{frame}
+\frametitle{Self Information}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Requirement to requirement for information measure:
+    \[
+    \mu (x_1 ,...,x_n ) = \mu (x_1 ) + ... + \mu (x_n )
+    \]
+    
+    \item Self information $I(x)$ of message $x$, from $X = \{x,p(x)\}$, 
+    \begin{equation}
+    \label{eq2}
+    I(x) = - \log p(x).
+    \end{equation}
+    
+    
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Self Information}
+Properties of self information
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item \emph{Non-negative}: $I(x) \ge 0,x \in X.$
+    \item \emph{Monotone}: if $x_1 ,x_2 \in X$, $p(x_1 ) \ge p(x_2 )$, то $I(x_1 ) \le I(x_2 )$
+    \item \emph{Additive}. For independent messages $x_1 ,...,x_n $ holds 
+    \[ I(x_1 ,...,x_n ) = \sum\limits_{i = 1}^n {I(x_i ).}
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+Entropy and It's properties
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Entropy of discrete ensemble $X = \{x,p(x)\}$ is
+    \[
+    H(X) = {\rm {\bf M}}\left[ { - \log p(x)} \right] = - \sum\limits_{x \in X}
+    {p(x)\log p(x)} \quad .
+    \]
+
+    \item[1]    
+    \begin{prop}
+    \label{E1} $H(X) \ge 0.$
+    \end{prop}
+
+    \item[2]
+    \begin{prop}
+    \label{E2}
+    $H(X) \le \log \left| X \right|.$
+    Equality is reached iff elements of $X$ have equal probability.
+    \end{prop}
+
+    \item[3]
+    \begin{prop}
+    \label{E3}
+    If probability distributions for ensembles $X$ and $Y$ are equal sets of numbers, then holds $H(X) = H(Y).$
+    \end{prop}
+    
+    \item[4]
+    \begin{prop}
+    \label{E4}
+    Is $X$ and $Y$ are independent,
+    \[
+    H(XY) = H(X) + H(Y).
+    \]
+    \end{prop}
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+Entropy and It's properties
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item[5]
+    \begin{prop}
+    \label{E5}
+    entropy is convex $ \cap $ function of probability distribution on elements of $X$.
+    \end{prop}
+
+    \item[6]
+    \begin{prop}
+    \label{E6}
+    Let $X = \{x,p(x)\}$ and $A \subseteq X.$ Consider $X' = \{x,{p}'(x)\}$. Let ${p}'(x)$ be:
+    \[
+    {p}'(x) = \left\{ {{\begin{array}{*{20}c}
+     {\frac{P(A)}{\vert A\vert },x \in A,} \hfill \\
+     {p(x),x \notin A.} \hfill \\
+    \end{array} }} \right.
+    \]
+    Then $H(X') \ge H(X).$ 
+    \end{prop}
+
+    \item[7]
+    \begin{prop}\label{E7}
+    Consider ensemble $X$. Let $g(x).$  be defined on $X$. Consider $Y = \{y = g(x)\}$. Then $H(Y) \le H(X)$. 
+    Equality is achieved when function $g(x)$ is bijective.
+    \end{prop}
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+Proof of Property (2)
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Consider difference between lhs and rhs:
+    \begin{eqnarray}
+    H(X)-\log \vert X\vert %
+    &\stackrel{\rm (a)}{=}& - \sum\limits_{x \in X} {p(x)\log
+    p(x)-\sum\limits_{x \in X} {p(x)\log \left| X \right|} }=\nonumber\\
+    & \stackrel{\rm (b)}{=}&%
+    \sum_{x \in X} %
+    p(x)\log \frac{1}{p(x)\vert X\vert} \le \nonumber \\%
+    &\stackrel{\rm (c)}{\le} &%
+    \log e\left[ {\sum\limits_{x \in X} {p(x)\left( {\frac{1}{p(x)\vert
+    X\vert } - 1} \right)} } \right] =\nonumber\\
+    & = & \log e\left( \sum_{x \in X} \frac{1}{\vert X\vert }-\sum_{x\in
+    X} p(x) \right) = 0\quad.\nonumber
+    \end{eqnarray}
+}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+Proof of Property (2)
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    
+    \item $\ln x \le x - 1  <=> \log x \le (x - 1)\log e.$ 
+    
+    \begin{center}
+    \begin{figure}[ht]
+    \begin{minipage}{0.8\linewidth}
+    \begin{center}
+    \includegraphics[width=0.7\textwidth]{logplot.eps}
+    %\centerline{\includegraphics[width=3.16in,height=4.02in]
+    \caption{Graphical interpretation of $\ln (x) \leq x-1$}
+    \label{logplot}
+    \end{center}
+    \end{minipage}
+    \end{figure}
+    \end{center}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+Example
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item $X = \{0,1\}$. Let $p(1) = p$, $p(0) = 1 - p = q$.
+    
+    \item Entropy of binary ensemble
+    \begin{equation}
+    \label{bin_entrop}
+    H(X) = - p\log p - q\log q \defeq \eta (p).
+    \end{equation}
+    
+    \item First derivative of $\eta(p)$. 
+    \[
+    \eta'(p) = - \log p + \log (1 - p).
+    \]
+    
+    \item Second derivative of $\eta(p)$.
+    \[
+    \eta''(p) = - \log e / p - \log e / (1 - p) < 0,
+    \]    
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Entropy}
+% \footnotesize {
+% \small{
+
+    \begin{figure}[ht]
+    \begin{minipage}{1.0\linewidth}
+    \includegraphics[width=0.8\textwidth]{binent.eps}
+    \caption{Entropy of binary ensemble} \label{binent}
+    \end{minipage}
+    \end{figure}
+
+\end{frame}
+
+
+% ------------------------Convex functions--------------------
+
+\begin{frame}
+\frametitle{Convex functions}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item Set of real vectors $R$ is convex, if $ \forall \vec x,\vec x' \in R$ and $\forall \alpha \in [0,1]$, vector $\vec y = \alpha \vec x + (1 - \alpha)\vec x'$ is in $R$.
+
+    \item 
+    \begin{theorem}
+    \label{stoch}
+    Set of probability vectors of length $M$ is convex.
+    \end{theorem}
+    \small{
+    Proof:    
+    $X=\{1,2,\dots,M\}$  \\
+    For $\vec p = (p_1 ,...,p_M )$, $\vec p' = (p'_1 ,...,p'_M )$ and $\alpha \in [0,1]$ consider
+    \[
+    \vec q = \alpha \vec p + (1 - \alpha )\vec p'.
+    \]
+    Sum of $\vec q$ components is
+    \[
+    \sum\limits_{i = 1}^M {q_i } = \alpha \sum\limits_{i = 1}^M {p_i } + (1 -
+    \alpha )\sum\limits_{i = 1}^M {{p}'_i } = \alpha + 1 - \alpha = 1.
+    \]
+    }
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Convex functions}
+\begin{itemize}
+% \footnotesize {
+\small{
+    
+    \item $f({\vec x})$ is convex if $\forall {\vec x},{\vec x}' \in R$ and $\forall \alpha \in [0,1]$ holds:
+    \begin{equation}
+    \label{eq1_4} f(\alpha {\vec x} + (1 - \alpha ){\vec x}') \ge \alpha
+    f({\vec x}) + (1 - \alpha )f({\vec x}')
+    \end{equation}
+    
+    \begin{figure}[ht]
+    \begin{minipage}{1.0\linewidth}
+    \begin{center}
+    \includegraphics[width=0.6\textwidth]{fig1_4s.eps}
+    \caption{Определение выпуклой функции} \label{confun}
+    \end{center}
+    \end{minipage}
+    \end{figure}
+    
+    \item 
+    \[
+    f(\alpha x_1+ (1-\alpha )x_2) \ge \alpha f(x_1)+ (1-\alpha
+    )f(x_2),
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Convex functions}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \begin{theorem}
+    \label{th_convex}
+    Lst $f(\vec x)$ be convex $ \cap $ function of $\vec x$, defined on a convex set $R$ and let $\alpha _1 ,...,\alpha _M \in [0,1]$ be such that
+    $\sum\limits_{m = 1}^M {\alpha _m } = 1$. 
+    Then $\forall \vec x_1 ,...,\vec x_M \in R$ holds
+    \begin{equation}
+    \label{eq5} f\left( \sum\limits_{m = 1}^M \alpha _m \vec x_m
+    \right) \ge \sum\limits_{m = 1}^M \alpha _m f(\vec x_m ).
+    \end{equation}
+    \end{theorem}
+ 
+ 
+ 
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Convex functions}
+Properties of convex functions
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item[1]
+    \begin{prop} 
+    Sum of convex functions is convex
+    \end{prop}
+    
+    \item[2]
+    \begin{prop} Product of convex function and positive constant is convex function.
+    \end{prop}
+    
+    \item[3]
+    \begin{prop}
+    \label{lincomb} A linear combination of convex functions with non-negative coefficients is a convex function.
+    \end{prop}
+        
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Convex functions}
+% \footnotesize {
+% \small{
+
+    \begin{theorem}
+    \label{conv_entr}
+    Entropy $H(\vec p)$ of ensemble with probability distribution $\vec p$ is a convex $ \cap $ function of $\vec p$.
+    \end{theorem}
+    
+    \textbf{Proof}. 
+    By Entropy definition:
+    \begin{equation}
+    \label{eq7} H(\vec p) = - \sum\limits_{m = 1}^M p_m \log p_m =
+    \sum\limits_{m = 1}^M f_m (\vec p) .
+    \end{equation}
+    Consider $f_m (\vec p)$.  $f''_m(\vec p) = -(\log e) / p_m$. \\
+    $f''_m(\vec p) \le 0 \forall p_m \in (0,1)$. 
+        
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Convex functions}
+Proof of Entropy property (6)
+\begin{itemize}
+\footnotesize {
+% \small{
+
+    \item Denote $\tilde {\vec  p} = \left( (p_1 + p_2 ) / 2,(p_1 + p_2 ) / 2,p_3,...,p_M \right).$ 
+    
+    \item We should prove
+    \begin{equation}
+    \label{eq8} H(\tilde {\vec p} ) \ge H(\vec p).
+    \end{equation}
+
+    \item Denote
+    \begin{eqnarray}
+    \vec p' = \vec p &=& (p_1 ,p_2 ,p_3 ,...,p_M ),\nonumber \\
+    \vec p''         &=& (p_2 ,p_1 ,p_3 ,...,p_M ).\nonumber
+    \end{eqnarray}
+    
+    \item Note, that:
+    $H(\vec p')=H(\vec p'')=H(\vec p)$. 
+    
+    \item Holds:
+    $\tilde{\vec p} = (\vec p'+ \vec p'') / 2$. 
+    
+    \item From entropy convexity:
+    \begin{eqnarray}
+    H(\tilde {\vec p} )&=&H\left(\frac{\vec p'+ \vec p''}{2}\right) \ge \nonumber \\ 
+    &\ge& \frac{1}{2}H(\vec p') + \frac{1}{2}H(\vec p'')=H(\vec p).\nonumber
+    \end{eqnarray}
+}    
+\end{itemize}
+\end{frame}
+
+% ---------------------Conditional Entropy-----------------------
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item Conditional self information of $x$ when $y$ is fixed:
+    \[
+    I(x\vert y) = - \log p(x\vert y),
+    \]
+    
+    \item Conditional entropy of $X$ when $y \in Y$ is fixed:
+    \begin{equation}
+    \label{eq9}
+    H(X\vert y) = - \sum\limits_{x \in X} {p(x\vert y)\log p(x\vert y)} ,
+    \end{equation}
+    
+    \item Conditional entropy of $X$ when $Y$ is fixed:
+    \[
+    H(X\vert Y) = - \sum\limits_{x \in X} {\sum\limits_{y \in Y} {p(x,y)\log
+    p(x\vert y)} }
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Properties of conditional entropy:
+\begin{itemize}
+\footnotesize {
+% \small{
+
+    \item[1]
+    \begin{prop}
+    \label{CE1} \[H(X\vert Y) \ge 0.\]
+    \end{prop}
+
+    \item[2]
+    \begin{prop}\label{CE2}
+    \[H(X\vert Y) \le H(X),\]
+    Equality is reached iff $X$ and $Y$ are independent.
+    \end{prop}
+
+    \item[3]
+    \begin{prop}\label{CE3}
+    \[H(XY) = H(X) + H(Y\vert X) = H(Y) + H(X\vert Y).\]
+    \end{prop}
+}    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Properties of Conditional Entropy:
+\begin{itemize}
+\footnotesize {
+% \small{    
+    
+    \item[4]
+    \begin{prop}\label{CE4}
+    \begin{eqnarray}
+    H(X_1 ...X_n ) = H(X_1 ) &+& H(X_2 \vert X_1 ) + \nonumber\\
+                             &+& H(X_3 \vert X_1 X_2 ) + .... + \nonumber\\
+                             &+& H(X_n \vert X_1 ,...,X_{n - 1} ).\nonumber
+    \end{eqnarray}
+    
+    \item[5]
+    \end{prop}
+    \begin{prop}\label{CE5}
+    \[H(X\vert YZ) \le H(X\vert Y)\]
+    Equality is achieved iff $X$ and $Z$ are conditionally independent $\forall y \in Y$.
+    \end{prop}
+
+    \item[6]
+    \begin{prop}
+    \label{CE6} \[H(X_1 ...X_n ) \le \sum\limits_{i = 1}^n {H(X_i )}\] 
+    Equality is achieved iff $X_1 ,$\ldots ,$X_n $ are mutually independent.
+    \end{prop}
+}    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Proof of property (2)
+\begin{itemize}
+\footnotesize {
+% \small{
+
+    \item
+    \begin{eqnarray*}
+     H(X\vert Y) - H(X) &=&
+    - \sum_{x\in X}{\sum_{y \in Y}{p(x,y)\log p(x\vert y)} }+  \\
+    &&+\sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log p(x)} } =     \\
+    &=& \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\log \frac{p(x)}{p(x\vert
+                 y)} \le } } \\
+    &\le& \sum_{x \in X} {\sum_{y \in Y} {p(x,y)\left(
+    {\frac{p(x)}{p(x\vert y)} - 1} \right)} } \log e =  \\
+    &=& \left( {\sum\limits_{x \in X} {\sum\limits_{y \in Y} {p(y)p(x)}
+    - } \sum\limits_{x \in X} {\sum\limits_{y \in Y} {p(x,y)} } }
+    \right)\log e =\\
+    &=& 0.
+    \end{eqnarray*}
+
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Proof of property (2)
+\begin{itemize}
+\footnotesize {
+% \small{
+    
+    \item
+    \begin{eqnarray*}
+    H(X\vert Y) &\stackrel{\rm (a)}{=}& {\rm {\bf M}}_Y \left[ {H(\vec
+    p_{X\vert y} )} \right] \le \\
+    &\stackrel{\rm (b)}{\le} & H\left( {\rm {\bf M}}_Y \left[ \vec
+    p_{X\vert y} \right] \right) =\\
+    &\stackrel{\rm (c)}{=} & H\left(\vec p_X \right) = H(X),
+    \end{eqnarray*}
+    
+    \item
+    \[
+    {\rm {\bf M}}_Y \left[ {p(x\vert y)} \right] = \sum\limits_y
+    {p(x\vert y)} p(y) = p(x).
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Proof of property (3) and (4)
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item
+    \[
+    p(x,y) = p(x)p(y\vert x) = p(y)p(x\vert y),
+    \]
+    
+    \item
+    \[
+    p(x_1 ,...,x_n ) = p(x_1 )p(x_2 \vert x_1 )...p(x_n \vert x_1 ,...,x_{n - 1}
+    ).
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Proof of property (5)
+\begin{itemize}
+% \footnotesize {
+\small{
+    \item Consider $XYZ = \{(x,y,z),p(x,y,z)\}$. Let $p(x,z\vert y)$ and $p(x\vert y)$ be defined. 
+    
+    \item
+    \[
+    H(X\vert y,Z) = {\rm {\bf M}}_{XZ\vert y} [ - \log p(x\vert yz)],
+    \]
+
+    \item
+    \[
+    H(X\vert y) = {\rm {\bf M}}_{X\vert y} [ - \log p(x\vert y)].
+    \]
+    
+    \item by property (2)
+    \[
+    H(X\vert y,Z) \le H(X\vert y).
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Entropy}
+Proof of Entropy property (7)
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Consider $X = \{x,p(x)\}$, $g(x)$, $Y =\{y = g(x),x\in X\}.$ 
+    
+    \item Prove, that
+    \begin{equation}
+    \label{p1eq11} H(Y) \le H(X).
+    \end{equation}
+    
+    \item By entropy property
+    \begin{equation}
+    \label{p1eq12}
+     H(XY) = \underbrace{H(X\vert Y)}_{\ge 0} + H(Y) = \underbrace{H(Y\vert X)}_{=0} + H(X).
+    \end{equation}
+    
+    \item As long as $g(x)$ is defined on each $x$,
+    We have $H(Y\vert X) = 0$. $H(X\vert Y) \ge 0$.
+    
+\end{itemize}
+\end{frame}
+
+
+% ------------------------Markov Chains-----------------------------
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item If elements of random sequence are real values, such sequence is called stochastic processes.
+    
+    \item Assume, that values of stochastic process are independent and equally distributed at any moment. Then holds:
+    \[
+    p(x_1,\dots,x_n ) = \prod\limits_{i = 1}^n {p(x_i )} ,
+    \]
+    Where $p(x_i )$ is a probability for $x_i \in X$ to appear at moment $i$.
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+% \small{    
+    
+    \item Process is Stationary, if $\forall n, t$ holds
+    \[
+    p(x_1 ,...,x_n ) = p(x_{1 + t} ,...,x_{n + t} ),
+    \]
+    where $x_i = x_{i + t} $, $i = 1,\dots,n$.
+    
+    \item Discrete source, which generates such a stationary process is called Discrete Memoryless Source (DMS).
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+% \small{   
+
+    \item Random process $x_1 ,x_2 ,\dots$ is called Markov Chain of connectivity $s$, if
+    $\forall n $ and  $\forall \vec x = (x_1,...,x_n ) \in X^n$ holds
+    \[
+    p(\vec x) = p(x_1 ,...,x_s )p(x_{s + 1} \vert x_1 ,...,x_s )p(x_{s
+    + 2} \vert x_2 \dots x_{s + 1} )\times \dots
+    \]
+    \[
+    \times p(x_n \vert x_{n - s} ,\dots,x_{n - 1} ).
+    \]
+    
+    \item Markov Process of connectivity $s$ is a random process such that $\forall n > s$ holds:
+    \[
+    p(x_n \vert x_1 ,...,x_{n - 1} ) = p(x_n \vert x_{n - s} ,...,x_{n - 1} ),
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+\small{
+    
+    \item Markov process is defined by initial probability distribution on sequences of first $s$ values (states) and by conditional probabilities $p(x_n \vert x_{n - s} ,...,x_{n - 1} )$ for arbitrary sequences $(x_{n - s} ,...,x_n )$. 
+    
+    \item If conditional probabilities are unchanged after sequence shifts $(x_{n - s},...,x_n )$ by time, such Markov Chain is called Homogeneous.
+
+    \item Simple Markov Chain is a Homogeneous Markov Chain with $s=1$ connectivity.
+    
+    \item For Simple Markov Chain definition, states $X = \{0,1,...,M - 1\}$, initial probability distribution $\left\{ {p(x_1 ),x_1 \in X} \right\}$ and transition probabilities 
+    \[
+    \pi _{ij} = P(x_t = j\vert x_{t - 1} = i), \quad i,j = 0,...,M - 1,
+    \]
+    are required.
+}       
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item $M\times M$ probability transition matrix for a Markov Chain
+    \[
+    \Pi= \left[
+      \begin{array}{cccc}
+        \pi _{00} & \pi _{01} & \cdots & \pi _{0,M-1} \\
+        \pi _{10} & \pi _{11} & \cdots & \pi _{1,M-1} \\
+        \vdots    & \vdots  & \ddots & \vdots \\
+        \pi _{M-1,0} & \pi _{M-1,1} & \cdots & \pi _{M-1,M-1} \\
+      \end{array}
+    \right]
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Markov Chains}
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Consider stochastic vector $\vec p_t = \left( {p_t (0),...,p_t (M - 1)}$, which represents Markov Chain states at moment $t$.
+
+    \item
+    $p_{t + 1} (i) = \sum\limits_{j = 1}^L {p_t (j)\pi _{ji} }$
+    
+    \item $\vec p_{t + 1} = \vec p_t \Pi$
+    
+    \item For arbitrary number of steps:
+    \[
+    \vec p_{t + n} = \vec p_t \Pi ^n.
+    \]
+    
+    \item Assume, that $\exists \vec p$:
+    \begin{equation}
+    \label{eq14} \vec p =\vec p\Pi .
+    \end{equation}
+    Such $ \vec p$ is called Stationary Distribution for Markov Chain.
+    
+    \item Final probability distribution is called 
+    \begin{equation}
+    \label{eq15} \vec p_\infty = \mathop {\lim }\limits_{t \to \infty} \vec p_{\rm {\bf t}} = \mathop {\lim }\limits_{t \to \infty } \vec p_1 \Pi ^t
+    \end{equation}
+}      
+\end{itemize}
+\end{frame}
+
+
+% ----------------------------Discrete stationary source------------------
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Consider Discerete stationary source, which generates $(x_1 ,x_2 ,\dots,x_t ,\dots)$,$x_t \in X_t = X$.
+    
+    \item $H(X_t ) = H(X)$ is independent of time.
+    
+    \item Entropy per character of sequence of length $n$
+    \[
+    H_n (X) = \frac{H(X^n)}{n},
+    \]
+    
+    \item For a conditional entropy:
+    \[
+    H(X_n \vert X_1,\dots,X_{n - 1} ) = H(X\vert X^{n - 1}).
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+% \footnotesize {
+% \small{
+
+\begin{theorem}\label{THN} For a Discrete Stationary Source holds:
+\begin{itemize}
+
+\item[A.] $H(X\vert X^n)$ does not increase with increasing $n$;
+
+\item[B.] $H_n (X)$ does not increase with increasing $n$;
+
+\item[C.] $H_n (X) \ge H(X / X^{n - 1})$;
+
+\item[D.] $\mathop {\lim }\limits_{n \to \infty } H_n (X) = \mathop {\lim }\limits_{n \to \infty } H(X\vert X^n)$.
+\end{itemize}
+
+\end{theorem}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Proof of Theorem
+\begin{itemize}
+% \footnotesize {
+\small{
+    
+    \item verify the validity of $C.$
+    \[
+    H(X^n) = H(X) + H(X\vert X^1) + ... + H(X\vert X^{n - 1}).
+    \]
+
+    \item verify the validity of $B.$
+    \begin{eqnarray*}
+    H(X^{n + 1}) & \stackrel{\rm (a)}{=} & H(X_1 ...X_n X_{n + 1} ) =\\
+    &\stackrel{\rm (b)}{=}& H(X_1 ...X_n ) + H(X_{n+ 1} \vert
+    X_1,...,X_n ) =\\
+    &\stackrel{\rm (c)}{=}&   H(X^n) + H(X\vert X^n) \le \\
+    &\stackrel{\rm (d)}{\le} & H(X^n) + H(X\vert X^{n - 1}) \le\\
+    &\stackrel{\rm (e)}{\le} & H(X^n) + H_n (X) =\\
+    &\stackrel{\rm (f)}{=}& (n + 1)H_n (X).
+    \end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Proof of Theorem
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Veryfy $D$. From $C$ follows
+    \begin{equation}
+    \label{eq16}
+    \mathop {\lim }\limits_{n \to \infty } H_n (X) \ge \mathop {\lim }\limits_{n
+    \to \infty } H(X\vert X^n).
+    \end{equation}
+
+    \item $\forall n,m \in \mathabb{N}, m < n$ holds
+    \begin{eqnarray*}
+     H(X^n) & {=} & H(X_1\dots X_n ) = \\
+    & \stackrel{\rm (a)}{=} & H(X_1\dots X_m ) + H(X_{m + 1}\dots X_n
+    \vert X_1,\dots,X_m )
+    =\\
+    & \stackrel{\rm (b)}{=} & mH_m (X) + H(X_{m + 1} \vert X_1,\dots,X_m )+\dots \\
+    &&+H(X_n \vert X_1 ,\dots,X_{n - 1} ) \le \\
+    & \stackrel{\rm (c)}{\le} & mH_m (X) + (n - m)H(X\vert X^m).
+    \end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Proof of Theorem
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item $\forall m$ holds 
+    \[
+    \mathop {\lim }\limits_{n \to \infty } H_n (X) \le H(X\vert X^m),
+    \]
+    
+    \item Tend $m -> \infty$ 
+    \begin{equation}
+    \label{eq17}
+    \mathop {\lim }\limits_{n \to \infty } H_n (X) \le \mathop {\lim }\limits_{m
+    \to \infty } H(X\vert X^m).
+    \end{equation}
+    
+    \from From (\ref{eq16}) и (\ref{eq17}) we get necessary statement.
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item Denote
+    \[
+    H_\infty (X) = \mathop {\lim }\limits_{n \to \infty } H_n (X),
+    \\
+    H(X\vert X^\infty ) = \mathop {\lim }\limits_{n \to \infty } H(X\vert X^n).
+    \]
+
+    \item Consider examples from DMS and Markev Source.
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Example Discrete Memoryless Source
+\begin{itemize}
+% \footnotesize {
+% \small{
+    \item 
+    $H(X_1 ...X_n ) = H(X_1 ) + ... + H(X_n ).$
+    
+    \item 
+    $H(X^n) = nH(X).$
+
+    \item 
+    $H_n (X) = H(X),$
+    
+    \item 
+    $H_\infty (X) = H(X).$
+    
+    \item
+    $H(X\vert X^n) = H(X_{n + 1} \vert X_1 ,...,X_n ) = H(X),$
+    
+    \item 
+    $H(X\vert X^\infty ) = H(X).$  
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Example for Markov Source
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item $H(X\vert X^n) = H(X_{n + 1} \vert X_1 ,...,X_n ) = \\
+    = H(X_{n + 1} \vert X_{n - s + 1} ,...,X_n ) = H(X\vert X^s).$
+
+    \item $H(X\vert X^\infty ) = H(X\vert X^s).$
+
+    \item
+    \begin{eqnarray}
+     H(X^n) &=& H(X_1\dots X_s X_{s + 1}\dots X_n )=\nonumber\\
+     &=& H(X_1\dots X_s ) + H(X_{s + 1}\dots X_n \vert X_1,\dots,X_s ).
+     \label{eq18}
+    \end{eqnarray}
+
+    \item 
+    \begin{eqnarray*}
+    H(X_{s+1}\dots X_n \vert X_1,\dots,X_s ) &=& H(X_{s+1} \vert X_1 ,\dots,X_s ) + \\
+    &+& H(X_{s + 2} \vert X_1 , \dots ,X_{s + 1} ) + \dots  \\
+    &+& H(X_n \vert X_1,\dots ,X_{n - 1} ),
+    \end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+Example for Markov Source
+\begin{itemize}
+% \footnotesize {
+\small{
+
+
+    \item $H(X_{s + 1} ...X_n \vert X_1 ,...,X_s ) = (n - s)H(X\vert X^s).$
+
+    \item 
+    \begin{equation}
+    \label{eq19}
+    H(X^n) = sH_s (X) + (n - s)H(X\vert X^s).
+    \end{equation}
+    
+    \item $H_\infty (X) = H(X\vert X^s).$
+    
+    \item
+    \begin{eqnarray*}
+    H_n (X) &=& H(X\vert X^s) + \frac{s}{n}(H_s (X) - H(X\vert X^s))
+    =\\
+     &=& H(X\vert X^n) + \frac{s}{n}(H_s (X) - H(X\vert X^s)).
+    \end{eqnarray*}
+
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+\begin{itemize}
+% \footnotesize {
+
+
+    \item messages $x_1 ,x_2 ,...$, $x_i \in X$, $i = 1,2,...$
+    
+    \item Uniform code rate
+    \begin{equation}
+    \label{eq20} R = \frac{ \lceil \log \vert C\vert
+    \rceil}{N}\hspace{0.2cm}(\mbox{bit / character}),
+    \end{equation}
+
+    \item Consider set of all sequences of length $n$, i.e. $C = A^n=\{0,1\}^n$
+    \[
+    R = \frac{n}{N}\hspace{0.2cm}(\mbox{бит / букву источника}).
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+\begin{itemize}
+% \footnotesize {
+% \small{
+    
+    \item Bijective encoding is only possible iff
+    \begin{equation}
+    \label{eq21}
+    \vert X\vert ^N \le \vert C\vert
+    \end{equation}
+    or 
+    \[
+    R \ge \log \vert X\vert \ge H(X).
+    \]
+    
+    \item Probability of decoding error:
+    \[
+    P_e = P\left( {{\vec x} \notin T} \right)
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Discrete stationary source}
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+\begin{table}[ht]
+\begin{center}
+\caption{Uniform code example}
+\begin{tabular}{|c|c|c|}
+\hline Sequence & Probability & Codeword\\\hline
+$aa$& 1/4& 000 \\\hline 
+$ab$& 1/6& 001 \\\hline 
+$ac$ & 1/12& 010\\\hline 
+$ba$& 1/6&  011 \\ \hline 
+$bb$&1/9& 100 \\\hline 
+$bc$& 1/18&101 \\\hline 
+$ca$& 1/12& 110 \\ \hline 
+$cb$& 1/18& 111 \\ \hline 
+$cc$&1/36& 111 \\ \hline
+\end{tabular}
+\label{code}
+\end{center}
+\end{table}
+
+\end{itemize}
+\end{frame}
+
+
+% --------------------------Chebyshev inequality------------------------
+
+\begin{frame}
+\frametitle{Chebyshev inequality}
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item Consider $X = \left\{{x,p(x)} \right\}$. Let $\forall x \in X, x>0$. Let $P(x \ge A)$ for some $A > 0$.
+
+    \item 
+    \[
+    P(x \ge A) = \sum\limits_{x \ge A} {p(x)} \le \sum\limits_{x \ge A}
+    {\frac{x}{A}p(x) \le \frac{1}{A}\sum\limits_{x \in X} {xp(x)} } =
+    \frac{{\rm {\bf M}}\left[ x \right]}{A}.
+    \]
+    
+    \item Denote $m_x = {\rm {\bf M}}\left[ x \right]$. Rewrite:
+    \begin{equation}
+    \label{eq22}
+    P(x \ge A) \le \frac{m_x }{A}.
+    \end{equation}
+
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Chebyshev inequality}
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    
+    \item Let $X = \left\{ {x,p(x)} \right\}$ e arbitrary random variable. For an arbitrary $\varepsilon > 0$ estimate $P\left( {\left| {x - m_x } \right| \ge \varepsilon } \right)$. Let $y = \left| {x - m_x } \right|$.
+    \[
+    P\left( {y \ge \varepsilon } \right) = P\left( {y^2 \ge \varepsilon ^2}
+    \right) \le \frac{{\rm {\bf M}}\left[ {y^2} \right]}{\varepsilon ^2} =
+    \frac{{\rm {\bf M}}\left[ {(x - m_x )^2} \right]}{\varepsilon ^2}
+     = \frac{{\rm {\bf D}}[x]}{\varepsilon ^2}.
+    \]
+
+    \item Chebyshev inequality
+    \begin{equation}
+    \label{eq23}
+    P\left( {\left| {x - m_x } \right| \ge \varepsilon } \right) \le
+    \frac{\sigma _x^2 }{\varepsilon ^2},
+    \end{equation}
+    where $\sigma _x^2 = {\rm {\bf D}}[x]$. 
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Chebyshev inequality}
+\begin{itemize}
+% \footnotesize {
+\small{  
+  
+    \item we are interested in:
+    \[
+    P\left( {\left| {\frac{1}{n}\sum\limits_{i = 1}^n {x_i } - m_x } \right| \ge
+    \varepsilon } \right)
+    \]
+    
+    \item Let $y = \frac{1}{n}\sum_{i = 1}^n {x_i } $.
+    \[
+    {\rm {\bf M}}[y] = m_x ,
+    \quad
+    {\rm {\bf D}}[y] = \frac{1}{n}\sigma _x^2 .
+    \]
+    
+    
+    \item Chebyshev inequality for sums of independent random
+    quantities
+    \begin{equation}
+    P\left( {\left| {\frac{1}{n}\sum\limits_{i = 1}^n {x_i } - m_x }
+    \right| \ge \varepsilon } \right) \le \frac{\sigma _x^2
+    }{n\varepsilon ^2} \label{cheb}
+    \end{equation} 
+
+}
+\end{itemize}
+\end{frame}
+
+% --------------------------Forward coding theorem-------------------
+
+
+\begin{frame}
+\frametitle{Forward coding theorem}
+
+% \footnotesize {
+% \small{  
+
+    \begin{theorem} {Forward coding theorem}
+    let $H$ be entropy of discrete memoryless source. $\forall \varepsilon ,\delta > 0$ $\exists n_0 $ such that
+    $\forall n > n_0 $ there exists uniform cod, which encodes the source by blocks of length $n$ and has code rate $R \le H + \delta $ and error probability $P_e \le \varepsilon $.
+    \end{theorem}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward coding theorem}
+Proof of Forward coding theorem
+\begin{itemize}
+% \footnotesize {
+\small{  
+
+    \item Chose  $T \subseteq X^n$:
+    \begin{equation}
+    \label{eq24} T = \left\{ {\vec x:\left| {\frac{1}{n}I(\vec x) - H}
+    \right| \le \delta _0 } \right\},
+    \end{equation}
+    where $I(\vec x) = - \log p(\vec x)$ is self information of $\vec x \in X^n$, and $\delta _0 > 0 $
+    
+    \item from (\ref{eq24}) follows
+    \begin{equation}
+    \label{eq25} 2^{ - n(H + \delta _0 )} \le p(\vec x) \le 2^{ - n(H
+    - \delta _0 )}.
+    \end{equation}
+
+    \item Note, that
+    \[
+    1 \ge P(T) = \sum\limits_{\vec x \in T} {p(\vec x)} \ge \vert
+    T\vert \mathop {\min }\limits_{\vec x \in T} p(\vec x) \ge \vert
+    T\vert 2^{ - n(H + \delta _0 )}.
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Forward coding theorem}
+Proof of Forward coding theorem
+\begin{itemize}
+% \footnotesize {
+\small{  
+
+    \item Consequently,
+    \begin{equation}
+    \label{eq26}
+    \vert T\vert \le 2^{n(H + \delta _0 )}.
+    \end{equation}
+
+    \item Core rate will be
+    \begin{equation}
+    \label{eq27} R =\frac{ \lceil \log  \vert T\vert  \rceil}{n} \le H
+    + \delta _0+\frac{1}{n} .
+    \end{equation}
+
+    \item For $P_e $ holds:
+    \begin{eqnarray}
+    P_e = P(\vec x \notin T) &=& P\left( {\left| {\frac{1}{n}I(\vec
+    x) - H} \right| > \delta _0 } \right)= \nonumber \\
+    \label{eq28}
+    &=& P\left( {\left| {\frac{1}{n}\sum\limits_{i = 1}^n
+    {I(x_i )} - H} \right|
+    > \delta _0 } \right).
+    \end{eqnarray}
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Forward coding theorem}
+Proof of Forward coding theorem
+\begin{itemize}
+% \footnotesize {
+\small{  
+
+    \item Note, that ${\rm {\bf M}}\left[ {I(x)} \right] = H$. 
+    
+    \item Apply Chebyshev inequality to (\ref{eq28}) 
+    \begin{equation}
+    \label{eq281} P_e \le \frac {{\rm {\bf D}}\left[ {I(x)}
+    \right]}{n\delta _0^2 }.
+    \end{equation}
+
+    \item Let $\delta_0 = \delta / 2$. 
+    \item When $n \geq n_{01} = {{\rm {\bf D}}[I(x)]} / (\delta ^2\varepsilon )$, from  (\ref{eq281}):
+    $P_e \le \varepsilon $. 
+    
+    \item From (\ref{eq27}) :
+    $n \ge n_{02}=2/\delta$ , $R < H + \delta $.
+    \item When $n \geq n_0=\max(n_{01},n_{02})$, then code rate $R$ and $P_e$ satisfy the theorem requirements.  
+}
+\end{itemize}
+\end{frame}
+
+% -------------------------Reverse coding theorem--------------------------
+
+\begin{frame}
+\frametitle{Reverse coding theorem}
+\begin{itemize}
+% \footnotesize {
+% \small{  
+    \begin{theorem}{Reverse coding theorem} For a Discrete memoryless source with entropy $H$ $\exists \varepsilon > 0$ such, that $\forall \delta > 0$ and for all uniform code with code rate $R \le H - \delta $, probability of error satisfies $P_e \ge \varepsilon $.
+    \end{theorem}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reverse coding theorem}
+Proof of Reverse coding theorem
+\begin{itemize}
+% \footnotesize {
+\small{ 
+
+    \item Code rate is $R = \lceil \log \vert T_1 \vert \rceil /n$, thus:
+    \begin{equation}
+    \label{eq29} \vert T_1 \vert \leq  2^{nR} \le 2^{n(H - \delta )}
+    \end{equation}
+
+    \item Probability of correct coding
+    \begin{equation}
+    \label{eq30} P_c = 1 - P_e = \sum\limits_{\vec x \in T_1 } {p(\vec x} ).
+    \end{equation}
+
+    \item Consider auxiliary set
+    \begin{equation}
+    \label{eq31} T = \left\{ {\vec x:\left| {\frac{1}{n}I(\vec x) - H}
+    \right| \le \delta _0 } \right\},
+    \end{equation}
+    where $I(\vec x) = - \log p(\vec x)$ is self information of $\vec x \in X^n$, and $\delta _0 > 0$
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reverse coding theorem}
+Proof of Reverse coding theorem
+\begin{itemize}
+% \footnotesize {
+% \small{ 
+    
+    \item split sum in (\ref{eq30}) to 2 sums
+    \begin{equation}
+    \label{eq32} P_c = \sum\limits_{\vec x \in T_1 \cap T} {p(\vec x)}
+    + \sum\limits_{\vec x \in T_1 \cap T^c} {p(\vec x),}
+    \end{equation}
+    
+    \item estimate the second sum:
+    \[
+    \sum\limits_{\vec x \in T_1 \cap T^c} {p(\vec x)} \le
+    \sum\limits_{\vec x \in T^c} {p(\vec x) = } P(T^c) = P(\vec x
+    \notin T).
+    \]
+    
+
+    \item Use Chebyshev inequality
+    \begin{equation}
+    \label{eq33} \sum\limits_{\vec x \in T_1 \cap T^c} {p(\vec x)} \le
+    \frac{{\rm {\bf D}}\left[ {I(x)} \right]}{n\delta _o^2 } \quad .
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reverse coding theorem}
+Proof of Reverse coding theorem
+\begin{itemize}
+% \footnotesize {
+\small{
+
+    \item For first of sums use $\left| {T_1 \cap T} \right| \le \left| {T_1 }\right|$:
+    \begin{eqnarray}
+    \sum\limits_{\vec x \in T_1 \cap T} {p(\vec x)} %
+    &\stackrel{\rm (a)}{\le} & \vert T_1 \cap T\vert \mathop {\max
+    }\limits_{\vec x \in T_1 \cap T} p(\vec
+    x) \le \nonumber \\
+    &\stackrel{\rm (b)}{\le}&
+     \vert T_1 \vert \mathop {\max }\limits_{\vec x \in T_1 \cap
+    T} p(\vec x)\le \nonumber \\
+    &\stackrel{\rm (c)}{\le}& \label{eq34}  \vert T_1 \vert \mathop
+    {\max }\limits_{\vec x \in T} p(\vec x).
+    \end{eqnarray}
+    
+    \item Substitute (\ref{eq29}) and (\ref{eq25}) to (\ref{eq34})
+    \begin{equation}
+    \label{eq35} \sum\limits_{\vec x \in T_1 \cap T} {p(\vec x)} \le
+    2^{n(H - \delta )}2^{ - n(H - \delta _0 )} = 2^{ - n(\delta -
+    \delta _0 )}.
+    \end{equation}
+}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reverse coding theorem}
+Proof of Reverse coding theorem
+\begin{itemize}
+% \footnotesize {
+% \small{
+
+    \item Substitute (\ref{eq33}) and (\ref{eq35}) to (\ref{eq32})
+    \begin{equation}
+    \label{eq36}
+    P_c \le 2^{ - n(\delta - \delta _0 )} + \frac{{\rm {\bf D}}\left[ {I(x)}
+    \right]}{n\delta _o^2 } \quad .
+    \end{equation}
+
+    \item 
+    \[
+    \vert T_1 \vert \ge { \vert X \vert}^n.
+    \]
+
+    \item Code rate should be
+    \begin{equation}
+    R \geq  \log \vert T_1 \vert /n \geq \log\vert X \vert.
+    \label{eq361}
+    \end{equation}
+
+    \item Use $\varepsilon = \min \{\varepsilon_0 ,1 / 2\}.$ 
+    
+    \item $\forall n = 1,2,...$ holds $P_e \ge \varepsilon $
+    
+\end{itemize}
+\end{frame}
+
+% ---------------------------------Set of typical sequences-------------------
+
+
+\begin{frame}
+\frametitle{Set of typical sequences}
+\begin{itemize}
+% \footnotesize {
+\small{  
+
+    \item Average Self information 
+    \begin{equation}\label{def_typ}
+    T_n (\delta ) = \left\{ {\vec x:\left| {\frac{1}{n}I(\vec x) -
+    H(X)} \right| \le \delta } \right\},
+    \end{equation}
+
+    \item 
+    \begin{theorem} $\forall \delta > 0$ holds:
+    \begin{enumerate}
+        \item 
+        \[
+        \mathop {\lim }\limits_{n \to \infty } P\left( {T_n (\delta )} \right) = 1.
+        \]
+        
+        \item $\forall n \in \mathabb{N}$ holds: 
+        \[
+        \left| {T_n (\delta )} \right| \le 2^{n(H(X) + \delta )}.
+        \]
+        
+        \item $\forall \varepsilon > 0$ $\exists n_0 $ such, that $\forall n \ge n_0 $ holds 
+        \[
+        \left| {T_n (\delta )} \right| \ge (1 - \varepsilon )2^{n(H(X) - \delta )}.
+        \]
+        
+        \item For $\vec x \in T_n (\delta)$ holds
+        \[
+        2^{ - n(H(X) + \delta )} \le p(\vec x) \le 2^{ - n(H(X) - \delta)}.
+        \]
+        
+    \end{enumerate}
+    \end{theorem}
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Set of typical sequences}
+Proof of theorem
+\begin{itemize}
+% \footnotesize {
+\small{  
+    \item First statement follows from (\ref{eq28}) and (\ref{eq281}). 
+    \item Second statement is equivalent to (\ref{eq26}).
+    \item  Fourth statement is equivalent to (\ref{eq25}).
+    
+    
+    \item from First follws, that  $\forall \varepsilon > 0$ $\exits n_0 $ such, that for $n > n_0 $ holds
+    \begin{equation}
+    \label{eq37}
+    P\left( {T_n (\delta )} \right) \ge 1 - \varepsilon .
+    \end{equation}
+
+    \item Estimate $T_n (\delta )$ and apply Fourth statement
+    \begin{equation}
+    \label{eq38} P\left( {T_n (\delta )} \right) \le \left| {T_n
+    (\delta )} \right|\mathop {\max }\limits_{\vec x \in T_n (\delta
+    )} p(\vec x) \le \left| {T_n (\delta )} \right|2^{ - n(H(X) -
+    \delta )}.
+    \end{equation}
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Set of typical sequences}
+\begin{itemize}
+% \footnotesize {
+% \small{  
+    \item For DMS probability of $\vec x = (x_1 ,...,x_n )$ 
+    \[
+    p(\vec x) = \prod\limits_{i = 1}^n {p(x_i ) = \prod\limits_{x \in
+    X} {p(x)^{\tau _x (\vec x)}} } .
+    \]
+
+    \item Self information of per character:
+    \[
+    \frac{1}{n}I(\vec x) = - \sum\limits_{x \in X} {\frac{\tau _x
+    (\vec x)}{n}\log p(x)} .
+    \]
+
+    \iten This value is close to entropy $H(X)$, if
+    \[
+    {\frac{\tau _x (\vec x)}{n} \approx \ p(x)}
+    \]
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Set of typical sequences}
+\begin{itemize}
+% \footnotesize {
+% \small{     
+
+    \item $\forall m$ set of uniquely encodable sequences is a set of sequences $x$, for which holds:
+    \[
+    \frac{1}{n} I(\vec x)\approx H(X|X^m)
+    \]
+    or
+    \small{
+    \[
+    \frac{1}{n}\left( I(x_1,\dots,x_m)+\sum_{i=m+1}^{n}
+    I(x_i|x_{i-m},\dots,x_{i-1}) \right) \approx H(X|X^m).
+    \]  
+    }
+\end{itemize}
+\end{frame}
+
+
+
+\end{document} 
