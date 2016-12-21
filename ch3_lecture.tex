@@ -90,7 +90,7 @@ ITMO University
 \frametitle{Useful combinatorial formulas}
 \begin{itemize}    
 % \footnotesize {
-% \small{
+\small{
     
     \item Consider sequences $\vec x = (x_1 ,...,x_n )$, where $x_i$ has one of $M_i$ values, $i = 1,...,n$. Number of different $\vec x$ is
     \begin{equation}
@@ -104,7 +104,7 @@ ITMO University
     A_M^n = M(M - 1)\times ...\times (M - n + 1)
     =\frac{M!}{(M - n)!} .
     \end{equation}
-    
+}    
 \end{itemize}
 \end{frame}
 
@@ -127,9 +127,9 @@ ITMO University
     \label{eq3_5} %
     \binom n k = \left\{
     \begin{array} {cl}
-    \frac {n!}{k!(n - k)!}, &\mbox{если } n\ge k\ge 0 \\
-    1,       &\mbox{если } n\ge 0 \mbox{ и } k=0 \mbox{ или } k=n\\
-    0,       &\mbox{если } k<0 \mbox{ или } k>n
+    \frac {n!}{k!(n - k)!}, &\mbox{if } n\ge k\ge 0 \\
+    1,       &\mbox{if } n\ge 0 \mbox{ and } k=0 \mbox{ or } k=n\\
+    0,       &\mbox{if } k<0 \mbox{ or } k>n
     \end{array} \right 
     \end{equation}
 
@@ -168,10 +168,10 @@ ITMO University
 % \footnotesize {
 \small{ 
     
-    \item For $M=3$
-    \[
-    N(\vec \tau) = \binom  n {\tau _0 } \binom {n - \tau _0 } {\tau _1 } = \frac{n!}{\tau _0 !(n - \tau _0 )!}\frac{(n - \tau _0 )!}{\tau _1 !(n - \tau _0 - \tau _1 )!} = \frac{n!}{\tau _0 !\tau _1 !\tau _2 !}.
-    \]
+    % \item For $M=3$
+    % \[
+    % N(\vec \tau) = \binom  n {\tau _0 } \binom {n - \tau _0 } {\tau _1 } = \frac{n!}{\tau _0 !(n - \tau _0 )!}\frac{(n - \tau _0 )!}{\tau _1 !(n - \tau _0 - \tau _1 )!} = \frac{n!}{\tau _0 !\tau _1 !\tau _2 !}.
+    % \]
     
     \item For arbitrary $M$
     \begin{equation}
@@ -269,15 +269,18 @@ ITMO University
 \begin{frame}
 \frametitle{Two pass encoding}
 \begin{itemize}    
-\footnotesize {
+
 % \small{
 
-    \item 
+    \item {
+    \footnotesize {
     \begin{equation}
     \label{ex2pass} {\texttt{
     IF{\_}WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD{\_}DO{\_}AS{\_}WE{\_}CAN} }\\
     \end{equation}
-}
+    }
+    }
+
     \item 
     \[
     l_2 = 6 + 6 + 12\times 2 + 5\times 3 + ... + 6 = 178.
@@ -443,7 +446,7 @@ ITMO University
 % \small{
     \begin{figure}[ht]
     \begin{minipage}{1.0\linewidth}
-    \includegraphics[width=1.0\textwidth]{fig3_2.eps}
+    \includegraphics[width=0.85\textwidth]{fig3_2.eps}
     \caption{Codetree for regular Huffman code}
     \label{HUF_tree_reg}
     \end{minipage}
@@ -469,12 +472,12 @@ ITMO University
     \[
     +
     \left\lceil \log \binom {247} 2 \right\rceil +%
-    \left\lceil \log \binom {245} 4 \right\rceil =105 \text{~бит}
+    \left\lceil \log \binom {245} 4 \right\rceil =105 \text{~bits}
     \]
     
     \item More precise 
     \begin{equation}
-    \label{eq3_16} l = 178 + 19 + 105 = 302\text{~бит} .
+    \label{eq3_16} l = 178 + 19 + 105 = 302\text{~bits} .
     \end{equation}
     
 \end{itemize}
@@ -575,8 +578,8 @@ Proof.
     \item 
     \[
     \chi _a (x) = \left\{ {{\begin{array}{*{20}c}
-     {1,\mbox{ при }x = a,} \hfill \\
-     {0,\mbox{ при }x \ne a.} \hfill \\
+     {1,\mbox{ if }x = a,} \hfill \\
+     {0,\mbox{ if }x \ne a.} \hfill \\
     \end{array} }} \right.
     \]
     
@@ -623,18 +626,832 @@ Proof.
 \end{itemize}
 \end{frame}
 
+% -----------------------------Enumerative coding-------------------
+\begin{frame}
+\frametitle{Enumerative coding}
+\begin{itemize}    
+\footnotesize {
+% \small{
+    
+    \item Codeword length 
+    \begin{eqnarray}
+    \label{eq3_27}
+    l(\vec x) &=& l_1 (\vec x) + l_2 (\vec x) =
+    \nonumber\\
+    &=&\left\lceil \log N_\tau (M) \right\rceil + \left\lceil \log
+    N(\vec \tau ) \right\rceil = \nonumber\\
+    &=& \left\lceil \log \binom {n+M-1}{M-1} \right\rceil + \left\lceil
+    \log \frac{n!}{\prod_{i = 0}^{M - 1} \tau _i (\vec x)!} \right\rceil
+    \end{eqnarray}
+    
+    \item
+    \begin{center}
+    {\texttt{
+    IF\_WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD{\_}DO{\_}AS{\_}WE{\_}CAN} }\\
+    \end{center}
+    
+
+    \item 
+    \begin{eqnarray*}
+    l_1 &=& \left\lceil \log \binom {50 + 255} {255} \right\rceil = 190
+    \mbox{ bits} ,\\
+    l_2 &=& \left\lceil {\log \left( {\frac{50!}{12!5!^24!^33!^22!^3}}
+    \right)} \right\rceil = 150 \mbox{ bits} .
+    \end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
-\frametitle{Two pass encoding}
+\frametitle{Enumerative coding}
+\begin{itemize}    
+\footnotesize {
+% \small{     
+    \item 
+    $\vec { \tilde {\tau }} = (\tilde {\tau }_0 ,...,\tilde {\tau }_{M - 1} )$=(12, 5, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 0,\ldots ., 0).
+    
+    \item 
+    \[
+    1 \le \tilde {\tau }_0 \le n, \quad  \tilde {\tau} _{j+1} \le \tilde {\tau }_{j } , \quad j \ge 0.
+    \]
+    
+    \item It's possible to transmit number of composition, no more than 
+    \begin{equation}
+    \label{eq3_28} \left \lceil \log \left( n\prod\limits_{j:\tau _j > 0} {\tau _j } \right ) \right\rceil \mbox{ bits} \end{equation}
+    
+    \item To transmit the composition $\vec \tau'=(1,2,3,2,3,4,241)$
+    \begin{equation}
+    \label{eq3_29} l_1 = \left\lceil {\log \left( {n\prod\limits_{j:\tau _j > 0} {\tau _j } } \right)} \right\rceil + \left\lceil {\log \left( {\frac{M!}{\prod\limits_j {{\tau }'_j !} }} \right)} \right\rceil = 25 + 108 = 133 \mbox{ bits}.
+    \end{equation}
+    
+}    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Enumerative coding}
 \begin{itemize}    
 % \footnotesize {
 % \small{
+    
+    \item 
+    \[
+    l = l_1 + l_2 = 283 \mbox{ bits}
+    \]
+    
+    \item 
+    \begin{eqnarray*}
+    l(\vec x) &=& l_1 (\vec x) + l_2 (\vec x) =\\
+    &=& \left\lceil {\log N_\tau (M)} \right\rceil + \left\lceil {\log
+    N(\vec \tau)} \right\rceil
+    \le\\
+    &\le& nH({\rm {\bf \hat {p}}}) - \frac{M - 1}{2}\log (2\pi n) -\\
+    &&-\frac{1}{2}\sum\limits_i {\log (\hat {p}_i )} + (M - 1)\log (n +
+    1) + 1.
+    \end{eqnarray*}
+    
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Enumerative coding}   
+% \footnotesize {
+% \small{
+
+    \begin{theorem}
+    \label{num_coding} For enumerate coding of discrete memoryless source with alphabet size $M$ and entropy $H$, the average code rate is.
+    \begin{equation}
+    \label{eq3_31} \bar {R} \le H + \frac{M - 1}{2}\frac{\log (n + 1) +
+    K}{n},
+    \end{equation}
+    where $K$ does not depend on sequence length $n$.
+    \end{theorem}
+    
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Enumerative coding}
+Example
+% \footnotesize {
+
+\begin{itemize}
+\small{
+    \item 
+    Let $n=10$, $\vec \tau =(2, 5, 3)$, $\vec x  = (2 0 1 1 0 2 1 2 1 1)$.
+    Probability distribution on first step $\vec \tau / n=(2/10, 5/10, 3/10)$ $G=0.3$.
+    
+    \item 
+    Probability distribution after first step:
+    $(2, 5, 2)/9=(2/9, 5/9, 2/9)$. 
+    
+    \item 
+    After second step: $G=3/10\times 2/9$. 
+    
+    \item 
+    After $10$ steps:
+    \[
+    G=\frac {3}{10}\times \frac {2}{9}\times\frac {5}{8}\times
+    \frac {4}{7}\times\frac {1}{6}\times
+    \frac {2}{5}\times\frac {3}{4}\times\frac {1}{3}\times
+    \frac {2}{2}\times\frac {1}{1}\quad.
+    \]
+    
+    \item
+    Codeword length for this example:
+    \[
+    l=\lceil -\log G\rceil =\left\lceil -\log \frac{10!}{2!5!3!}\right\rceil
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item Redundancy
+    \begin{equation}
+    \label{redundancy1}
+     r_n(\Omega ) = \mathop {\sup }\limits_{ \omega \in \Omega }
+    \left[ {\bar {R}_n(\omega)- H_\omega } \right].
+    \end{equation}
+
+    \item For a given $\vec \theta$ 
+    \[
+    p(\vec x | \vec \theta) = \prod_{i=0}^{M-1} \theta_i ^ {\tau _i(\vec x)} ,
+    \]
+    where $\vec \tau (\vec x) = (\tau_0(\vec x), \dots, \tau_{M-1}(\vec x))$ composition of sequence $\vec x$.
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item 
+    \begin{equation}
+    \label{eq31_0}  r_n(\Theta ) \le  \frac{M - 1}{2}\frac{\log (n + 1)
+    + K}{n},
+    \end{equation}
+    where $K$ does not depend on $n$.
+    
+    \item 
+    \begin{equation}
+    \label{redundancy2}
+    r_n(\Theta ) = \inf \mathop {\sup }\limits_{\vec \theta \in \Theta } \left[ {\bar {R}_n(\vec \theta)- H(X|\vec \theta) } \right] ,
+    \end{equation}
+    where $H(X|\vec \theta)$ is entropy of $X$.
+    
     
 \end{itemize}
 \end{frame}
 
 
 
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+ 
+% \footnotesize {
+% \small{
+    \begin{theorem} \label{low_bound}
+    For a discrete memoryless source with alphabet size $M$, 
+    with redundancy of universal code $r_n(\Theta) $ per message of length $n$ holds:
+    \begin{equation}
+    \label{eq31_4} r_n(\Theta) \ge \frac{M - 1}{2}\frac{\log n+C}{n} ,
+    \end{equation}
+    where $C$ does not depend on $n$.
+    \end{theorem}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem.
+\begin{itemize}    
+% \footnotesize {
+% \small{
+    \item Consider $\Theta=\{ \vec \theta \}$, $f(\vec \theta)$. Required redundancy:
+    \begin{equation}
+    \label{redundancy3}
+     r_n(\Theta ) = \inf \mathop {\sup }\limits_{f(\vec \theta)  }
+    {\rm \bf {M}}_f \left[ {\bar {R}_n(\vec \theta)- H(X|\vec \theta) }
+    \right] ,
+    \end{equation}
+
+    \item
+    \begin{equation}
+    \label{redundancy4}
+     r_n(\Theta ) \ge  \mathop {\sup }\limits_{f(\vec \theta)  }
+    \inf {\rm \bf {M}}_f \left[ \bar {R}_n(\vec \theta) - H(X|\vec
+    \theta) \right] ,
+    \end{equation}
+
+    \item 
+    \[
+    \sum\limits_{\vec x \in X^n} {2^{ - l(\vec x)} \le 1} .
+    \]
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+
+
+    \item
+    \[
+    q(\vec x) = 2^{ - l(\vec x)},
+    \]
+\footnotesize{    
+    \item
+    \[
+    - \sum_ {\vec x \in X^n} p(\vec x | \vec \theta ) \log q(\vec x)   %
+    \le \bar l_n (q,\vec \theta) \le %
+    - \sum_ {\vec x \in X^n} p(\vec x | \vec \theta ) \log q(\vec x)   %
+    +1.
+    \]
+}    
+    \item
+    \begin{equation}
+    \label{eq31_1}%
+    \bar l_n (q,\vec \theta) = %
+    - \sum_ {\vec x \in X^n} p(\vec x | \vec \theta ) \log q(\vec x).
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item 
+    \begin{equation}
+    \label{eq31_1a}
+    \bar l_n (q) = %
+    - \sum_ {\vec x \in X^n} p(\vec x ) \log q(\vec x) ,
+    \end{equation}
+
+    \item
+    \begin{equation}
+    \label{distrib}
+     p(\vec x) = {\rm {\bf M}}_f \left[ p(\vec x\vert \vec \theta
+    ) \right] = %
+    \int_{\vec \theta} f(\vec \theta) p(\vec x\vert \vec \theta ) d\vec
+    \theta.
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+\small{
+
+    \item Minimum at right is achieved, when $p(\vec x) =q(\vec x)$. 
+    \[
+    - \sum_ {\vec x \in X^n} p(\vec x) \log p(\vec x) + \sum_ {\vec x
+    \in X^n} p(\vec x) \log q(\vec x) = - L(p||q) \le 0
+    \]
+
+
+    \item
+    \begin{equation}
+    \label{redundancy5}
+     r_n(\Theta ) \ge \frac{1}{n} \mathop {\sup }\limits_{f(\vec \theta)  } %
+    {\rm \bf {M}}_f \sum_{\vec x \in X^n} p(\vec x | \vec \theta)%
+    \log \frac{p(\vec x | \vec \theta)}{p(\vec x)}\quad .
+    \end{equation}
+}    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+\small{
+    
+    \item Dirichlet distribution:
+    \begin{equation}
+    \label{FDirichlet}
+    f_{\vec \lambda}(\vec \theta) = \Gamma \left
+    (\sum_{i=0}^{M-1} \lambda_i \right) \prod _{i=0}^{M-1} \frac
+    {\theta_i^{\lambda_i -1}}{\Gamma(\lambda_i)},
+    \end{equation}
+    where $\vec \lambda=(\lambda_0,...,\lambda_{M-1})$ is vector of distribution parameters, $\lambda_i \ge 0$, $i=0,...,M-1$, $\Gamma(z)$ is Gamma function.
+    
+    \item Gamma function:
+    \[
+    \Gamma(z)=\int_0^\infty t^{z-1}e^{-t}dt.
+    \]
+    
+    \item 
+    \[
+    \Gamma(x)=(x-1)\Gamma(x-1), \quad
+    \Gamma\left(\frac{1}{2}\right)=\sqrt{\pi}.
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item 
+    \[
+    \Gamma(n)=(n-1)! \quad .
+    \]
+    
+    \item 
+    \[
+    \Gamma(z) \approx \sqrt{2\pi}z^{z-1/2}e^{-z}, \quad z \rightarrow \infty.
+    \]
+    
+    \item For some $K_1$
+    \begin{equation}
+    \label{Gam_Stirl} \left | \log \Gamma(z) + z\log e - (z-1/2)\log z
+    \right | \le K_1 .
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item Dirichlet integral: $\forall \alpha_i$, $i=1,...,n$ and a continuous function $f$:
+    \[
+    \int_{\vec x: \sum_i x_i=1}{f\left(\sum_{i=1}^n x_i\right)}%
+    \prod_{i=1}^{n} x_i^{\alpha_i -1} dx_1...dx_n=
+    \]
+    \begin{equation}
+    \label{Dirichlet}%
+    =\frac{\prod_{i=1}^{n}{\Gamma(\alpha_i)}}{\Gamma{\left(\sum_{i=1}^n
+    \alpha_i\right)}}%
+    \int_{0}^{1}f(\tau) \tau^{\left(\sum_{i=1}^n \alpha_i\right) -1} d
+    \tau .
+    \end{equation}
+
+
+    \item Consider parameter $\lambda_i=1/2$, $i=1,...,M$,
+    \begin{equation}
+    \label{FDirichlet2} f(\vec \theta)=\frac{\Gamma(M/2)}{\pi^{M/2}} \prod_{i=0}^{M-1} \theta_i^{-1/2} .
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item 
+    \[
+    p(\vec x)=\frac{\Gamma(M/2)}{\pi^{M/2}}\int_{\vec
+    \theta}\prod_{i=0}^{M-1} \theta_i^{\tau_i(\vec x) -1/2} d \vec
+    \theta .
+    \]
+
+    \item 
+    \begin{equation}
+    \label{probx} %
+    p(\vec x)=\frac{\Gamma(M/2)}{\pi^{M/2}}%
+    \quad \frac{\prod_{i=0}^{M-1} \Gamma (\tau_i(\vec x) + 1/2 )} %
+    {\Gamma (n+M/2)} .
+    \end{equation}
+
+
+    \item
+    \begin{equation}
+    \label{logprobx} %
+    -\log p(\vec x)= n H \left ( \frac {\vec \tau (\vec x)}{n} \right)%
+    + \frac {M-1}{2} \log n + K(n),
+    \end{equation}
+    where $K(n)$ is bounded
+    
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+
+% \footnotesize {
+% \small{
+\begin{lemma}
+For a given parameters $\theta$, the average ``empirical entropy'' $H \left ( \frac {\vec \tau (\vec x)}{n} \right)$ $\forall \theta$ is connected to it's entropy
+$H_{\vec \theta}(X)$ by inequalities:
+\begin{equation}
+\label{lemma} -\frac {K_1}{n} \le
+\sum_{\vec x } p(\vec x | \vec \theta)%
+H \left ( \frac {\vec \tau (\vec x)}{n} \right)-%
+H_{\vec \theta}(X) \le 0 \quad,
+\end{equation}
+where $K_1$ is a constant, $H_{\vec \theta}(X)=-\sum_{i=0}^{M-1} \theta_i\log \theta_i$ is entropy of the source
+\end{lemma}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of Lemma
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item
+    \begin{equation}
+    \label{matexp}
+     \sum_{\vec x } p(\vec x | \vec \theta) \tau_i
+    (\vec x)=n\theta_i \quad,
+    \end{equation}
+    
+    \item 
+    \begin{equation}
+    \label{matexp2}
+    \sum_{\vec x } p(\vec x | \vec \theta) \tau_i^2 (\vec x)=%
+    n^2\theta_i^2+n\theta_i(1-\theta_i)\quad.
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of Lemma
+\footnotesize {
+% \small{
+    
+    \begin{eqnarray*}
+    & & -\sum_{\vec x } p(\vec x | \vec \theta)%
+     \sum_{i=0}^{M-1}\frac { \tau_i (\vec x)}{n} \log \frac {\tau_i (\vec x)}{n}%
+     +\sum_{i=0}^{M-1} \theta_i\log \theta_i=\\
+    &\stackrel{\rm (a)}{=}&
+    -\sum_{\vec x } p(\vec x | \vec \theta)%
+     \sum_{i=0}^{M-1}\frac { \tau_i (\vec x)}{n} \log \frac {\tau_i (\vec x)}{n}%
+     +\sum_{\vec x } \sum_{i=0}^{M-1}p(\vec x | \vec \theta) %
+     \frac {\tau_i (\vec x)}{n}\log \theta_i =\\%
+    &=&-\sum_{\vec x } p(\vec x | \vec \theta)%
+     \sum_{i=0}^{M-1}\frac { \tau_i (\vec x)}{n} %
+     \log \frac {\tau_i (\vec x)}{n\theta_i }\ge\\%
+    &\stackrel{\rm (b)}{\ge}&
+     -\log\sum_{\vec x } \sum_{i=0}^{M-1}p(\vec x | \vec \theta)%
+     \frac {\tau_i^2 (\vec x)}{n^2\theta_i}=\\
+    &\stackrel{\rm (c)}{=}&
+    =-\log\sum_{i=0}^{M-1}\frac{n^2\theta_i^2+%
+    \theta_i(1-\theta_i)}{n^2\theta_i}=\\%
+    &=&-\log \left( 1+\frac{M-1}{n}\right) \ge \frac{M-1}{n} \log e.
+    \end{eqnarray*}
+}    
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item
+    \[
+    -\sum_{\vec x \in X^n} p(\vec x | \vec \theta)%
+    \log p(\vec x | \vec \theta)=H(X^n|\vec \theta )=nH_{\vec
+    \theta}(X).
+    \]
+    
+    \item
+    \[
+    \sum_{\vec x \in X^n} p(\vec x | \vec \theta)%
+    \log \frac{p(\vec x | \vec \theta)}{p(\vec x)}\ge%
+     \frac {M-1}{2} \log n + K(n)-\frac {K_1}{n} .
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Asymptotic bounds of redundancy}
+Proof of theorem
+\begin{itemize}    
+\footnotesize {
+% \small{
+    
+    \item
+    \begin{eqnarray*}
+    -\log p(\vec x)&=&%
+    -\sum_{i=0}^{M-1} \tau_i(\vec x) %
+    \log \left( \tau_i(\vec x)+\frac{1}{2}\right)+\\%
+    && +\left(
+    n+\frac{M-1}{2} \right) \log \left( n+\frac{M}{2}
+    \right)+K_2= \\
+    &=&-\sum_{i=0}^{M-1} \tau_i(\vec x) %
+    \log \left[ \frac{\tau_i(\vec x)}{n}\left(1+%
+    \frac{1}{2\tau_i(\vec x)}\right)\right]-n\log n+\\%
+    &&+\left( n+\frac{M-1}{2} \right)\log n +\\
+    &&+ \left( n+\frac{M-1}{2} \right)\log \left( 1+\frac{M}{2n}
+    \right)+K_2,
+    \end{eqnarray*}
+    
+    \item
+    \[
+    0 \le \log(1+\epsilon) \le \epsilon \log e,
+    \]
+}    
+\end{itemize}
+\end{frame}
+
+
+
+% ----------------------Adaptive coding--------------------------
+
+\begin{frame}
+\frametitle{Adaptive coding}
+Example 1
+\begin{itemize}    
+% \footnotesize {
+
+    
+\footnotesize {
+    \item
+    \begin{center}{\texttt{
+    IF{\_}WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD{\_}DO{\_}AS{\_}WE{\_}CAN} }\\
+    \end{center}
+}
+\small{
+    \item
+    \[
+    G = 1 \cdot \frac{1}{256}\cdot \frac{1}{257}\cdot  \frac{1}{258}
+     \cdot\frac{1}{259}\cdot\frac{1}{260}\cdot\frac{2}{261} \cdot\ldots=
+    \]
+    \[ =\frac{12!(5!)^2(4!)^3(3!)^2(2!)^3}{256\cdot\ldots\cdot305}.
+    \]
+    
+    \item 
+    \begin{equation}
+    \label{examp_alg_1} l = \left\lceil { - \log G} \right\rceil + 1 =
+    342\mbox{ bits} .
+    \end{equation}
+
+
+    \item
+    \begin{equation}
+    \label{eq3_37a} \hat {p}_n (a) = \frac{\tau _n (a) + 1/2}{n + M/2}=
+    \frac{2\tau _n (a) + 1}{2n + M}.
+    \end{equation}
+}    
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+Example 2
+\begin{itemize}    
+% \footnotesize {
+% \small{
+    
+    \item
+    \[
+    G = 1 \cdot \frac{1}{256}\cdot \frac{1}{258}\cdot  \frac{1}{260}
+     \cdot\frac{1}{262}\cdot\frac{1}{264}\cdot\frac{3}{266} \cdot\ldots=
+    \]
+    \[ =\frac{23!!(9!!)^2(7!!)^3(5!!)^2(3!!)^3}{256\cdot\ldots\cdot305}.
+    \]
+
+    \item
+    \[(2n - 1)!! = 1\times 3\times ...\times (2n - 1),\]\[ (2n)!! = 2\times 4\times ...\times (2n).\]
+
+    \item 
+    \begin{equation}
+    \label{examp_alg_2} l = \left\lceil { - \log G} \right\rceil + 1 =
+    323\mbox{ bits} .
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+\begin{itemize}    
+% \footnotesize {
+% \small{
+    
+    \item
+    \[
+    \hat {p}_n (a) = \frac{\tau _n (a)}{n + 1}, \quad \tau _n (a) > 0.
+    \]
+
+    \item
+    \[
+    \hat {p}_n (esc) = \frac{1}{n + 1},
+    \]
+
+    \item \emph{A-algorithm} formula
+    \begin{equation}
+    \label{eq3_38} \hat {p}_n (a) = \left\{
+    \begin{array}{ll}
+     \frac{\tau _n (a)}{n + 1},&  \mbox{ if }\tau _n (a) > 0;  \\
+     \frac{1}{n + 1} \frac{1}{M - M_n }, & \mbox{ if }\tau _n (a) = 0, \\
+    \end{array}  \right.
+    \end{equation}    
+    
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+
+    \item {
+    \footnotesize {
+    \begin{center}{\texttt{
+    IF{\_}WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD{\_}DO{\_}AS{\_}WE{\_}CAN} }\\
+    \end{center}    
+    }
+    }
+
+    \item 
+    \[
+    G = 1 \cdot \frac{1}{2} \cdot \frac{1}{256} \cdot \frac{1}{3} \cdot \frac{1}{255} \ldots
+    \]
+
+    \item
+    \[
+    G = \frac{11!(4!)^2(3!)^3(2!)^2}{50!} \cdot \frac{1}{256 \cdot 255 \cdot ... \cdot 242}.
+    \]
+
+    \begin{equation}
+    \label{examp_alg_a} l = \left\lceil { - \log G} \right\rceil + 1 = 291\mbox{ bits}.
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+\begin{itemize}    
+\footnotesize {
+% \small{
+    \item for a  $\vec x = (x_1 ,...,x_n )$ with composition $(\tau _1 ,...,\tau _M )$
+    \begin{eqnarray*}
+    \label{eq3_39}%
+     G &=& \frac{\prod\limits_{i = 1}^{M_n } {(\tau _i -
+    1)!} }{n!} \cdot \frac{(M - M_n )!}{M!} =\\
+    &=&\frac{\prod\limits_{i = 1}^{M_n } {\tau _i !} }{n!} \cdot
+    \frac{(M - M_n )!}{M!\prod\limits_{i = 1}^{M_n } {\tau _i } } \ge\\
+    &\ge& \frac{\prod\limits_{i = 1}^{M_n } {\tau _i !} }{n!}M^{ - M}(n
+    + 1)^{ - M}.
+    \end{eqnarray*}
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Adaptive coding}  
+% \footnotesize {
+% \small{
+    \begin{theorem} 
+    For adaptive arithmetic coding of discrete memoryless source with alphabet size size $M$ and entropy $H$, average code rate satisfies
+    \begin{equation}
+    \label{eq3_40} \bar {R} \le H + \frac{M}{2}\frac{\log (n + 1) + K}{n},
+    \end{equation}
+    \noindent where $K$ does not depend on $n$. 
+    \end{theorem}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+Example 4. D-algorithm
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item  
+    \begin{equation}
+    \label{eq3_41} \hat {p}_n (a) = \left\{ {{\begin{array}{*{20}c}
+     {\frac{\tau _n (a) - 1 / 2}{n},\mbox{ if }\tau _n (a) > 0;} \hfill \\
+     {\frac{M_n }{2n}\frac{1}{M - M_n },\mbox{ if }\tau _n (a) = 0.} \hfill \\
+    \end{array} }} \right.
+    \end{equation}
+
+
+    \item 
+    \[
+    G = 1 \cdot \frac{1}{2} \cdot \frac{1}{256} \cdot \frac{2}{4} \cdot
+    \frac{1}{255} \cdot \frac{3}{6} \cdot \frac{1}{254}\frac{4}{8} \cdot
+    \frac{1}{253}\frac{1}{10} \cdot \frac{5}{12} \cdot \frac{1}{252}...
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Adaptive coding}
+Example 4. D-algorithm
+\begin{itemize}    
+% \footnotesize {
+\small{
+    \item 
+    \[
+    (2\times 4\times \ldots \times 100)\times (256\times 255\times
+    \ldots \times 242).
+    \]
+
+    \item{ 
+\footnotesize { 
+    \[
+    G = \frac{(2\times 12 - 3)!!((2\times 5 - 3)!!)^2((2\times 4 -
+    3)!!)^3((2\times 3 - 3)!!)^2}{100!!} \times 
+    \]
+}    
+    \[
+    \times\frac{14!}{256 \cdot 255 \cdot ... \cdot 242}.
+    \]
+    }
+    
+    \item 
+    \[
+    l = \left\lceil { - \log G} \right\rceil + 1 = 283 \quad \mbox{bits}.
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+% ----------------------Algorithm comparison----------------------
 
 \begin{frame}
 \frametitle{Algorithm comparison}
