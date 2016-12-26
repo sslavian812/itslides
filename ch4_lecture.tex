@@ -1,0 +1,1353 @@
+\documentclass[14pt]{beamer}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{cite,enumerate,float,indentfirst}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[boxed,algochapter,noline,czech]{algorithm2e}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+
+\graphicspath{{images/}}
+
+\usetheme{Pittsburgh}
+\usecolortheme{whale}
+
+\setbeamercolor{footline}{fg=blue}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    Boris Kudryashov, ITMO University
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
+    St. Petersburg, 2016
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{}%
+  Page \insertframenumber{} of \inserttotalframenumber \hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\itemi}{\item[\checkmark]}
+
+\title{\small{Information Theory. 4th Chapter Slides}}
+\author{\huge{
+Boris Kudryashov \\
+\vspace{30pt}
+ITMO University
+}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\frametitle{Agenda}
+\begin{enumerate}    
+% \footnotesize {
+% \small{
+
+    \item Monotone codes
+    \item Interval coding
+    \item Sliding dictionary method (LZ-77)
+    \item LZW Algorithm (LZ-78)
+    \item Prediction by Partial Matching
+    \item Archivers characteristics
+
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+% \small{
+
+    \item for Gallagher-Van Voorhees code
+    \begin{equation}
+    \label{eq4_1} \alpha ^T +  \alpha ^{T + 1} \le 1 < \alpha ^{T - 1} +
+    \alpha ^T.
+    \end{equation}
+    
+    \item for monotone code
+    \begin{equation}
+    \label{eq4_2} %
+    \mbox{mon}(i) =\left( \mbox{unar} \left(\left| \mbox{bin}'(i)
+    \right| + 1 \right),\mbox{bin}'(i) \right).
+    \end{equation}
+    
+    \item Levenshtein codeword
+    \[\mbox{lev}(21)=(1110)(0)(00)(0101)= 11100000101.\]
+    
+    
+    \item Elias code
+    \begin{flushright}
+    elias($i)$=(unar( $\vert $bin\textsf{'($\vert
+    $}bin\textsf{'}($i)$\textsf{$\vert )$}$\vert $+2 ) , bin\textsf{'($\vert
+    $}bin\textsf{'}($i)$\textsf{$\vert )$, }bin\textsf{'}($i)$ )\textsf{ (}4.1.4)
+    \end{flushright}
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+% \small{    
+    
+    \item 
+    \[
+    \mbox{elias(21)} = (1110)(00)(0101)=1110000101.
+    \]
+    
+    \item Elias codeword length for arbitrary $i$
+    \begin{equation}
+    \label{eq4_4} l_i = \left\{ %
+    \begin{array}{l l}
+     1, & i = 1, \\
+     \left\lfloor {\log i} \right\rfloor + 2\left\lfloor {\log \left\lfloor
+    {\log i} \right\rfloor } \right\rfloor + 2, &i > 1, \\
+    \end{array}  \right.
+    \end{equation}
+    
+    \item satisfies
+    \begin{equation}
+    \label{eq4_5} l_i \le \log i + 2\log (1 + \log i) + 2, \quad i = 1,2,... \quad .
+    \end{equation}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}  
+% \footnotesize {
+% \small{    
+    \begin{table}[htbp]
+    \caption{Monotone codes table} \label{tab4_1}
+    \scalebox{0.75}{
+    \begin{tabular}{|c|l|c|l|c|l|c|}
+    \hline
+    \raisebox{-1.50ex}[0cm][0cm]{$i$}& %
+    \multicolumn{2}{c|}{Monotone } & %
+    \multicolumn{2}{c|}{Levenshtein} & %
+    \multicolumn{2}{c|}{Elias code}  \\%
+     & \multicolumn{2}{c|}{code} & %
+    \multicolumn{2}{c|}{code} & %
+    \multicolumn{2}{c|}{}  \\%
+    \cline{2-7} %
+    & mon($i$) & $l_i$ &lev($i$) & $l_i$ & elias($i$)& $l_i $ \\ \hline%
+    1 & \small{0}          & 1 & \small{0}           & 1 & \small{0}&1 \\  \hline%
+    2 & \small{100}        & 3 & \small{100}         & 3 & \small{100}& 3 \\ \hline %
+    3 & \small{101}        & 3 & \small{101}         & 3 & \small{101}& 3 \\ \hline %
+    4 & \small{11000}      & 5 & \small{110000}      & 6 & \small{110000}& 6 \\ \hline %
+    \ldots & ...   & 5 & ...         & 6 & ...& 6 \\ \hline   %
+    7 & \small{11011}      & 5 & \small{110011}      & 6 & \small{110011}& 6 \\ \hline %
+    8 & \small{1110000}    & 7 & \small{1101000}     & 7 & \small{1101000}& 7 \\ \hline %
+    \ldots & ...   & 7 & ...         & 7 & ...& 7 \\ \hline       %
+    $2^{1023}$& \small{$1^{1023}00^{1023}$}& 2047&
+    \small{$1^4010011^90^{1023}$}& 1041& \small{$1^{10}01^910^{1023}$}& 1043 \\
+    \hline
+    \end{tabular}
+    }
+    \end{table}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+% \small{    
+    
+    \begin{theorem}\label{Elias}
+    Let random variable $i$ take values from natural numbers and it's probability distribution satisfies: $p_i \le p_j $ if $i > j$. 
+    Then, average length of Elias codewords $\bar {l}$ satisfies 
+    \[
+    \bar {l} \le H(1 + o(H)),
+    \]
+    where $H$ is entropy of $i$, and $o(H) \to 0$ when $H \to \infty $.
+    \end{theorem}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+Proof.
+\begin{itemize}    
+% \footnotesize {
+\small{    
+    
+    \item 
+    \begin{equation}
+    \label{eq4_6} p_i \le \frac{1}{i} \quad , \quad i \le \frac{1}{p_i
+    }, \quad i = 1,2,... \quad .
+    \end{equation}
+    
+    \item 
+    \begin{eqnarray}
+    \label{eq4_7}
+    \bar {l} &=& \sum\limits_{i = 1}^\infty {l_i p_i \le }\nonumber\\
+    &\le& \sum\limits_{i = 1}^\infty {p_i (\log i + 2\log \log i + 2)}
+    \le \nonumber\\
+    &\le& \sum\limits_{i = 1}^\infty {p_i \log \frac{1}{p_i } + }
+    2\sum\limits_{i = 1}^\infty {p_i \log \left( {1 + \log \frac{1}{p_i
+    }} \right) + } 2 \le\nonumber\\
+    &\le& H + 2\log (1 + H) + 2.
+    \end{eqnarray}
+}
+\end{itemize}
+\end{frame}
+
+
+% -----------------------Interval coding---------------------------------
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+% \footnotesize {
+
+
+    \item{    
+    \footnotesize{
+    \[
+    IF{\_}WE{\_}CANNOT{\_}DO{\_}AS{\_}WE{\_}WOULD{\_}WE{\_}SHOULD\\
+    {\_}DO{\_}AS{\_}WE{\_}CAN
+    \]
+    }
+    }
+    
+    \item{
+    \footnotesize{
+    \[
+    (74, 72, 35, 88, 73, 3, 72, 71, 80, 1, 81, 86, 6,\\
+    76, 4, 3, 6, 86, 3, 10, 10, 3, 3, 6, 87, 83, 9, 6, 6, 7, 3, 8, 81,\\
+    9, 9, 9, 9, 7, 2, 5, 3, 10, 8, 3, 10, 10, 3, 13, 6, 13)
+    \]
+    }
+    }
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+   
+% \footnotesize {
+% \small{    
+
+    \begin{theorem}Let $H(X)$ be the entropy of one-dimensional distribution of discrete stationary source. Average code rate for interval coding in composition with Elias code satisfies:
+    \[
+    \bar {R} \le H(X)(1 + o(H(X)),
+    \]
+    where $o(H) \to 0$ when $H \to \infty $.
+    \end{theorem}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+Proof.
+\begin{itemize}    
+% \footnotesize {
+\small{    
+
+    \item
+    \begin{equation}
+    \label{eq4_8} l_i (a) \le \log r_i (a) + 2\log (1 + \log r_i (a)) + 2.
+    \end{equation}
+    
+    
+    \item
+    \begin{equation}
+    \label{eq4_9} \bar {\bar {l}}(a) \le \log \bar {r}(a) + 2\log (1 +
+    \log \bar {r}(a)) + 2.
+    \end{equation}
+    
+    \item
+    \begin{equation}
+    \label{eq4_10} \bar {r}(a) \le \frac{1}{p(a)}.
+    \end{equation}
+    
+    \item 
+    \[
+    \bar {R} = \sum\limits_a {p(a)\bar {l}(a) \le H(X) + 2\log \left( {1 + H(X)}
+    \right) + 2} .
+    \]
+}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+% \footnotesize {
+% \small{    
+
+    \begin{lemma} \label{lem4_1} Let random variable $i$ be taking values from natural number $\{1,2,...\}$ according to distribution $\{p_i ,i = 1,2,...\}$. Then holds
+    \begin{equation}
+    \label{eq4_11} {\rm M}[i] = \sum\limits_{j = 1}^\infty {{\rm P}(i
+    \ge j)} .
+    \end{equation}
+    \end{lemma}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+% \small{    
+
+    \item
+    \begin{equation}
+    \label{eq4_12} r = \min \{k \ge 1:x_0 = x_k = a\}.
+    \end{equation}
+    
+    \item    
+    \begin{equation}
+    \label{eq4_13} q_a (r) = {\rm P}(x_1 ,...,x_{k - 1} \ne a,x_k = a\vert x_0 = a),
+    \end{equation}
+    
+    \item 
+    \begin{equation}
+    \label{eq4_14} \bar {r}_a = \sum\limits_{r = 1}^\infty {rq_a (r)}
+    \quad.
+    \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+   
+% \footnotesize {
+% \small{    
+
+    \begin{lemma}(Katz Lemma).
+    For discrete stationary source such that $p(a) > 0$ holds:
+    \begin{equation}
+    \label{eq4_15} \bar {r}_a p(a) = {\rm P}(x_n = a\quad \mbox{at least one} \quad n, \quad n = 0,1,...).
+    \end{equation}
+    for an ergodic source:
+    \begin{equation}
+    \label{eq4_16} \bar {r}(a) = \frac{1}{p(a)}.
+    \end{equation}
+    \end{lemma}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+% \small{    
+
+
+    \item
+    \begin{equation}
+    \label{eq4_17} r_a p(a) = p(a)\sum\limits_{t = 1}^\infty {rq_a (r) = } p(a)\sum\limits_{t = 1}^\infty {Q_a (t)} ,
+    \end{equation}
+    
+    \item
+    \[
+    Q_a (t) = \sum\limits_{j = t}^\infty {q_a (j) = {\rm P}(r \ge t).}
+    \]
+
+    \item
+    \[
+    Q_a (t) = {\rm P}(x_1 ,...,x_t \ne a\vert x_0 = a).
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Monotone codes}
+\begin{itemize}    
+% \footnotesize {
+\small{   
+
+    \item 
+    \begin{eqnarray*}
+    r_a p(a) &=& {\rm P}(x_0 = a)\sum\limits_{t = 1}^\infty {{\rm P}(x_1 ,...x_t \ne a\vert x_0 = a)} = \\ 
+    &=& \sum\limits_{t = 1}^\infty {{\rm P}(x_0 = a,x_1 ,...x_t \ne a)} .
+    \end{eqnarray*}
+    
+
+    \item 
+    \begin{eqnarray*}
+     r_a p_a (t) &=& \sum\limits_{t = 1}^\infty {\tilde {{\rm P}}(x_0 ,...,x_{t - 1} \ne a,} x_t = a) =\\
+    & =& \tilde {{\rm P}}(x_t =a \quad \mbox{for at least one} \quad t, \quad t = 1,2,...).
+    \end{eqnarray*}
+}    
+\end{itemize}
+\end{frame}
+
+
+% ------------------------- Sliding dictionary method (LZ-77)-----------------
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}
+\begin{itemize}    
+% \footnotesize {
+% \small{     
+
+
+    \begin{center}
+    \begin{figure}
+    \scalebox{0.4} {
+    \begin{algorithm}[H]
+    \dontprintsemicolon
+    Alphabet: $X = \{0,1,...,M - 1\}$, ``window'' length $W$\;
+      \KwIn
+      {
+         sequence length $n$, source sequence $\vec x = \vec x_{1}^{n}$;\;
+      }
+      \KwOut{Codeword $\vec c$ for $\vec x$;}
+      \BlankLine
+      \CommentSty{Init: $N = 0$, $\vec c$ is ``empty'' codeword; }\;
+      \BlankLine
+      \While {$N < n$}
+        {
+    find max $l$ such that  ${\vec x}_{N + 1}^{N + l}= {\vec x}_{N - d + 1}^{N - d + l}$ \;
+    for some $d\in\{1,...,W\}$; \;
+    \BlankLine
+    \lIf {$l > 0$}\CommentSty{(sequence is found) }\;
+          {
+    \begin{itemize}
+    \item
+    Concatenate to a codeword $\vec c$:\;
+    - flag $1$;\;
+    - distance to $d$ as a binary sequence of length $\left\lceil {\log W} \right\rceil $; \;
+    - match length $l$ as a non-uniform prefix code;
+    \item $N\leftarrow N+l$;\;
+    \end{itemize}
+    }
+    \lElse\CommentSty{(sequence not found) }\;
+          {
+          \begin{itemize}
+          \item
+          Concatenate to a codeword $\vec c$:\;
+    - flag $0$; \;
+    - new letter $x_{N + 1} $ as binary sequence of length $\left\lceil {\log M} \right\rceil $;
+    \item   $N\leftarrow N+1$;\;
+         \end{itemize}
+         }
+         }
+         \BlankLine
+    %\CommentSty{ кодовое слово:}\;
+    \end{algorithm}
+    }
+    \caption{LZ-77 Algorithm}
+    \end{figure}
+    \end{center}
+
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}
+\begin{itemize}    
+% \footnotesize {
+% \small{    
+
+    \begin{table}[htbp]
+    \caption{Sliding dictionary method (LZ-77)}
+    \scalebox{0.75}{
+    \begin{tabular}
+    {|c|c|l|c|c|l|c|} \hline %
+       &     & Letter&     &      & Code   &      \\
+    Step&Flag & sequence & $d$ &  $l$ & sequence& Bits \\
+    \hline %
+     0& 0& I   & -& 0& 0 bin(I)=0& 9 \\ \hline %
+     1& 0& F   & -& 0& 0 bin(F)&    9 \\ \hline %
+     2& 0& {\_}& -& 0& 0 bin({\_})& 9 \\ \hline %
+     3& 0& W   & -& 0& 0 bin(W)& 9 \\ \hline %
+     4& 0& E   & -& 0& 0 bin(E)& 9 \\ \hline %
+     5& 1& {\_}& 2(5)& 1& 1 010 0& 5  \\ \hline %
+     6& 0& C   & -& 0& 0 bin(C)& 9 \\ \hline %
+     7& 0& A   & -& 0& 0 bin(A)& 9 \\ \hline %
+     8& 0& N   & -& 0& 0 bin(N)& 9  \\ \hline %
+     9& 1& N   & 0(9)& 1& 1 0000 0& 6 \\ \hline %
+    10& 0& O   & -& 0& 0 bin(O)& 9 \\ \hline %
+    11& 0& T   & -& 0& 0 bin(T)& 9 \\ \hline %
+    12& 1& {\_}& 6(12)& 1& 1 0110 0& 6 \\ \hline %
+    13& 0& D   & -& 0& 0 bin(D)& 9 \\ \hline %
+    14& 1& O   & 3(14)& 1& 1 0011 0& 6  \\ \hline %
+    15& 1& {\_}& 2((15)& 1& 1 0010 0& 6 \\ \hline %
+    16& 1& A   & 8(16)& 1& 1 01000 0& 7 \\ \hline %
+    17& 0& S   & -& 0& 0 bin(S)& 9 \\ \hline %
+    18& 1& {\_}WE{\_}& 15(18)& 4& 1 01111 11000 & 11  \\ \hline %
+    19& 1& W& 2(22)& 1& 1 00010 0& 7 \\ \hline %
+    20& 1& O& 8(23)& 1& 1 01000 0& 7 \\ \hline %
+    21& 0& U& -& 0& 0 bin(U)& 9 \\ \hline %
+    22& 0& L& -& 0& 0 bin(L)& 9  \\ \hline %
+    23& 1& D& 12(26)& 1& 1 01100 0&7 \\ \hline %
+    24& 1& {\_}WE{\_}& 8(27)& 4& 1 01000 11000& 11 \\ \hline %
+    25& 1& S& 13(28)& 1& 1 01101 0& 7 \\ \hline %
+    26& 0& H& -& 0& 0 bin(H)& 9 \\\hline %
+    27& 1& OULD{\_}& 9(33)& 5& 1 001001 11001& 12  \\ \hline %
+    28& 1& \small{DO{\_}AS{\_}WE{\_}}& 24(38)& 9& \small{1~011000~1110001}& 14  \\\hline %
+    29& 1& CAN& 40(47)& 3& 1 101000 101 & 10 \\ \hline %
+    \multicolumn{6}{|l|}{Total} & 257 \\ \hline %
+    \end{tabular}
+    }
+    \label{tab4_2}
+    \end{table}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{LZFG Algorithm} 
+% \footnotesize {
+% \small{  
+   
+    \begin{center}
+   
+    \begin{figure}
+    \scalebox{0.4}{
+    \begin{algorithm}[H]
+    \dontprintsemicolon
+    Alphabet, $X = \{0,1,...,M - 1\}$, window length $W$\;
+      \KwIn
+      {
+         Sequence length $n$;\;
+         \hspace{12mm} Source sequence $\vec x = \vec x_{1}^{n}$;\;
+      }
+      \KwOut{codeword $\vec c$ для $\vec x$;}
+      \BlankLine
+      \CommentSty{Init: \;
+      $N = 0$, $\vec c$ -- ``empty'' codeword; }\;
+      \BlankLine
+      \While {$N < n$}
+        {
+    \BlankLine
+    Find max $l$ in range $\{3,...17\}$
+    such that 
+    ${\vec x}_{N + 1}^{N + l}= {\vec x}_{N - d + 1}^{N - d + l}$
+    for some $d\in\{1,...,W\}$; \;
+      \BlankLine
+    \lIf {$l > 2$}
+    {
+    \begin{itemize}
+    \item
+    Write number $l$ to a codeword $\vec c$ as a binary sequence
+    of length $4$ ($[3,\ldots 17] <-> [0001,\ldots 1111] $
+    distance to sample $d$ as a binary sequence pf length $\left\lceil {\log W} \right\rceil $; \;
+    \item $N\leftarrow N+l$;\;
+    \end{itemize}
+    }
+    \lElse\CommentSty{($l \le 2$) }\;
+    {
+          \begin{itemize}
+          \item
+          To a codeword $\vec c$ concatenate:\;
+    - sequence 0000; \;
+    - number of letters $L\in\{1...16\}$, at input(without coding)\;
+    $[1,...,16] <-> [0000,\ldots ,1111]$\;
+    - $L$ letters of source without coding as a binary sequence of length $\left\lceil {\log M} \right\rceil $;
+    \item   $N\leftarrow N+L$;\;
+         \end{itemize}
+         }
+         }
+         \BlankLine
+     \end{algorithm}
+    }
+    \caption{Algorithm LZFG.}    
+    \end{figure}
+    \end{center}
+    
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}  
+% \footnotesize {
+% \small{     
+
+
+    \begin{table}[htbp]
+    \label{tab4_3}
+    \caption{Example of  LZFG}
+    \begin{footnotesize}
+    \scalebox{0.75}{
+    \begin{tabular}
+    {|c|c|c|c|c|c|c|} \hline  %
+    Step& Length & Distance & Number of   & Code  & Transmitted  & Costs \\ %
+       & of match& to pattern & ``new'' letters& characters  & letters &(bit) \\ \hline %
+    1& 0   & --   & 16& 0000 1111   & IF\_WE\_   & 8+8$\times $16 \\
+     &     &      &   & bin(I...\_)  & CANNOT & =136 \\
+     &     &      &   &             & \_DO\_     &       \\ \hline %
+    2&1(<3)& --   & 2 & 0000 0001   & {AS}     & 8+8$\times $2\\
+     &     &      &   & bin(AS)  &          &   =24   \\ \hline %
+    3& 4   &15(18)&-- & {0010 01111}  & {\_WE\_ }  & 4+5=9 \\ \hline %
+    4&1(<3)&--    & 5 & {0000 0100}   & {WOULD}    & 8+5$\times $8 \\
+     &     &      &   & {bin(WOULD)} &          & =48 \\ \hline %
+    5&4    & 8(27)& --& {0010 01000}  & {\_WE\_}   & 4+5 =9 \\ \hline %
+    6&--   & --   & 2 & {0000 0001}   & {SH}       & 8+2$\times $8 \\
+     &--   & --   &   &  {bin(SH)}    &          &  =24 \\ \hline %
+    7& 5   & 9(33)& --& {0011 001001} & {OULD\_}   & 4+6 =10 \\ \hline %
+    8& 9   & 24(38)& --& {0111 011000}& {DO\_AS}   & 4+6=10 \\  %
+     &     &       & --&            & {\_WE\_}   &  \\ \hline %
+    9& 3   & 40(47)& --& {0001 101000} & {CAN}& 4+6=10 \\ \hline %
+    \multicolumn{6}{|l|}{In total} &280 \\\hline
+    \end{tabular}
+    }
+    \end{footnotesize}
+    \end{table}
+    
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}
+  
+% \footnotesize {
+% \small{     
+
+    \begin{center}
+    \begin{figure}
+    \scalebox{0.5}{
+    \begin{algorithm}[H]
+    \dontprintsemicolon
+    Source alpabet $X = \{0,1,...,M - 1\}$; \;
+    \KwIn
+      {
+         Sequence length $n$;\;
+         \hspace{12mm} Source sequence $\vec x = \vec x_{1}^{n}$;\;
+      }
+    \KwOut{codeword $\vec c$ для $\vec x$;}
+    \BlankLine
+    \CommentSty{Init:}  $N = 0$; $\vec c$ is ``empty'' word; \;
+      The dictionary consists of $M$ words of length $1$, i.e. of letters of $X$. $c=M$.
+      \;
+      \BlankLine
+      \While {$N < n$}
+        {
+    \begin{itemize}
+    \item
+    find max $l$ such that
+    ${\vec x}_{N + 1}^{N + l}$ matches $j$-th word in dictionary for some $j<c$ \;
+    (at first step $j=c$ is allowed).
+    \item
+    Number of word $j$ is concatenated to a word as a binary sequence\;
+    of length $\left\lceil {\log (c - 1)} \right\rceil $
+    (For first step sequence of length $\left\lceil {\log c} \right\rceil =\left\lceil {\log M} \right\rceil$ is allowed).
+    \item
+    New dictionary of length $l + 1$ is added to a dictionary \;
+    like ${\vec x}_{N +1}^{N + l + 1} =({\vec x}_{N +
+    1}^{N + l },x_{N+l+1})$.
+    \item $N\leftarrow N+l$;\;
+    \item $c\leftarrow c+1$;\;
+    \end{itemize}
+    }
+    \end{algorithm}
+    }
+    \caption{LZW Algorithm}
+    \end{figure}
+    \end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}   
+% \footnotesize {
+% \small{     
+
+    \begin{table}[htbp]
+    \caption{LZW usage example}
+    \scalebox{0.6}{
+    \begin{tabular}
+    {|c|c|c|c|c|} \hline %
+    Step& Dictionary& Word & Code & Costs \\
+       &        & number & characters& (bit) \\\hline%
+      0& esc& --& -- & -- \\ \hline%
+    1& I & 0& bin(I)&0+8=8 \\ \hline %
+    2& F& 0& bin(F)& log(1)+8=8 \\ \hline %
+    3& {\_}& 0& 0bin(\_)& $\left\lceil \log(2)\right\rceil + 8 = 9$
+    \\ \hline %
+    4& W& 0& 00bin(W)&
+    $\left\lceil {\log (3)} \right\rceil + 8 = 10$ \\ \hline %
+    5& E& 0& 00bin(E)& $\left\lceil {\log (4)} \right\rceil + 8 = 10$ \\
+    \hline %
+    6&{\_}C& 3& 011& 3 \\\hline %
+    7& C& 0& 000bin(C)&3+8=11 \\\hline%
+     8& A& 0& 000bin(A)&3+8=11 \\\hline%
+    9&N& 0& 000bin(N)&3+8=11 \\\hline %
+    10& NO& 0& 000bin(N)&4+8=12 \\\hline%
+    11&O& 0& 0000bin(O)&4+8=12 \\\hline%
+    12&T& 0& 0000bin(T)&4+8=12 \\\hline%
+    13&{\_}D& 3& 0011&4 \\\hline%
+     14& D& 0& 0000bin(D)&4+8=12 \\\hline %
+    15&O{\_}& 11& 1011&4=4 \\\hline %
+    \end{tabular}
+    }
+    \end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}   
+% \footnotesize {
+% \small{     
+
+    \begin{table}[htbp]
+    \caption{LZW usage example}
+    \scalebox{0.6}{
+    \begin{tabular}
+    {|c|c|c|c|c|} \hline %
+    Step& Dictionary& Word & Code & Costs \\
+       &        & number & characters& (bit) \\\hline%
+      0& esc& --& -- & -- \\ \hline%
+    16& {\_}A& 3& 0011& 4 \\ \hline %
+    17& AS& 8& 1000&4 \\ \hline %
+    18& S& 0& 00000bin(S)& 5+8 \\ \hline%
+    19& {\_}W& 3& 00011&5 \\ \hline %
+    20& WE& 4& 00100& 5 \\ \hline %
+    21& E{\_}& 5& 00101&5 \\\hline%
+    22&{\_}WO& 19& 10011&5 \\\hline%
+    23&OU& 11& 01011&5 \\\hline%
+    24&U& 0& 00000bin(U)&5+8=13 \\\hline%
+    25&L& 0& 00000bin(L)&5+8=13 \\\hline%
+    26&D{\_}& 14& 01110&5 \\\hline%
+    27&{\_}WE& 19& 10011&5 \\\hline%
+    28&E{\_}S&21& 10101&5 \\\hline%
+    29& SH& 18& 10010&5 \\\hline%
+    \end{tabular}
+    }
+    \end{table}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Sliding dictionary method (LZ-77)}   
+% \footnotesize {
+% \small{     
+
+    \begin{table}[htbp]
+    \begin{center}
+    \caption{LZW usage example}
+    \scalebox{0.7} {
+    \begin{tabular}
+    {|c|c|c|c|c|} \hline %
+    Step& Dictionary& Word & Code & Costs \\
+       &        & number & characters& (bit) \\\hline%
+    30& H& 0& 00000bin(H)&5+8=13 \\\hline%
+    31& OUL& 23& 10111& 5 \\\hline%
+    32&LD& 25& 11001&5 \\\hline%
+    33& D{\_}D& 26& 11010&5 \\\hline% 3
+    4& DO& 14& 001110&6 \\\hline%
+    35& O{\_}A& 15& 001111&6 \\\hline%
+    36&AS{\_}& 17& 010001&6 \\\hline%
+    37&{\_}WE{\_}& 27& 011011&6 \\\hline%
+    38&{\_}CA& 6& 000110&6 \\\hline%
+    39&AN& 8& 001000&6 \\\hline%
+    40&N& 9& 001001&6 \\\hline%
+    \multicolumn{4}{|l|}{Total} &
+    291 \\
+    \hline
+    \end{tabular}
+    }
+    \end{center}
+    \end{table}
+
+\end{frame}
+
+
+% -----------------------Prediction by Partial Matching-------------------
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}    
+% \footnotesize {
+% \small{     
+    \begin{center}
+    \begin{figure}
+    \scalebox{0.6} {
+    \begin{algorithm}[H]
+    \dontprintsemicolon Alphabet $X = \{0,1,...,M - 1\}$, max length of condext $D$ \;
+    \KwIn
+      {
+         Sequence length $n$, source sequence $\vec x = \vec x_{1}^{n}$;\;
+      }
+    \KwOut{Codeword $\vec c$ for $\vec x$;} \BlankLine
+    \CommentSty{Init:} $t = 0$; $\vec c$ -- ``empty'' word; \;
+      \BlankLine
+      \While {$t < n$}
+        {
+    \BlankLine
+     find max $d$ such that $\hat {p}_t({\vec x}_{t - d + 1}^t)>0 $.\;
+     Choose context ${\vec s}={\vec x}_{t - d + 1}^t$.\; %
+    \lIf {$\hat {p}_t(x_{t + 1}|{\vec s})>0$ }\; %
+    {%
+    encode $x_{t + 1}$ according to с $\hat {p}_t(x|{\vec s})$.
+    }\;%
+    \lElse\;%
+    {%
+      \While {$\hat {p}_t(x_{t + 1}|{\vec s})=0$}
+        {
+        Encode $esc$ according to $\hat {p}_t(esc|{\vec s})$.\;
+        \CommentSty{Decrease condets length:} \;
+        $d\leftarrow d-1$, ${\vec s}={\vec x}_{t - d + 1}^t$.\;
+        \lIf {$d>0$}\;
+    {
+    Encode $x_{t + 1}$ according to $\hat {p}_t(x|{\vec s})$.\;
+    }
+    \lElse\;%
+    {%
+    \CommentSty{Context-less coding:} \;
+    \lIf {$\hat {p}_t(x)>0$} \;
+    {
+    Encode $x_{t + 1}$  according to $\hat {p}_t(x)$.\;
+    }
+    \lElse\;%
+    {
+        Compute $\hat {p}(esc)$ and transmit $esc$.\;
+        Encode $x_{t + 1}$ according to uniform distribution on letters which do not appear in $\vec x_1^t $.
+    }}} 
+    }%
+    \vspace{-1cm}
+    \item $t\leftarrow t+1$; \;
+     }
+     \end{algorithm}
+     }
+    \caption{PPM idea} \label{IdeaPPM}
+    \end{figure}
+    \end{center}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+\footnotesize {
+% \small{     
+
+    \item 
+    \begin{eqnarray}
+    \label{eq4_18}
+    \hat {p}_t (a\vert {\vec s}) &=& \frac{\tau _t %
+    (\vec s,a)}{\tau _t ({\vec s}) + 1} \quad , \quad \tau _t %
+    (\vec s ,a) > 0, \\
+    \label{eq4_19} \hat {p}_t (esc\vert {\vec s}) &=& \frac{1}{\tau _t
+    ({\vec s}) + 1},
+    \end{eqnarray}
+    where $\tau _t ({\vec s})$ and $\tau _t ({\vec s},a)$ denote number of sequences ${\vec s}$ and $({\vec s},a)$ respectively,
+    which contain in sequence of length $t$. 
+    
+    \item 
+    \begin{eqnarray}
+    \label{eq4_20} \hat {p}_t (a\vert {\vec s}) &=& \frac{\tau _t (\vec
+     s,a) - 1 / 2}{\tau _t ({\vec s})} \quad , \quad \tau _t (\vec s,a) > 0,\\
+    \label{eq4_21} \hat {p}_t (esc\vert {\vec s}) &=& \frac{M_t (\vec s
+    )}{2\tau _t ({\vec s})},
+    \end{eqnarray}
+    where $M_t ({\vec s})$ is number of different letters, which appear in sequence of length $е$ followed by the context $\vec s$.
+
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{     
+
+    \begin{table}[htbp]
+    \caption{РРМА usage example}
+    \scriptsize{
+    \begin{center}
+    \scalebox{0.5} {
+    \begin{tabular}
+    {|c|c|l|l|l|c|} \hline %
+    \raisebox{-1.50ex}[0cm][0cm]{Шаг}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Letter}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Context }&
+    \raisebox{-1.50ex}[0cm][0cm]{$\tau _t ({\vec s})$}&
+    \multicolumn{2}{c|}{РРМА}  \\
+    \cline{5-6}
+     & &\multicolumn{1}{c|}{$\vec s$}& &
+    $\hat {p}_t(esc\vert {\vec s})$& $\hat {p}_t(a\vert {\vec s})$ \\ \hline%
+    1& I& {{\#}}& 0& 1& 1/256 \\\hline %
+    2& F& {\#}& 1& 1/2& 1/255 \\\hline %
+    3& {\_}& {\#}& 2& 1/3& 1/254 \\ \hline %
+    4& W& {\#}& 3& 1/4& 1/253 \\ \hline %
+    5& E& {\#}& 4& 1/5& 1/252 \\ \hline %
+    6& {\_}& {\#}& 5& & 1/6 \\ \hline %
+    7& C& {\_}& 1,6& 1/2$\times $1/6'& 1/251 \\ \hline %
+    8& A& {\#}& 7& 1/8& 1/250 \\ \hline %
+    9& N& {\#}& 8& 1/9& 1/249 \\ \hline %
+    10& N& {\#}& 9& & 1/10 \\ \hline %
+    11& O& N & 1,10& 1/2$\times $1/9'& 1/248 \\ \hline %
+    12& T& {\#}& 11& 1/12& 1/247 \\ \hline %
+    13& {\_}& {\#}& 12& & 2/13 \\ \hline %
+    14& D& {\_}& 2,13& 1/3$\times $1/12'& 1/246 \\ \hline %
+    15& O& {\#}& 14& & 1/15 \\ \hline %
+    16& {\_}& O & 1,15& 1/2& 3/15' \\ \hline %
+    17& A& {\_}& 3,16& 1/4& 1/14' \\ \hline %
+    18& S& A & 1,17& 1/2$\times $1/16'& 1/245 \\\hline %
+    19& {\_}& {\#}& 18& & 4/19 \\ \hline %
+    20& W& {\_}& 4& & 1/5 \\ \hline %
+    21& E& {\_}W& 1& & 1/2 \\ \hline %
+    22& {\_}& {\_}WE& 1& & 1/2 \\ \hline %
+    23& W& {\_}WE{\_}& 1,1,1,5& 1/2$\times $1'$\times $1'& 2/5' \\ \hline %
+    24& O& {\_}W & 2,2,23& 1/3$\times $1'& 2/22' \\ \hline %
+    25& U& O & 2,24& 1/3$\times $1/18'& 1/244 \\ \hline %
+    26& L& {\#}& 25& 1/26& 1/243 \\ \hline %
+    27& D& {\#}& 26& & 1/27 \\ \hline %
+    28& {\_}& D& 1,27& 1/2& 6/25' \\ \hline %
+    29& W& {\_}& 6& & 3/7 \\ \hline %
+    30& E& {\_}W& 3& & 2/4 \\ \hline %
+    31& {\_}& {\_}WE& 2& & 2/3 \\ \hline %
+    32& S& {\_}WE{\_}& 2,2,2,7,31& 1/3$\times $1'$\times $1'$\times
+          $1/3'& 1/23' \\ \hline %
+    33& H& S& 1,32& 1/2$\times $1/25'& 1/242 \\ \hline %
+    34& O& {\#}& 33& & 3/34 \\ \hline %
+    35& U& O& 3& & 1/4 \\ \hline %
+    36& L& OU& 1& & 1/2 \\ \hline %
+    37& D& OUL& 1& & 1/2 \\ \hline %
+    38& {\_}& OULD& 1& & 1/2 \\ \hline %
+    39& D& OULD{\_}& 1,1,1,1,8& 1/2$\times $1'$\times $1'$\times $1'&
+        1/4' \\ \hline %
+    40& O& {\_}D& 1& & 1/2 \\ \hline %
+    41& {\_}& {\_}DO& 1& & 1/2 \\ \hline %
+    42& A& {\_}DO{\_}& 1& & 1/2 \\ \hline %
+    43& S& {\_}DO{\_}A& 1& & 1/2 \\ \hline %
+    44& {\_}& DO{\_}AS& 1& & 1/2 \\ \hline %
+    45& W& O{\_}AS{\_}& 1& & 1/2 \\ \hline %
+    46& E& {\_}AS{\_}W& 1& & 1/2 \\ \hline %
+    47& {\_}& AS{\_}WE& 1& & 1/2 \\ \hline %
+    48& C& S{\_}WE{\_}& 1,3& 1/2& 1/3' \\ \hline %
+    49& A& {\_}WE{\_}C& 1& & 1/2 \\ \hline %
+    50& N& WE{\_}CA& 1& & 1/2 \\ \hline %
+    \multicolumn{6}{|c|}{Total $\left\lceil {\mbox{62,44 + 185,62}} \right\rceil + 1$ = 250 bit}  \\
+    \hline %
+    \end{tabular}
+    }
+    \end{center}
+    \label{tab4_5}}
+    \end{table}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \caption{РРМD usage example} \scriptsize{
+    \begin{center}
+    \scalebox{0.5} {
+    \begin{tabular}
+    {|c|l|l|l|l|l|l|} \hline %
+    \raisebox{-1.50ex}[0cm][0cm]{Шаг}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Letter}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Context }&
+    \raisebox{-1.50ex}[0cm][0cm]{$\tau _t ({\vec s})$}&
+    \raisebox{-1.50ex}[0cm][0cm]{$M_t ({\vec s})$}&
+    \multicolumn{2}{c|}{РРМD}  \\
+    \cline{6-7}
+     & & \multicolumn{1}{c|}{$\vec s$}&  &  & $\hat {p}_t(esc\vert {\vec s})$&
+    $\hat {p}_t(a\vert {\vec s})$ \\ \hline %
+    1& I& \textsf{{\#}}& 0& 0& 1& 1/256 \\ \hline %
+    2& F& {\#}& 1& 1& 1/2& 1/255 \\ \hline %
+    3& {\_}& {\#}& 2& 2& 2/4& 1/254 \\ \hline %
+    4& W& {\#}& 3& 3& 3/6& 1/253 \\ \hline %
+    5& E& {\#}& 4& 4& 4/8& 1/252 \\ \hline %
+    6& {\_}& {\#}& 5& 5& & 1/10 \\ \hline %
+    7& C& {\_}& 1,6& 1,5& 1/2$\times $4/8'& 1/251 \\\hline %
+    8& A& {\#}& 7& 6& 6/14& 1/250 \\ \hline %
+    9& N& {\#}& 8& 7& 7/16& 1/249 \\ \hline %
+    10& N& {\#}& 9& 8& & 1/18 \\ \hline %
+    11& O& N & 1,10& 1,8& 1/2$\times $8/18'& 1/248 \\ \hline %
+    12& T& {\#}& 11& 9& 9/22& 1/247 \\ \hline %
+    13& {\_}& {\#}& 12& 10& & 3/24 \\ \hline %
+    14& D& {\_}& 2,13& 2,10& 2/4$\times $8/22'& 1/246 \\ \hline %
+    15& O& {\#}& 14& 11& & 1/28 \\ \hline %
+    16& {\_}& O & 1,15& 1,11& 1/2& 5/28' \\ \hline %
+    17& A& {\_}& 3,16& 3,11& 3/6& 1/26' \\ \hline %
+    18& S& A & 1,17& 1,11& 1/2$\times $10/30'& 1/245 \\\hline %
+    19& {\_}& {\#}& 18& 12& & 7/36 \\ \hline %
+    20& W& {\_}& 4& 4& & 1/8 \\ \hline %
+    21& E& {\_}W& 1& 1& & 1/2 \\ \hline %
+    22& {\_}& {\_}WE& 1& 1& & 1/2 \\ \hline %
+    23& W& {\_}WE{\_}& 1,1,1,5& 1,1,1,4& 1/2$\times $1'$\times $1'& 3/8'
+    \\ \hline %
+    24& O& {\_}W & 2,2,23& 1,1,12& 1/4$\times $1'& 3/42' \\ \hline %
+    25& U& O & 2,24& 2,12& 2/4$\times $10/34'& 1/244 \\ \hline %
+    26& L& {\#}& 25& 13& 13/50& 1/243 \\ \hline %
+    27& D& {\#}& 26& 14& & 1/52 \\ \hline %
+    28& {\_}& D& 1,27& 1,14& 1/2& 11/52' \\ \hline %
+    29& W& {\_}& 6& 4& & 5/12 \\ \hline %
+    30& E& {\_}W& 3& 2& & 3/6 \\ \hline %
+    31& {\_}& {\_}WE& 2& 1& & 3/4 \\ \hline %
+    32& S& {\_}WE{\_}& 2,2,2,7,31& 2,2,2,4,14& 2/4$\times $1'$\times
+    $1'$\times $2/4'& 1/48' \\ \hline %
+    33& H& S& 1,32& 1,14& 1/2$\times $13/50& 1/242 \\ \hline %
+    34& O& {\#}& 33& 15& & 5/66 \\ \hline %
+    35& U& O& 3& 3& & 1/6 \\ \hline %
+    36& L& OU& 1& 1& & 1/2 \\ \hline %
+    37& D& OUL& 1& 1& & 1/2 \\ \hline %
+    38& {\_}& OULD& 1& 1& & 1/2 \\ \hline %
+    39& D& OULD{\_}& 1,1,1,1,8& 1,1,1,1,5& 1/2$\times $1'$\times
+    $1'$\times $1'& 1/8 \\ \hline %
+    40& & {\_}D& 1& 1& & 1/2 \\ \hline %
+    41& {\_}& {\_}DO& 1& 1& & 1/2 \\ \hline %
+    42& A& {\_}DO{\_}& 1& 1& & 1/2 \\ \hline %
+    43& S& {\_}DO{\_}A& 1& 1& & 1/2 \\ \hline %
+    44& {\_}& DO{\_}AS& 1& 1& & 1/2 \\ \hline %
+    45& W& O{\_}AS{\_}& 1& 1& & 1/2 \\ \hline %
+    46& E& {\_}AS{\_}W& 1& 1& & 1/2 \\ \hline %
+    47& {\_}& AS{\_}WE& 1& 1& & 1/2 \\ \hline %
+    48& C& S{\_}WE{\_}& 1,3& 1,3& 1/2& 1/4 \\ \hline %
+    49& A& {\_}WE{\_}C& 1& 1& & 1/2 \\ \hline %
+    50& N& WE{\_}CA& 1& 1& & 1/2 \\ \hline %
+    \multicolumn{7}{|c|}{Total $\left\lceil {\mbox{36,01 + 194,98}} \right\rceil $ = 232 bit}  \\
+    \hline %
+    \end{tabular}
+    }
+     \end{center}
+     } \label{tab4_6}
+    \end{table}
+
+
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \begin{center}
+    \scriptsize{\texttt{
+    \scalebox{0.6} {
+    \begin{tabular}
+    {|c|c|c|c|}  \hline %
+     0&A&NIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_&C\\ \hline %
+     1&A&NNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_&C\\ \hline %
+     2&A&S\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO&\_\\ \hline %
+     3&A&S\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO&\_\\ \hline %
+     4&C&ANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE&\_\\ \hline %
+     5&C&ANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE&\_\\ \hline %
+     6&D&O\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD&\_\\ \hline %
+     7&D&O\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT&\_\\ \hline %
+     8&D&\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOU&L\\ \hline %
+     9&D&\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOU&L\\ \hline %
+    10&E&\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_&W\\ \hline %
+    11&E&\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_&W\\ \hline %
+    12&E&\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_&W\\ \hline %
+    13&E&\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_&W\\ \hline %
+    14&F&\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CAN&I*\\ \hline %
+    15&H&OULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_&S\\ \hline %
+    16&I&F\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CA&N\\ \hline %
+    17&L&D\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHO&U\\ \hline %
+    18&L&D\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WO&U\\ \hline %
+    19&N&IF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_C&A\\ \hline %
+    20&N&NOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_C&A\\ \hline %
+    21&N&OT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CA&N\\ \hline %
+    22&O&T\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CAN&N\\ \hline %
+    23&O&ULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_S&H\\ \hline %
+    24&O&ULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_&W\\ \hline %
+    25&O&\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_&D\\ \hline %
+    26&O&\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_&D\\ \hline %
+    27&S&HOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE&\_\\ \hline %
+    28&S&\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_&A\\ \hline %
+    29&S&\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_&A\\ \hline %
+    30&T&\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANN&O\\ \hline %
+    31&U&LD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SH&O\\ \hline %
+    32&U&LD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_W&O\\ \hline %
+    33&W&E\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS&\_\\ \hline %
+    34&W&E\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF&\_\\ \hline %
+    35&W&E\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD&\_\\ \hline %
+    36&W&E\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS&\_\\ \hline %
+    37&W&OULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE&\_\\ \hline %
+    38&\_&AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_D&O\\ \hline %
+    38&\_&AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_D&O\\ \hline %
+    40&\_&CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_W&E\\ \hline %
+    41&\_&CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_W&E\\ \hline %
+    42&\_&DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOUL&D\\ \hline %
+    43&\_&DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNO&T\\ \hline %
+    44&\_&SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_W&E\\ \hline %
+    45&\_&WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_A&S\\ \hline %
+    46&\_&WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANI&F\\ \hline %
+    47&\_&WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOUL&D\\ \hline %
+    48&\_&WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_A&S\\ \hline %
+    49&\_&WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_W&E\\ \hline %
+    \end{tabular}
+    }
+    } } 
+    \end{center}
+    \end{table}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \begin{center}
+    \scalebox{0.85} {
+    \begin{tabular}
+    {|c|c|c|} \hline %
+    Letter& number & bits \\ \hline %
+    \textit{esc}& 15& log(50) \\ \hline %
+    0& 23& log(50--15+1)=log(36) \\ \hline %
+    1& 1& log(50--15--23+1)=log(13) \\ \hline %
+    2& 4& log(12) \\ \hline %
+    3& 1& log(8) \\ \hline %
+    4& 2& log(7) \\ \hline %
+    5& 1& log(5) \\ \hline %
+    6& 1& log(4) \\ \hline %
+    7& 0& log(3) \\ \hline %
+    8& 0& log(3) \\ \hline %
+    9& 1& log(3) \\ \hline %
+    10& 1& log(2) \\ \hline %
+    \multicolumn{3}{|c|}{Total $\left\lceil {33,98} \right\rceil + 1$=35 bit }  \\
+    \hline %
+    \end{tabular}
+    }
+    \label{tab4_8}
+    \end{center}
+    \end{table}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \footnotesize %
+    {\texttt{
+    \scalebox{0.6} {
+    \begin{tabular} {|c|c|c|}
+    \hline %
+    $i$& {Sequence} & $y_i(y_{i,\max})$ \\\hline %
+    0&{\^C?\_?????L?W???ISNU?A???H?D????O?????????E??T??F???} &0 \\\hline %
+    1&{СС\^\_?????L?W???ISNU?A???H?D?\^???O?????????E??T??F???} &11(29) \\\hline %
+    2&{СС\_\_\_\_\_\_\^L?W???ISNU?A???H?D?\_??O?????????E??T??F???} & 0 \\ \hline %
+    3&{СС\_\_\_\_\_\_LL\^W???ISNU?A???H\^?D?\_??O?????????E??T??F???} & 5(24) \\ \hline %
+    4&{СС\_\_\_\_\_\_LLWWWW\^ISNU?A???HWD?\_??O?????????E??T??F???} & 0 \\ \hline %
+    5&{СС\_\_\_\_\_\_LLWWWWI\^SNU?A???HWD?\_??O?????????E??T?\^?F???} & 20(23) \\ \hline %
+    6&{СС\_\_\_\_\_\_LLWWWWIS\^{N}U?A?\^??HWD?\_??O?????????E??T?SF???} & 3(22) \\ \hline %
+    7&{СС\_\_\_\_\_\_LLWWWWISN\^{U}?A?N?HWD?\_??O?????????E??T?SF???} & 0 \\ \hline %
+    8&{СС\_\_\_\_\_\_LLWWWWISNUU\^{A}?N?HWD?\_\^??O?????????E??T?SF???} &  3(19) \\ \hline %
+    9&{СС\_\_\_\_\_\_LLWWWWISNUUAA\^{N}?HWD?\_A?O?????????E??T?SF???} & 0 \\ \hline %
+    10&СС\_\_\_\_\_\_LLWWWWISNUUAANN\^{H}WD?\_A?O?????????E??T?SF???&0 \\\hline %
+    11&СС\_\_\_\_\_\_LLWWWWISNUUAANNH\^{W}D?\_A?O?????????E??T?SF???&0 \\\hline %
+    12&СС\_\_\_\_\_\_LLWWWWISNUUAANNHW\^D?\_A?O?????????E?\^?T?SF???& 12(16) \\ \hline %
+    13&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\^\_A?O??\^???????E?DT?SF???& 4(15) \\ \hline %
+    14&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_\^{A}?O??\_??????E?DT?SF???& 0 \\\hline %
+    15&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AA\^{O}??\_????\^??E?DT?SF???& 5(11) \\\hline %
+    16&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\^\_????O?E?DT?SF???& 0 \\ \hline %
+    17&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_O\^{O}E?DT?SF???& 0 \\ \hline %
+    18&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OO\^{E}?DT\^?SF???& 1(4) \\ \hline %
+    19&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OOEE\^{D}TESF\^???& 1(3) \\ \hline %
+    20&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OOEED\^{T}ESFD??& 0 \\ \hline %
+    21&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OOEEDT\^{E}SFD?\^?&  2(2) \\ \hline %
+    22&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OOEEDTE\^{S}FD\^?E& 1(1) \\ \hline %
+    23&СС\_\_\_\_\_\_LLWWWWISNUUAANNHWDD\_AAOOO\_\_\_\_\_OOEEDTESFDSE&  \\ \hline %
+    \end{tabular}}}
+    }\label{tab4_9}
+    \end{table}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+\small{ 
+
+    \item
+    \[
+    p_i (a) =\left \{
+    \begin{array}{ll}
+    \frac{1}{2}, & a =0, \\
+    \frac{1}{2}\frac{1}{y_{i,\max }}, & a\ne 0
+    \end{array} \right.
+    \]
+    
+    \item
+    \[22+
+    \left\lceil  - \log \left( \frac{1}{29\cdot 24\cdot 23\cdot 22\cdot
+    19\cdot 16\cdot 15\cdot 11\cdot 4\cdot 3\cdot 2\cdot 1} \right)
+    \right\rceil = 61 \quad\mbox{bit}.
+    \]
+    
+    \item
+    \[
+    l = 6 + 120 + 42 + 61 + 6 = 235 \quad \mbox{bit} ,
+    \]
+}
+\end{itemize}
+\end{frame}
+
+% -------------------------Archivers characteristics------------
+
+\begin{frame}
+\frametitle{Archivers characteristics}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+
+    \begin{table}[htbp]
+    \begin{center}
+    \scalebox{0.6} {
+    \begin{tabular}
+    {|l|c|c|}\hline %
+    \multicolumn{1}{|c|}{Algorithm} & Section & Costs  \\
+    && (bits) \\\hline %
+    Transmitting without coding& & 400 \\ \hline %
+    Two-pass coding,& \ref{twopass}& 302 \\  %
+    Huffman coding& & \\ \hline %
+    Enumerative coding & \ref{numcod}& 283 \\ \hline %
+    Adaptive arithmetic & \ref{AdaptCod}& 293 \\ %
+    coding (А algorithm) &  &   \\ \hline %
+    Adaptive arithmetic & \ref{AdaptCod}& 283 \\  %
+    coding (D algorithm)& &  \\ \hline %
+     LZ77 algorithm& \ref{zl77}& 280 \\ \hline %
+     LZFG algorithm& \ref{zl77}& 299 \\ \hline %
+     LZW algorithm& \ref{zl78}& 291 \\ \hline %
+     PPMA algorithm& \ref{PPM}& 250 \\ \hline %
+     PPMD algorithm&  \ref{PPM}& \textbf{232} \\ \hline %
+     BW Transform +& \ref{BW}& 255 \\  %
+     book stack& & \\ \hline %
+     BW transform + & \ref{BW}& \textbf{235} \\ 
+     distance coding& &  \\ \hline %
+    \end{tabular}
+    }
+    
+    \end{center}
+    \end{table}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Archivers characteristics}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+
+    \begin{table}[htbp]
+    \begin{center}
+    \caption{Archivers comparison on Calgary Corpus}
+    \scalebox{0.6} {
+    \begin{tabular}
+    {|l|l|c|}
+    \hline %
+    Archiver & How it works & Rate \\
+    (author)   &               & (bit/byte) \\ \hline %
+    RK 1.04.01 & LZ, PPMZ & 1.8226 \\
+    (M. Taylor)&    &         \\   \hline %
+    SBC 0.968  & Burrows-Wheeler &  1.8846 \\
+    (S. J. M\"{a}kinen)& transform & \\ \hline %
+    RAR(Win32)3.00b5 & LZ77 variant &1.9244 \\
+    (E.Rashol)       &  + Huffman &  \\   \hline %
+    ACB 2.00c & Associative Coding &1.9546 \\
+    (G.Buyanovsky)& Algorithm& \\  \hline %
+    PPMD vE & PPM& 2.0153 \\   %
+    (D. Shkarin) &     & 2.0153 \\ \hline %
+    PKZIP 2.6.02 Win95& LZH, LZW&
+    2.6062 \\
+    (PKWARE)& &   \\\hline %
+    \end{tabular}
+    }
+    \label{tab4_11}
+    \end{center}
+    \end{table}
+
+
+\end{itemize}
+\end{frame}
+
+
+
+% \item Monotone codes
+% \item Interval coding
+% \item Sliding dictionary method (LZ-77)
+% \item LZW Algorithm (LZ-78)
+% \item Prediction by Partial Matching
+% \item Archivers characteristics
+
+\end{document}
