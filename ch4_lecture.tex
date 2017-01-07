@@ -420,7 +420,7 @@ Proof.
 
 \begin{frame}
 \frametitle{Sliding dictionary method (LZ-77)}
-\begin{itemize}    
+
 % \footnotesize {
 % \small{     
 
@@ -476,20 +476,17 @@ Proof.
 
 
 
-\end{itemize}
 \end{frame}
 
 
 
 \begin{frame}
 \frametitle{Sliding dictionary method (LZ-77)}
-\begin{itemize}    
 % \footnotesize {
 % \small{    
-
     \begin{table}[htbp]
     \caption{Sliding dictionary method (LZ-77)}
-    \scalebox{0.75}{
+    \scalebox{0.6}{
     \begin{tabular}
     {|c|c|l|c|c|l|c|} \hline %
        &     & Letter&     &      & Code   &      \\
@@ -505,23 +502,7 @@ Proof.
      7& 0& A   & -& 0& 0 bin(A)& 9 \\ \hline %
      8& 0& N   & -& 0& 0 bin(N)& 9  \\ \hline %
      9& 1& N   & 0(9)& 1& 1 0000 0& 6 \\ \hline %
-    10& 0& O   & -& 0& 0 bin(O)& 9 \\ \hline %
-    11& 0& T   & -& 0& 0 bin(T)& 9 \\ \hline %
-    12& 1& {\_}& 6(12)& 1& 1 0110 0& 6 \\ \hline %
-    13& 0& D   & -& 0& 0 bin(D)& 9 \\ \hline %
-    14& 1& O   & 3(14)& 1& 1 0011 0& 6  \\ \hline %
-    15& 1& {\_}& 2((15)& 1& 1 0010 0& 6 \\ \hline %
-    16& 1& A   & 8(16)& 1& 1 01000 0& 7 \\ \hline %
-    17& 0& S   & -& 0& 0 bin(S)& 9 \\ \hline %
-    18& 1& {\_}WE{\_}& 15(18)& 4& 1 01111 11000 & 11  \\ \hline %
-    19& 1& W& 2(22)& 1& 1 00010 0& 7 \\ \hline %
-    20& 1& O& 8(23)& 1& 1 01000 0& 7 \\ \hline %
-    21& 0& U& -& 0& 0 bin(U)& 9 \\ \hline %
-    22& 0& L& -& 0& 0 bin(L)& 9  \\ \hline %
-    23& 1& D& 12(26)& 1& 1 01100 0&7 \\ \hline %
-    24& 1& {\_}WE{\_}& 8(27)& 4& 1 01000 11000& 11 \\ \hline %
-    25& 1& S& 13(28)& 1& 1 01101 0& 7 \\ \hline %
-    26& 0& H& -& 0& 0 bin(H)& 9 \\\hline %
+   \ldots && &&&&   \\\hline %
     27& 1& OULD{\_}& 9(33)& 5& 1 001001 11001& 12  \\ \hline %
     28& 1& \small{DO{\_}AS{\_}WE{\_}}& 24(38)& 9& \small{1~011000~1110001}& 14  \\\hline %
     29& 1& CAN& 40(47)& 3& 1 101000 101 & 10 \\ \hline %
@@ -531,13 +512,13 @@ Proof.
     \label{tab4_2}
     \end{table}
 
-\end{itemize}
+
 \end{frame}
 
 
 
 \begin{frame}
-\frametitle{LZFG Algorithm} 
+\frametitle{LZFG Algorithm code} 
 % \footnotesize {
 % \small{  
    
@@ -592,7 +573,7 @@ Proof.
          \BlankLine
      \end{algorithm}
     }
-    \caption{Algorithm LZFG.}    
+    % \caption{Algorithm LZFG}    
     \end{figure}
     \end{center}
     
@@ -807,54 +788,54 @@ Proof.
 % \small{     
     \begin{center}
     \begin{figure}
-    \scalebox{0.6} {
+    \scalebox{0.55} {
     \begin{algorithm}[H]
-    \dontprintsemicolon Alphabet $X = \{0,1,...,M - 1\}$, max length of condext $D$ \;
+    \dontprintsemicolon Alphabet $X = \{0,1,...,M - 1\}$, max length of context $D$ \;
     \KwIn
-      {
-         Sequence length $n$, source sequence $\vec x = \vec x_{1}^{n}$;\;
-      }
-    \KwOut{Codeword $\vec c$ for $\vec x$;} \BlankLine
-    \CommentSty{Init:} $t = 0$; $\vec c$ -- ``empty'' word; \;
-      \BlankLine
-      \While {$t < n$}
-        {
-    \BlankLine
-     find max $d$ such that $\hat {p}_t({\vec x}_{t - d + 1}^t)>0 $.\;
-     Choose context ${\vec s}={\vec x}_{t - d + 1}^t$.\; %
-    \lIf {$\hat {p}_t(x_{t + 1}|{\vec s})>0$ }\; %
-    {%
-    encode $x_{t + 1}$ according to с $\hat {p}_t(x|{\vec s})$.
-    }\;%
-    \lElse\;%
-    {%
-      \While {$\hat {p}_t(x_{t + 1}|{\vec s})=0$}
-        {
-        Encode $esc$ according to $\hat {p}_t(esc|{\vec s})$.\;
-        \CommentSty{Decrease condets length:} \;
-        $d\leftarrow d-1$, ${\vec s}={\vec x}_{t - d + 1}^t$.\;
-        \lIf {$d>0$}\;
     {
-    Encode $x_{t + 1}$ according to $\hat {p}_t(x|{\vec s})$.\;
+        Sequence length $n$, source sequence $\vec x = \vec x_{1}^{n}$\;
     }
-    \lElse\;%
-    {%
-    \CommentSty{Context-less coding:} \;
-    \lIf {$\hat {p}_t(x)>0$} \;
+    \KwOut{Codeword $\vec c$ for $\vec x$;} 
+    \CommentSty{Init:} $t = 0$; $\vec c$ -- ``empty'' word \;
+    \While {$t < n$}
     {
-    Encode $x_{t + 1}$  according to $\hat {p}_t(x)$.\;
+        find max $d$ such that $\hat {p}_t({\vec x}_{t - d + 1}^t)>0 $\;
+        Choose context ${\vec s}={\vec x}_{t - d + 1}^t$.\; %
+        \lIf {$\hat {p}_t(x_{t + 1}|{\vec s})>0$ }
+        {
+            encode $x_{t + 1}$ according to с $\hat {p}_t(x|{\vec s})$.
+        }
+        \lElse
+        {
+            \While {$\hat {p}_t(x_{t + 1}|{\vec s})=0$}
+            {
+                Encode $esc$ according to $\hat {p}_t(esc|{\vec s})$
+                \CommentSty{Decrease condets length:} 
+                $d\leftarrow d-1$, ${\vec s}={\vec x}_{t - d + 1}^t$
+                \lIf {$d>0$}
+                {
+                    Encode $x_{t + 1}$ according to $\hat {p}_t(x|{\vec s})$.
+                }
+                \lElse
+                {
+                    \CommentSty{Context-less coding:}
+                    
+                    \lIf {$\hat {p}_t(x)>0$} 
+                    {
+                        Encode $x_{t + 1}$  according to $\hat {p}_t(x)$.
+                    }
+                    \lElse
+                    {
+                        Compute $\hat {p}(esc)$ and transmit $esc$.
+                        Encode $x_{t + 1}$ according to uniform distribution on letters which do not appear in $\vec x_1^t $.
+                    }
+                }
+            } 
+        }
+        $t\leftarrow t+1$; \;
     }
-    \lElse\;%
-    {
-        Compute $\hat {p}(esc)$ and transmit $esc$.\;
-        Encode $x_{t + 1}$ according to uniform distribution on letters which do not appear in $\vec x_1^t $.
-    }}} 
-    }%
-    \vspace{-1cm}
-    \item $t\leftarrow t+1$; \;
-     }
-     \end{algorithm}
-     }
+    \end{algorithm}
+    }
     \caption{PPM idea} \label{IdeaPPM}
     \end{figure}
     \end{center}
@@ -905,10 +886,10 @@ Proof.
     \caption{РРМА usage example}
     \scriptsize{
     \begin{center}
-    \scalebox{0.5} {
+    \scalebox{0.7} {
     \begin{tabular}
     {|c|c|l|l|l|c|} \hline %
-    \raisebox{-1.50ex}[0cm][0cm]{Шаг}&
+    \raisebox{-1.50ex}[0cm][0cm]{Step}&
     %\raisebox{-1.50ex}[0cm][0cm]
     {Letter}&
     %\raisebox{-1.50ex}[0cm][0cm]
@@ -943,6 +924,41 @@ Proof.
     23& W& {\_}WE{\_}& 1,1,1,5& 1/2$\times $1'$\times $1'& 2/5' \\ \hline %
     24& O& {\_}W & 2,2,23& 1/3$\times $1'& 2/22' \\ \hline %
     25& U& O & 2,24& 1/3$\times $1/18'& 1/244 \\ \hline %
+    \multicolumn{6}{|c|}{ \ldots}  \\
+    \hline %
+    \end{tabular}
+    }
+    \end{center}
+    \label{tab4_5}}
+    \end{table}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{     
+
+    \begin{table}[htbp]
+    \caption{РРМА usage example}
+    \scriptsize{
+    \begin{center}
+    \scalebox{0.7} {
+    \begin{tabular}
+    {|c|c|l|l|l|c|} \hline %
+    \raisebox{-1.50ex}[0cm][0cm]{Step}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Letter}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Context }&
+    \raisebox{-1.50ex}[0cm][0cm]{$\tau _t ({\vec s})$}&
+    \multicolumn{2}{c|}{РРМА}  \\
+    \cline{5-6}
+     & &\multicolumn{1}{c|}{$\vec s$}& &
+    $\hat {p}_t(esc\vert {\vec s})$& $\hat {p}_t(a\vert {\vec s})$ \\ \hline%
     26& L& {\#}& 25& 1/26& 1/243 \\ \hline %
     27& D& {\#}& 26& & 1/27 \\ \hline %
     28& {\_}& D& 1,27& 1/2& 6/25' \\ \hline %
@@ -991,10 +1007,10 @@ Proof.
     \begin{table}[htbp]
     \caption{РРМD usage example} \scriptsize{
     \begin{center}
-    \scalebox{0.5} {
+    \scalebox{0.7} {
     \begin{tabular}
     {|c|l|l|l|l|l|l|} \hline %
-    \raisebox{-1.50ex}[0cm][0cm]{Шаг}&
+    \raisebox{-1.50ex}[0cm][0cm]{Step}&
     %\raisebox{-1.50ex}[0cm][0cm]
     {Letter}&
     %\raisebox{-1.50ex}[0cm][0cm]
@@ -1031,6 +1047,44 @@ Proof.
     \\ \hline %
     24& O& {\_}W & 2,2,23& 1,1,12& 1/4$\times $1'& 3/42' \\ \hline %
     25& U& O & 2,24& 2,12& 2/4$\times $10/34'& 1/244 \\ \hline %
+    \multicolumn{7}{|c|}{ \ldots }  \\
+    \hline %
+    \end{tabular}
+    }
+     \end{center}
+     } \label{tab4_6}
+    \end{table}
+
+
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \caption{РРМD usage example} \scriptsize{
+    \begin{center}
+    \scalebox{0.7} {
+    \begin{tabular}
+    {|c|l|l|l|l|l|l|} \hline %
+    \raisebox{-1.50ex}[0cm][0cm]{Step}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Letter}&
+    %\raisebox{-1.50ex}[0cm][0cm]
+    {Context }&
+    \raisebox{-1.50ex}[0cm][0cm]{$\tau _t ({\vec s})$}&
+    \raisebox{-1.50ex}[0cm][0cm]{$M_t ({\vec s})$}&
+    \multicolumn{2}{c|}{РРМD}  \\
+    \cline{6-7}
+     & & \multicolumn{1}{c|}{$\vec s$}&  &  & $\hat {p}_t(esc\vert {\vec s})$&
+    $\hat {p}_t(a\vert {\vec s})$ \\ \hline %
     26& L& {\#}& 25& 13& 13/50& 1/243 \\ \hline %
     27& D& {\#}& 26& 14& & 1/52 \\ \hline %
     28& {\_}& D& 1,27& 1,14& 1/2& 11/52' \\ \hline %
@@ -1072,6 +1126,7 @@ Proof.
 \end{frame}
 
 
+
 \begin{frame}
 \frametitle{Prediction by Partial Matching}
 \begin{itemize}    
@@ -1081,7 +1136,7 @@ Proof.
     \begin{table}[htbp]
     \begin{center}
     \scriptsize{\texttt{
-    \scalebox{0.6} {
+    \scalebox{0.75} {
     \begin{tabular}
     {|c|c|c|c|}  \hline %
      0&A&NIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_&C\\ \hline %
@@ -1109,6 +1164,28 @@ Proof.
     22&O&T\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CAN&N\\ \hline %
     23&O&ULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_S&H\\ \hline %
     24&O&ULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_&W\\ \hline %
+    \end{tabular}
+    }
+    } } 
+    \end{center}
+    \end{table}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction by Partial Matching}
+\begin{itemize}    
+% \footnotesize {
+% \small{ 
+
+    \begin{table}[htbp]
+    \begin{center}
+    \scriptsize{\texttt{
+    \scalebox{0.75} {
+    \begin{tabular}
+    {|c|c|c|c|}  \hline %
     25&O&\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE\_SHOULD\_&D\\ \hline %
     26&O&\_AS\_WE\_WOULD\_WE\_SHOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_&D\\ \hline %
     27&S&HOULD\_DO\_AS\_WE\_CANIF\_WE\_CANNOT\_DO\_AS\_WE\_WOULD\_WE&\_\\ \hline %
@@ -1142,8 +1219,6 @@ Proof.
 
 \end{itemize}
 \end{frame}
-
-
 
 
 
@@ -1271,25 +1346,25 @@ Proof.
     \scalebox{0.6} {
     \begin{tabular}
     {|l|c|c|}\hline %
-    \multicolumn{1}{|c|}{Algorithm} & Section & Costs  \\
-    && (bits) \\\hline %
-    Transmitting without coding& & 400 \\ \hline %
-    Two-pass coding,& \ref{twopass}& 302 \\  %
-    Huffman coding& & \\ \hline %
-    Enumerative coding & \ref{numcod}& 283 \\ \hline %
-    Adaptive arithmetic & \ref{AdaptCod}& 293 \\ %
-    coding (А algorithm) &  &   \\ \hline %
-    Adaptive arithmetic & \ref{AdaptCod}& 283 \\  %
-    coding (D algorithm)& &  \\ \hline %
-     LZ77 algorithm& \ref{zl77}& 280 \\ \hline %
-     LZFG algorithm& \ref{zl77}& 299 \\ \hline %
-     LZW algorithm& \ref{zl78}& 291 \\ \hline %
-     PPMA algorithm& \ref{PPM}& 250 \\ \hline %
-     PPMD algorithm&  \ref{PPM}& \textbf{232} \\ \hline %
-     BW Transform +& \ref{BW}& 255 \\  %
-     book stack& & \\ \hline %
-     BW transform + & \ref{BW}& \textbf{235} \\ 
-     distance coding& &  \\ \hline %
+    \multicolumn{1}{|c|}{Algorithm} & Costs  \\
+    & (bits) \\\hline %
+    Transmitting without coding & 400 \\ \hline %
+    Two-pass coding,&  302 \\  %
+    Huffman coding& \\ \hline %
+    Enumerative coding &  283 \\ \hline %
+    Adaptive arithmetic &  293 \\ %
+    coding (А algorithm) &     \\ \hline %
+    Adaptive arithmetic & 283 \\  %
+    coding (D algorithm)&   \\ \hline %
+     LZ77 algorithm&  280 \\ \hline %
+     LZFG algorithm&  299 \\ \hline %
+     LZW algorithm&  291 \\ \hline %
+     PPMA algorithm&  250 \\ \hline %
+     PPMD algorithm&   \textbf{232} \\ \hline %
+     BW Transform +&  255 \\  %
+     book stack & \\ \hline %
+     BW transform + &  \textbf{235} \\ 
+     distance coding&   \\ \hline %
     \end{tabular}
     }
     
@@ -1341,13 +1416,5 @@ Proof.
 \end{itemize}
 \end{frame}
 
-
-
-% \item Monotone codes
-% \item Interval coding
-% \item Sliding dictionary method (LZ-77)
-% \item LZW Algorithm (LZ-78)
-% \item Prediction by Partial Matching
-% \item Archivers characteristics
 
 \end{document}
